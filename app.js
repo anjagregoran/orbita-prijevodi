@@ -21,6 +21,7 @@ typeTimer = setTimeout(() => typeLine(HERO_I18N.hr.typed), 700);
 
 // The light bulb in the header: each press lights it and retypes the first screen in the next language
 const bulb = $("#bulb"), hero = $(".hero"), heroLangs = Object.keys(HERO_I18N);
+if (location.search.includes("warm")) hero.classList.add("warm");
 let heroLang = 0;
 bulb.addEventListener("click", () => {
   bulb.classList.remove("pull"); void bulb.offsetWidth; bulb.classList.add("pull");

@@ -82,6 +82,10 @@ main { overflow-x: clip; }
 .hero { position: relative; min-height: 100svh; display: grid; grid-template-columns: 1.05fr 0.95fr; align-items: center; gap: 24px; padding: 130px var(--pad) 165px; color: #fbf5ec; background: #14161b; overflow: clip; }
 .hero-bg { position: absolute; inset: -9% -5%; background: url("https://images.unsplash.com/photo-1455390582262-044cdead277a?auto=format&fit=crop&w=2400&q=75") center 55% / cover no-repeat; will-change: transform; }
 .hero::before { content: ""; position: absolute; inset: 0; z-index: 1; background: linear-gradient(90deg, rgba(14, 15, 19, 0.78) 0%, rgba(14, 15, 19, 0.58) 55%, rgba(14, 15, 19, 0.5) 100%); }
+/* Warm variation of the photo, previewed with ?warm in the address */
+.hero.warm .hero-bg { filter: sepia(0.7) saturate(1.6) hue-rotate(-10deg) brightness(1.22) contrast(0.94); }
+.hero.warm::before { background: linear-gradient(0deg, rgba(58, 30, 10, 0.5) 0%, rgba(58, 30, 10, 0) 34%), linear-gradient(90deg, rgba(58, 30, 10, 0.76) 0%, rgba(70, 38, 14, 0.56) 42%, rgba(96, 54, 22, 0.24) 100%); }
+.hero.warm h1 em { color: #ff8a66; }
 .hero-text { position: relative; z-index: 2; padding-bottom: 2vh; }
 .hero h1 { font-size: clamp(44px, min(5.8vw, 11vh), 96px); transition: opacity 0.25s; }
 .hero h1 em { color: var(--accent); }
