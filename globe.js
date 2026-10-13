@@ -57,7 +57,11 @@ document.querySelectorAll("#globe, canvas.globe").forEach(function (el) {
     ar: ["شكرا", "مرحبا", "أهلا وسهلا", "حب", "سلام"],
     fa: ["ممنون", "سلام", "خوش آمدید", "عشق", "صلح"],
     zh: ["谢谢", "你好", "欢迎", "爱", "和平"],
-    ja: ["ありがとう", "こんにちは", "ようこそ", "愛", "平和"]
+    ja: ["ありがとう", "こんにちは", "ようこそ", "愛", "平和"],
+    hr: SOURCE,
+    sl: ["hvala", "živjo", "dobrodošli", "ljubezen", "mir"],
+    sk: ["ďakujem", "ahoj", "vitajte", "láska", "mier"],
+    mk: ["благодарам", "здраво", "добредојдовте", "љубов", "мир"]
   };
   const CITIES = [
     [51.5, -0.1, "en", "gb"], [52.5, 13.4, "de", "de"], [40.4, -3.7, "es", "es"], [48.9, 2.3, "fr", "fr"], [41.9, 12.5, "it", "it"],
@@ -67,10 +71,13 @@ document.querySelectorAll("#globe, canvas.globe").forEach(function (el) {
     [32.1, 34.8, "he", "il"], [30, 31.2, "ar", "eg"], [24.7, 46.7, "ar", "sa"], [35.7, 51.4, "fa", "ir"], [39.9, 116.4, "zh", "cn"],
     [35.7, 139.7, "ja", "jp"], [40.7, -74, "en", "us"], [45.5, -73.6, "fr", "ca"], [19.4, -99.1, "es", "mx"], [-34.6, -58.4, "es", "ar"],
     [-23.5, -46.6, "pt", "br"], [14.7, -17.4, "fr", "sn"], [-33.9, 18.4, "en", "za"], [-33.9, 151.2, "en", "au"], [1.35, 103.8, "zh", "sg"],
-    [25.2, 55.3, "ar", "ae"]
+    [25.2, 55.3, "ar", "ae"], [45.6, 15.4, "hr", "hr"], [46.05, 14.5, "sl", "si"], [48.15, 17.1, "sk", "sk"], [42, 21.4, "mk", "mk"]
   ].map(([lat, lon, lang, cc]) => ({ lang, words: LANG[lang], v: vec(lat, lon), flag: flagImage(cc) }));
 
-  const HR = flagImage("hr");
+  const byLang = (l) => CITIES.find((c) => c.lang === l);
+  // The journey always opens Croatia, Czechia, Slovenia, then wanders
+  const opening = [byLang("hr"), byLang("cs"), byLang("sl")];
+  let cur = null;
 
   let W = 0, H = 0, R = 0, S = 0, cx = 0, cy = 0, dpr = 1;
   let dots = [], arcs = [], lam = 0, user = 0, vel = 0, dragging = false, lastX = 0;
@@ -268,62 +275,65 @@ document.querySelectorAll("#globe, canvas.globe").forEach(function (el) {
     ctx.strokeStyle = T.grid; ctx.lineWidth = 1.5;
     ctx.beginPath(); ctx.arc(cx, cy, R - 0.5, 0, 7); ctx.stroke();
 
-    // Words in flight
-    arcs = arcs.filter((a) => t - a.start < 3.5);
+    // The word's journey: each line starts where the last one landed
+    arcs = arcs.filter((a) => t - a.start < 4.2);
     arcs.forEach((a) => {
-      const age = t - a.start, grow = Math.min(1, age / 1.5), head = 1 - Math.pow(1 - grow, 3);
-      const tail = age > 2.2 ? Math.min(1, (age - 2.2) / 1.2) : 0;
+      const age = t - a.start, grow = a.from ? Math.min(1, age / 1.2) : 1, head = 1 - Math.pow(1 - grow, 3);
+      const tail = age > 2 ? Math.min(1, (age - 2) / 1.4) : 0;
       const N = 56;
-      ctx.lineWidth = 2.6 * S; ctx.lineCap = "round";
-      ctx.shadowColor = `rgba(${CORAL},0.55)`; ctx.shadowBlur = 10;
-      let prev = null;
-      for (let i = Math.floor(tail * N); i <= Math.ceil(head * N); i++) {
-        const k = Math.min(head, i / N), p = proj(slerp(HUB, a.city.v, k), 1 + a.lift * Math.sin(Math.PI * k));
-        if (prev && shown(p) && shown(prev)) {
-          ctx.strokeStyle = `rgba(${Math.round(65 + 149 * k)},${Math.round(146 - 56 * k)},${Math.round(197 - 136 * k)},0.95)`;
-          ctx.beginPath(); ctx.moveTo(prev[0], prev[1]); ctx.lineTo(p[0], p[1]); ctx.stroke();
+      if (a.from) {
+        ctx.lineWidth = 2.6 * S; ctx.lineCap = "round";
+        ctx.shadowColor = `rgba(${CORAL},0.55)`; ctx.shadowBlur = 10;
+        let prev = null;
+        for (let i = Math.floor(tail * N); i <= Math.ceil(head * N); i++) {
+          const k = Math.min(head, i / N), p = proj(slerp(a.from.v, a.city.v, k), 1 + a.lift * Math.sin(Math.PI * k));
+          if (prev && shown(p) && shown(prev)) {
+            ctx.strokeStyle = `rgba(${Math.round(65 + 149 * k)},${Math.round(146 - 56 * k)},${Math.round(197 - 136 * k)},0.95)`;
+            ctx.beginPath(); ctx.moveTo(prev[0], prev[1]); ctx.lineTo(p[0], p[1]); ctx.stroke();
+          }
+          prev = p;
         }
-        prev = p;
+        ctx.shadowColor = "transparent"; ctx.shadowBlur = 0;
       }
-      ctx.shadowColor = "transparent"; ctx.shadowBlur = 0;
       if (grow >= 1) {
-        const p = proj(a.city.v), fade = Math.min(1, (age - 1.5) / 0.2) * Math.min(1, (3.5 - age) / 0.4);
+        const landed = a.from ? age - 1.2 : age;
+        const p = proj(a.city.v), fade = Math.min(1, landed / 0.2) * Math.min(1, (4.2 - age) / 0.5);
         if (p[2] > 0.05) {
-          ctx.fillStyle = `rgba(${CORAL},${fade})`;
-          ctx.beginPath(); ctx.arc(p[0], p[1], 4.5 * S, 0, 7); ctx.fill();
-          word(a.city.words[a.n], p[0], p[1], CORAL, fade, a.city.flag);
+          const col = a.city.lang === "hr" ? BLUE : CORAL;
+          if (a.city === cur) {
+            const pulse = (t % 1.8) / 1.8;
+            ctx.strokeStyle = `rgba(${col},${(1 - pulse) * fade})`; ctx.lineWidth = 1.5;
+            ctx.beginPath(); ctx.arc(p[0], p[1], 6 * S + pulse * 22 * S, 0, 7); ctx.stroke();
+          }
+          ctx.fillStyle = `rgba(${col},${fade})`;
+          ctx.beginPath(); ctx.arc(p[0], p[1], 5.5 * S, 0, 7); ctx.fill();
+          word(a.city.words[a.n], p[0], p[1], col, fade, a.city.flag);
         }
       }
     });
 
-    // Croatia
-    const h = proj(HUB);
-    if (h[2] > 0) {
-      const pulse = (t % 2.4) / 2.4;
-      ctx.strokeStyle = `rgba(${CORAL},${1 - pulse})`; ctx.lineWidth = 1.5;
-      ctx.beginPath(); ctx.arc(h[0], h[1], 7 * S + pulse * 26 * S, 0, 7); ctx.stroke();
-      ctx.fillStyle = `rgb(${CORAL})`;
-      ctx.beginPath(); ctx.arc(h[0], h[1], 7 * S, 0, 7); ctx.fill();
-      if (arcs.length) word(SOURCE[arcs[arcs.length - 1].n], h[0], h[1] + 66 * S, BLUE, Math.min(1, (t - arcs[arcs.length - 1].start) / 0.12), HR);
-    }
-
     ring(-0.42, 1.25, 1.2, t * 0.22 + 1, T.ring, true);
     ring(0.5, 1.12, 1.11, -t * 0.3 + 2.4, CORAL, true);
 
-    if (!still && t - lastSpawn > 0.9 && h[2] > 0.1) {
-      const near = CITIES.map((c, i) => i).filter((i) => proj(CITIES[i].v)[2] > 0.2 && !arcs.some((a) => dot(a.city.v, CITIES[i].v) > 0.975));
-      let pool = near.filter((i) => !used.has(CITIES[i].lang));
-      if (!pool.length && near.length) { used.clear(); arcs.forEach((a) => used.add(a.city.lang)); pool = near.filter((i) => !used.has(CITIES[i].lang)); }
-      if (pool.length) launch(CITIES[pool[Math.floor(Math.random() * pool.length)]], t);
+    if (!still && t - lastSpawn > (cur ? 1.75 : 0.4)) {
+      let next = opening.shift();
+      if (!next) {
+        const far = (c) => c !== cur && dot(c.v, cur.v) < 0.9976 && proj(c.v)[2] > 0.25 && !arcs.some((a) => dot(a.city.v, c.v) > 0.985);
+        let pool = CITIES.filter((c) => far(c) && !used.has(c.lang));
+        if (!pool.length) { used.clear(); used.add(cur.lang); pool = CITIES.filter((c) => far(c) && !used.has(c.lang)); }
+        next = pool[Math.floor(Math.random() * pool.length)];
+      }
+      if (next) launch(next, t);
     }
     now_t = t;
   }
 
+  // Send the word on from wherever it is now; the same word is carried for a few stops
   function launch(c, t) {
     used.add(c.lang);
-    const d = Math.acos(Math.min(1, dot(HUB, c.v)));
-    arcs.push({ city: c, start: t, lift: 0.1 + d * 0.26, n: turn++ % SOURCE.length });
-    lastSpawn = t;
+    const d = cur ? Math.acos(Math.min(1, dot(cur.v, c.v))) : 0;
+    arcs.push({ from: cur, city: c, start: t, lift: 0.08 + d * 0.26, n: Math.floor(turn++ / 4) % SOURCE.length });
+    cur = c; lastSpawn = t;
   }
 
   function frame(now) {
@@ -346,9 +356,9 @@ document.querySelectorAll("#globe, canvas.globe").forEach(function (el) {
     let best = null, bd = 1e9;
     CITIES.forEach((c) => {
       const p = proj(c.v), dd = Math.hypot(p[0] - x, p[1] - y);
-      if (p[2] > 0.1 && dd < bd && !arcs.some((a) => a.city === c)) { bd = dd; best = c; }
+      if (p[2] > 0.1 && dd < bd && c !== cur) { bd = dd; best = c; }
     });
-    if (best && bd < R * 0.5) launch(best, now_t);
+    if (best && bd < R * 0.5 && cur) launch(best, now_t);
   });
   el.addEventListener("pointercancel", drop);
 
