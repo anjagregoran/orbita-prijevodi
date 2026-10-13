@@ -60,6 +60,8 @@
     [25.2, 55.3, "ar", "ae"]
   ].map(([lat, lon, lang, cc]) => ({ words: LANG[lang], v: vec(lat, lon), flag: flagImage(cc) }));
 
+  const HR = flagImage("hr");
+
   let W = 0, H = 0, R = 0, S = 0, cx = 0, cy = 0, dpr = 1;
   let dots = [], arcs = [], lam = 0, user = 0, vel = 0, dragging = false, lastX = 0;
   let visible = true, lastSpawn = 0, lastCity = -1, turn = 0;
@@ -271,7 +273,7 @@
       }
       ctx.shadowColor = "transparent"; ctx.shadowBlur = 0;
       if (grow < 1) {
-        if (prev && shown(prev)) word(SOURCE[a.n], prev[0], prev[1] + 6 * S, BLUE, Math.min(1, age / 0.3) * Math.min(1, (1 - grow) / 0.15), null);
+        if (prev && shown(prev)) word(SOURCE[a.n], prev[0], prev[1] + 6 * S, BLUE, Math.min(1, age / 0.3) * Math.min(1, (1 - grow) / 0.15), HR);
       } else {
         const p = proj(a.city.v), fade = Math.min(1, (age - 1.7) / 0.3) * Math.min(1, (5.2 - age) / 0.6);
         if (p[2] > 0.05) {
@@ -295,7 +297,7 @@
     ring(-0.42, 1.25, 1.2, t * 0.22 + 1, BLUE, true);
     ring(0.5, 1.12, 1.11, -t * 0.3 + 2.4, CORAL, true);
 
-    if (!still && t - lastSpawn > 0.8 && h[2] > 0.1) {
+    if (!still && t - lastSpawn > 1.5 && h[2] > 0.1) {
       const ok = (c) => { const p = proj(c.v); return p[2] > 0.25; };
       const pool = CITIES.map((c, i) => i).filter((i) => i !== lastCity && ok(CITIES[i]) && !arcs.some((a) => dot(a.city.v, CITIES[i].v) > 0.975));
       if (pool.length) {
