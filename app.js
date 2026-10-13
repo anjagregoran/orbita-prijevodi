@@ -15,7 +15,13 @@ else setTimeout(function type() {
 
 // Nav
 const nav = $("#nav"), burger = $("#burger"), navLinks = $("#navLinks");
-addEventListener("scroll", () => nav.classList.toggle("scrolled", scrollY > 20), { passive: true });
+const heroEl = $(".hero");
+const onScroll = () => {
+  nav.classList.toggle("scrolled", scrollY > 20);
+  nav.classList.toggle("on-dark", scrollY < heroEl.offsetHeight - 70);
+};
+addEventListener("scroll", onScroll, { passive: true });
+onScroll();
 burger.addEventListener("click", () => {
   const open = navLinks.classList.toggle("open");
   burger.classList.toggle("open", open);
