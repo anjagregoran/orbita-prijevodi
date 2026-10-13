@@ -202,7 +202,7 @@
     const t = now / 1000;
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     ctx.clearRect(0, 0, W, H);
-    lam = (15 + 82 * Math.sin(t * 0.17)) * RAD + user;
+    lam = (15 + 82 * Math.sin(t * 0.13)) * RAD + user;
 
     ring(-0.42, 1.25, 1.2, t * 0.22 + 1, BLUE, false);
     ring(0.5, 1.12, 1.11, -t * 0.3 + 2.4, CORAL, false);
@@ -256,10 +256,10 @@
     ctx.beginPath(); ctx.arc(cx, cy, R - 0.5, 0, 7); ctx.stroke();
 
     // Words in flight
-    arcs = arcs.filter((a) => t - a.start < 2.6);
+    arcs = arcs.filter((a) => t - a.start < 3.5);
     arcs.forEach((a) => {
-      const age = t - a.start, grow = Math.min(1, age / 0.85), head = 1 - Math.pow(1 - grow, 3);
-      const tail = age > 1.4 ? Math.min(1, (age - 1.4) / 1) : 0;
+      const age = t - a.start, grow = Math.min(1, age / 1.5), head = 1 - Math.pow(1 - grow, 3);
+      const tail = age > 2.2 ? Math.min(1, (age - 2.2) / 1.2) : 0;
       const N = 56;
       ctx.lineWidth = 2.6 * S; ctx.lineCap = "round";
       ctx.shadowColor = `rgba(${CORAL},0.55)`; ctx.shadowBlur = 10;
@@ -274,7 +274,7 @@
       }
       ctx.shadowColor = "transparent"; ctx.shadowBlur = 0;
       if (grow >= 1) {
-        const p = proj(a.city.v), fade = Math.min(1, (age - 0.85) / 0.15) * Math.min(1, (2.6 - age) / 0.35);
+        const p = proj(a.city.v), fade = Math.min(1, (age - 1.5) / 0.2) * Math.min(1, (3.5 - age) / 0.4);
         if (p[2] > 0.05) {
           ctx.fillStyle = `rgba(${CORAL},${fade})`;
           ctx.beginPath(); ctx.arc(p[0], p[1], 4.5 * S, 0, 7); ctx.fill();
@@ -297,7 +297,7 @@
     ring(-0.42, 1.25, 1.2, t * 0.22 + 1, BLUE, true);
     ring(0.5, 1.12, 1.11, -t * 0.3 + 2.4, CORAL, true);
 
-    if (!still && t - lastSpawn > 0.55 && h[2] > 0.1) {
+    if (!still && t - lastSpawn > 0.9 && h[2] > 0.1) {
       const near = CITIES.map((c, i) => i).filter((i) => proj(CITIES[i].v)[2] > 0.2 && !arcs.some((a) => dot(a.city.v, CITIES[i].v) > 0.975));
       let pool = near.filter((i) => !used.has(CITIES[i].lang));
       if (!pool.length && near.length) { used.clear(); arcs.forEach((a) => used.add(a.city.lang)); pool = near.filter((i) => !used.has(CITIES[i].lang)); }
