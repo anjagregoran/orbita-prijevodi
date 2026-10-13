@@ -47,7 +47,7 @@ const langs = $("#langs"), langInput = $("#langInput"), langEmpty = $("#langEmpt
 const plain = (s) => s.toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "").replace(/đ/g, "d");
 LANGUAGES.forEach((l) => {
   const li = document.createElement("li");
-  li.innerHTML = `<button type="button">${l}</button>`;
+  li.innerHTML = `<button type="button"><img src="https://cdn.jsdelivr.net/npm/flag-icons@7.2.3/flags/1x1/${FLAGS[l]}.svg" alt="" width="24" height="24" loading="lazy">${l}</button>`;
   li.firstChild.addEventListener("click", () => {
     form.elements.to.value = l;
     $("#ponuda").scrollIntoView({ behavior: "smooth" });

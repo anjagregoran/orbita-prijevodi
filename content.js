@@ -76,3 +76,13 @@ const QUOTES = [
     who: "Zoran Mandić", role: "tehnički direktor, Inspirion d.o.o."
   }
 ];
+
+// Country flag shown next to each language
+const FLAGS = {
+  Hrvatski: "hr", Engleski: "gb", Njemački: "de", Talijanski: "it", Francuski: "fr", Španjolski: "es",
+  Srpski: "rs", Bosanski: "ba", Slovenski: "si", Ruski: "ru", Bugarski: "bg", Makedonski: "mk",
+  Albanski: "al", Češki: "cz", Slovački: "sk", Poljski: "pl", Mađarski: "hu", Grčki: "gr",
+  Portugalski: "pt", Ukrajinski: "ua", Švedski: "se", Nizozemski: "nl", Danski: "dk", Litavski: "lt",
+  Turski: "tr", Hebrejski: "il", Arapski: "sa", Japanski: "jp", Kineski: "cn", Perzijski: "ir",
+  Rumunjski: "ro", Latinski: "va"
+};

@@ -14,6 +14,12 @@
     return [cl * Math.sin(lon * RAD), Math.sin(lat * RAD), cl * Math.cos(lon * RAD)];
   };
   const HUB = vec(45.6, 15.4);
+  function flagImage(cc) {
+    const img = new Image();
+    img.src = `https://cdn.jsdelivr.net/npm/flag-icons@7.2.3/flags/1x1/${cc}.svg`;
+    return img;
+  }
+
   // Each language: thank you, hi, welcome, love, peace
   const SOURCE = ["hvala", "bok", "dobrodošli", "ljubav", "mir"];
   const LANG = {
@@ -44,15 +50,15 @@
     ja: ["ありがとう", "こんにちは", "ようこそ", "愛", "平和"]
   };
   const CITIES = [
-    [51.5, -0.1, "en"], [52.5, 13.4, "de"], [40.4, -3.7, "es"], [48.9, 2.3, "fr"], [41.9, 12.5, "it"],
-    [38.7, -9.1, "pt"], [52.4, 4.9, "nl"], [59.3, 18.1, "sv"], [55.7, 12.6, "da"], [52.2, 21, "pl"],
-    [50.1, 14.4, "cs"], [47.5, 19, "hu"], [44.4, 26.1, "ro"], [42.7, 23.3, "bg"], [41.3, 19.8, "sq"],
-    [54.7, 25.3, "lt"], [50.5, 30.5, "uk"], [55.8, 37.6, "ru"], [38, 23.7, "el"], [39.9, 32.9, "tr"],
-    [32.1, 34.8, "he"], [30, 31.2, "ar"], [24.7, 46.7, "ar"], [35.7, 51.4, "fa"], [39.9, 116.4, "zh"],
-    [35.7, 139.7, "ja"], [40.7, -74, "en"], [45.5, -73.6, "fr"], [19.4, -99.1, "es"], [-34.6, -58.4, "es"],
-    [-23.5, -46.6, "pt"], [14.7, -17.4, "fr"], [-33.9, 18.4, "en"], [-33.9, 151.2, "en"], [1.35, 103.8, "zh"],
-    [25.2, 55.3, "ar"], [64.1, -21.9, "da"], [43.7, -79.4, "en"]
-  ].map(([lat, lon, lang]) => ({ words: LANG[lang], v: vec(lat, lon) }));
+    [51.5, -0.1, "en", "gb"], [52.5, 13.4, "de", "de"], [40.4, -3.7, "es", "es"], [48.9, 2.3, "fr", "fr"], [41.9, 12.5, "it", "it"],
+    [38.7, -9.1, "pt", "pt"], [52.4, 4.9, "nl", "nl"], [59.3, 18.1, "sv", "se"], [55.7, 12.6, "da", "dk"], [52.2, 21, "pl", "pl"],
+    [50.1, 14.4, "cs", "cz"], [47.5, 19, "hu", "hu"], [44.4, 26.1, "ro", "ro"], [42.7, 23.3, "bg", "bg"], [41.3, 19.8, "sq", "al"],
+    [54.7, 25.3, "lt", "lt"], [50.5, 30.5, "uk", "ua"], [55.8, 37.6, "ru", "ru"], [38, 23.7, "el", "gr"], [39.9, 32.9, "tr", "tr"],
+    [32.1, 34.8, "he", "il"], [30, 31.2, "ar", "eg"], [24.7, 46.7, "ar", "sa"], [35.7, 51.4, "fa", "ir"], [39.9, 116.4, "zh", "cn"],
+    [35.7, 139.7, "ja", "jp"], [40.7, -74, "en", "us"], [45.5, -73.6, "fr", "ca"], [19.4, -99.1, "es", "mx"], [-34.6, -58.4, "es", "ar"],
+    [-23.5, -46.6, "pt", "br"], [14.7, -17.4, "fr", "sn"], [-33.9, 18.4, "en", "za"], [-33.9, 151.2, "en", "au"], [1.35, 103.8, "zh", "sg"],
+    [25.2, 55.3, "ar", "ae"]
+  ].map(([lat, lon, lang, cc]) => ({ words: LANG[lang], v: vec(lat, lon), flag: flagImage(cc) }));
 
   let W = 0, H = 0, R = 0, S = 0, cx = 0, cy = 0, dpr = 1;
   let dots = [], arcs = [], lam = 0, user = 0, vel = 0, dragging = false, lastX = 0;
@@ -154,22 +160,38 @@
     }
   }
 
-  function word(text, x, y, color, alpha, pill) {
+  function word(text, x, y, color, alpha, flag) {
     ctx.font = `italic 400 ${Math.round(22 * S)}px "Fraunces", Georgia, serif`;
-    ctx.textAlign = "center"; ctx.textBaseline = "middle";
-    const w = ctx.measureText(text).width + 30 * S, h = 38 * S, top = y - h - 12 * S;
+    ctx.textBaseline = "middle";
+    const h = 40 * S, top = y - h - 12 * S, tw = ctx.measureText(text).width;
     ctx.globalAlpha = alpha;
-    if (pill) {
+    if (!flag) {
+      ctx.textAlign = "center"; ctx.lineJoin = "round"; ctx.strokeStyle = "rgba(255,255,255,0.9)"; ctx.lineWidth = 6 * S;
+      ctx.strokeText(text, x, top + h / 2);
+      ctx.fillStyle = `rgb(${color})`;
+      ctx.fillText(text, x, top + h / 2 + 1);
+    } else {
+      const fr = h * 0.34, ready = flag.complete && flag.naturalWidth > 0;
+      const w = tw + 32 * S + (ready ? fr * 2 + 8 * S : 0), left = x - w / 2;
       ctx.fillStyle = "#fff";
       ctx.shadowColor = `rgba(${INK},0.2)`; ctx.shadowBlur = 18; ctx.shadowOffsetY = 5;
-      ctx.beginPath(); ctx.roundRect(x - w / 2, top, w, h, h / 2); ctx.fill();
+      ctx.beginPath(); ctx.roundRect(left, top, w, h, h / 2); ctx.fill();
       ctx.shadowColor = "transparent"; ctx.shadowBlur = 0; ctx.shadowOffsetY = 0;
-    } else {
-      ctx.lineJoin = "round"; ctx.strokeStyle = "rgba(255,255,255,0.9)"; ctx.lineWidth = 6 * S;
-      ctx.strokeText(text, x, top + h / 2);
+      let tx = left + 16 * S;
+      if (ready) {
+        const fx = left + 8 * S + fr, fy = top + h / 2;
+        ctx.save();
+        ctx.beginPath(); ctx.arc(fx, fy, fr, 0, 7); ctx.clip();
+        ctx.drawImage(flag, fx - fr, fy - fr, fr * 2, fr * 2);
+        ctx.restore();
+        ctx.strokeStyle = `rgba(${INK},0.14)`; ctx.lineWidth = 1;
+        ctx.beginPath(); ctx.arc(fx, fy, fr, 0, 7); ctx.stroke();
+        tx = fx + fr + 8 * S;
+      }
+      ctx.textAlign = "left";
+      ctx.fillStyle = `rgb(${color})`;
+      ctx.fillText(text, tx, top + h / 2 + 1);
     }
-    ctx.fillStyle = `rgb(${color})`;
-    ctx.fillText(text, x, top + h / 2 + 1);
     ctx.globalAlpha = 1;
   }
 
@@ -249,13 +271,13 @@
       }
       ctx.shadowColor = "transparent"; ctx.shadowBlur = 0;
       if (grow < 1) {
-        if (prev && shown(prev)) word(SOURCE[a.n], prev[0], prev[1] + 6 * S, BLUE, Math.min(1, age / 0.3) * Math.min(1, (1 - grow) / 0.15), false);
+        if (prev && shown(prev)) word(SOURCE[a.n], prev[0], prev[1] + 6 * S, BLUE, Math.min(1, age / 0.3) * Math.min(1, (1 - grow) / 0.15), null);
       } else {
         const p = proj(a.city.v), fade = Math.min(1, (age - 1.7) / 0.3) * Math.min(1, (5.2 - age) / 0.6);
         if (p[2] > 0.05) {
           ctx.fillStyle = `rgba(${CORAL},${fade})`;
           ctx.beginPath(); ctx.arc(p[0], p[1], 4.5 * S, 0, 7); ctx.fill();
-          word(a.city.words[a.n], p[0], p[1], CORAL, fade, true);
+          word(a.city.words[a.n], p[0], p[1], CORAL, fade, a.city.flag);
         }
       }
     });

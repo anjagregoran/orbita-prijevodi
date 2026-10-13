@@ -127,8 +127,9 @@ main { overflow-x: clip; }
 .lang-search input::placeholder { color: rgba(28, 31, 36, 0.3); }
 .lang-search input:focus { border-color: var(--blue); }
 .langs { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 40px; }
-.langs button { background: none; border: 1px solid var(--line); border-radius: 999px; padding: 10px 20px; cursor: pointer; transition: background 0.25s, color 0.25s, border-color 0.25s; }
+.langs button { display: inline-flex; align-items: center; gap: 10px; background: none; border: 1px solid var(--line); border-radius: 999px; padding: 8px 20px 8px 9px; cursor: pointer; transition: background 0.25s, color 0.25s, border-color 0.25s; }
 .langs button:hover { background: var(--blue); color: #fff; border-color: var(--blue); }
+.langs img { width: 26px; height: 26px; border-radius: 50%; box-shadow: 0 0 0 1px rgba(28, 31, 36, 0.12); }
 .lang-empty, .lang-foot { margin-top: 36px; color: var(--ink-soft); max-width: 52ch; }
 .lang-empty a { color: var(--blue); text-decoration: underline; text-underline-offset: 4px; }
 
