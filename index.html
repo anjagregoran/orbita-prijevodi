@@ -11,7 +11,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;1,9..144,300;1,9..144,400&family=DM+Sans:wght@400;500&family=DM+Mono:wght@400&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css?v=25">
+<link rel="stylesheet" href="styles.css?v=26">
 </head>
 <body>
 
@@ -26,9 +26,10 @@
     <a href="#o-nama">O nama</a>
     <a href="#kontakt">Kontakt</a>
   </nav>
-  <button class="bulb" id="bulb" type="button" aria-label="Upalite svjetlo i promijenite jezik" title="Upalite svjetlo">
-    <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path class="glass" d="M12 3a6.500 6.500 0 0 0-4 11.600c.800.700 1.300 1.500 1.400 2.400h5.200c.100-.900.600-1.700 1.400-2.400A6.500 6.500 0 0 0 12 3Z" fill="none" stroke="currentColor" stroke-width="1.500" stroke-linejoin="round"/><path d="M9.800 19.500h4.400M10.600 21.500h2.800" fill="none" stroke="currentColor" stroke-width="1.500" stroke-linecap="round"/></svg>
-    <span id="bulbLang"></span>
+  <button class="lamp" id="bulb" type="button" aria-label="Povucite žarulju i promijenite jezik" title="Povucite žarulju">
+    <span class="cord"></span>
+    <svg viewBox="0 0 32 42" width="32" height="42" aria-hidden="true"><rect x="11" y="0" width="10" height="8" rx="2" fill="currentColor"/><path class="glass" d="M11 8c0 6-7 9-7 18a12 12 0 0 0 24 0c0-9-7-12-7-18Z" stroke-width="1.5" stroke-linejoin="round"/><path class="wire" d="M13 9v8l3 4 3-4V9" fill="none" stroke="currentColor" stroke-width="1" stroke-linejoin="round" opacity="0.6"/></svg>
+    <span class="lamp-lang" id="bulbLang"></span>
   </button>
   <a class="pill pill-ink nav-cta" href="#ponuda">Zatražite ponudu</a>
   <button class="burger" id="burger" aria-label="Izbornik" aria-expanded="false"><span></span><span></span></button>
@@ -37,6 +38,7 @@
 <main id="top">
 
   <section class="hero">
+    <div class="hero-bg" id="heroBg" aria-hidden="true"></div>
     <div class="hero-text">
       <p class="label hero-label">
         <span id="hLabel">Prevoditeljska agencija</span>
@@ -255,9 +257,9 @@
 
 <a class="float-cta pill pill-accent" href="#ponuda">Zatražite ponudu</a>
 
-<script src="content.js?v=25"></script>
+<script src="content.js?v=26"></script>
 <script src="https://cdn.jsdelivr.net/npm/topojson-client@3.1.0/dist/topojson-client.min.js"></script>
-<script src="globe.js?v=25"></script>
-<script src="app.js?v=25"></script>
+<script src="globe.js?v=26"></script>
+<script src="app.js?v=26"></script>
 </body>
 </html>

@@ -23,6 +23,7 @@ typeTimer = setTimeout(() => typeLine(HERO_I18N.hr.typed), 700);
 const bulb = $("#bulb"), hero = $(".hero"), heroLangs = Object.keys(HERO_I18N);
 let heroLang = 0;
 bulb.addEventListener("click", () => {
+  bulb.classList.remove("pull"); void bulb.offsetWidth; bulb.classList.add("pull");
   heroLang = (heroLang + 1) % heroLangs.length;
   const code = heroLangs[heroLang], t = HERO_I18N[code];
   bulb.classList.toggle("on", heroLang > 0);
@@ -191,6 +192,18 @@ if (!matchMedia("(prefers-reduced-motion: reduce)").matches) {
   });
   addEventListener("scroll", drift, { passive: true });
   drift();
+}
+
+// The photo behind the first screen drifts with scrolling and with the mouse
+const heroBg = $("#heroBg");
+if (!calm) {
+  let bx = 0, by = 0, tx = 0, ty = 0;
+  addEventListener("pointermove", (e) => { tx = e.clientX / innerWidth - 0.5; ty = e.clientY / innerHeight - 0.5; }, { passive: true });
+  (function drift() {
+    bx += (tx - bx) * 0.06; by += (ty - by) * 0.06;
+    if (scrollY < innerHeight * 1.2) heroBg.style.transform = `translate3d(${bx * -46}px, ${by * -30 + scrollY * 0.32}px, 0) scale(1.04)`;
+    requestAnimationFrame(drift);
+  })();
 }
 
 $("#year").textContent = new Date().getFullYear();
