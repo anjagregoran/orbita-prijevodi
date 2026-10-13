@@ -79,10 +79,10 @@ h1 em, h2 em { font-style: italic; color: var(--accent); }
 
 /* Hero */
 main { overflow-x: clip; }
-.hero { position: relative; min-height: 100svh; display: grid; grid-template-columns: 1.05fr 0.95fr; align-items: center; gap: 24px; padding: 130px var(--pad) 50px; color: #fbf5ec; background: #14161b; overflow: clip; }
+.hero { position: relative; min-height: 100svh; display: grid; grid-template-columns: 1.05fr 0.95fr; align-items: center; gap: 24px; padding: 130px var(--pad) 110px; color: #fbf5ec; background: #14161b; overflow: clip; }
 .hero-bg { position: absolute; inset: -9% -5%; background: url("https://images.unsplash.com/photo-1455390582262-044cdead277a?auto=format&fit=crop&w=2400&q=75") center 55% / cover no-repeat; will-change: transform; }
 .hero::before { content: ""; position: absolute; inset: 0; z-index: 1; background: linear-gradient(90deg, rgba(14, 15, 19, 0.78) 0%, rgba(14, 15, 19, 0.58) 55%, rgba(14, 15, 19, 0.5) 100%); }
-.hero-text { position: relative; z-index: 2; padding-bottom: 6vh; }
+.hero-text { position: relative; z-index: 2; padding-bottom: 2vh; }
 .hero h1 { font-size: clamp(44px, min(5.8vw, 11vh), 96px); transition: opacity 0.25s; }
 .hero h1 em { color: var(--accent); }
 .hero h1:lang(ja), .hero h1:lang(zh) { word-break: keep-all; font-size: clamp(40px, min(5vw, 10vh), 84px); line-height: 1.2; }
@@ -104,14 +104,16 @@ main { overflow-x: clip; }
 .place:hover svg { transform: translateY(-3px); }
 .lead { font-size: clamp(17px, 1.5vw, 21px); max-width: 46ch; margin: 26px 0 34px; transition: opacity 0.25s; color: rgba(251, 245, 236, 0.86); }
 .hero-cta { display: flex; flex-wrap: wrap; gap: 12px; }
-.hero-facts { display: flex; gap: 0; margin: 38px 0 0; }
-.hero-facts div { display: flex; align-items: baseline; gap: 10px; padding-right: 28px; }
-.hero-facts div + div { padding-left: 28px; border-left: 1px solid rgba(251, 245, 236, 0.3); }
-.hero-facts dt { font-family: var(--serif); font-weight: 300; font-size: clamp(28px, 2.6vw, 38px); line-height: 1; }
-.hero-facts dd { margin: 0; font-size: 12px; letter-spacing: 0.16em; text-transform: uppercase; color: rgba(251, 245, 236, 0.8); }
+.hero-foot { position: absolute; left: var(--pad); right: var(--pad); bottom: 0; z-index: 2; display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 12px 0; padding: 22px 0 26px; border-top: 1px solid rgba(251, 245, 236, 0.22); font-size: 12px; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(251, 245, 236, 0.86); }
+.hero-foot > * { display: inline-flex; align-items: center; gap: 10px; padding: 0 clamp(16px, 2.6vw, 40px); }
+.hero-foot > * + * { border-left: 1px solid rgba(251, 245, 236, 0.28); }
+.hero-foot b { font-family: var(--serif); font-weight: 300; font-size: 28px; letter-spacing: 0; line-height: 1; color: #fbf5ec; }
+.hero-foot .place { padding-left: clamp(16px, 2.6vw, 40px); }
+.hero-foot .place::before { display: none; }
+.hero-foot .place::after { left: calc(clamp(16px, 2.6vw, 40px) + 23px); right: clamp(16px, 2.6vw, 40px); }
 .hero .pill-line { border-color: rgba(251, 245, 236, 0.75); color: #fbf5ec; }
 .hero .pill-ink { box-shadow: none; }
-.globe-wrap { position: relative; z-index: 2; width: 100%; max-width: min(640px, calc(100svh - 200px)); justify-self: center; }
+.globe-wrap { position: relative; z-index: 2; width: 100%; max-width: min(640px, calc(100svh - 270px)); justify-self: center; }
 .hero.swap h1, .hero.swap .lead { opacity: 0; }
 #globe { display: block; width: 100%; aspect-ratio: 1; cursor: grab; touch-action: pan-y; }
 #globe.grabbing { cursor: grabbing; }
@@ -286,6 +288,11 @@ blockquote { font-family: var(--serif); font-weight: 300; font-size: clamp(24px,
   .nav-links.open { opacity: 1; pointer-events: auto; translate: 0 0; }
   .hero { grid-template-columns: 1fr; padding-top: 112px; }
   .hero-text { padding-bottom: 0; }
+  .hero { padding-bottom: 0; }
+  .hero-foot { position: relative; left: auto; right: auto; margin-top: 10px; }
+  .hero-foot > * { padding: 0 14px; }
+  .hero-foot > * + * { border-left: 0; }
+  .hero-foot .place { padding-left: 14px; }
   .langs { grid-template-columns: 1fr 1fr; }
   .hero h1 { font-size: clamp(44px, 11vw, 80px); }
   .globe-wrap { max-width: 440px; }
