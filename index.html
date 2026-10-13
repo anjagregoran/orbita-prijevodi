@@ -11,7 +11,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;1,9..144,300;1,9..144,400&family=DM+Sans:wght@400;500&family=DM+Mono:wght@400&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css?v=23">
+<link rel="stylesheet" href="styles.css?v=25">
 </head>
 <body>
 
@@ -26,6 +26,10 @@
     <a href="#o-nama">O nama</a>
     <a href="#kontakt">Kontakt</a>
   </nav>
+  <button class="bulb" id="bulb" type="button" aria-label="Upalite svjetlo i promijenite jezik" title="Upalite svjetlo">
+    <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path class="glass" d="M12 3a6.500 6.500 0 0 0-4 11.600c.800.700 1.300 1.500 1.400 2.400h5.200c.100-.900.600-1.700 1.400-2.400A6.500 6.500 0 0 0 12 3Z" fill="none" stroke="currentColor" stroke-width="1.500" stroke-linejoin="round"/><path d="M9.800 19.500h4.400M10.600 21.500h2.800" fill="none" stroke="currentColor" stroke-width="1.500" stroke-linecap="round"/></svg>
+    <span id="bulbLang"></span>
+  </button>
   <a class="pill pill-ink nav-cta" href="#ponuda">Zatražite ponudu</a>
   <button class="burger" id="burger" aria-label="Izbornik" aria-expanded="false"><span></span><span></span></button>
 </header>
@@ -45,7 +49,6 @@
         <a class="pill pill-ink" href="#ponuda" id="hCta1">Zatražite ponudu</a>
         <a class="pill pill-line" href="#usluge" id="hCta2">Pogledajte usluge</a>
       </div>
-      <div class="lang-switch" id="langSwitch" role="group" aria-label="Jezik uvodnog teksta"></div>
     </div>
     <div class="globe-wrap">
       <canvas id="globe" data-theme="blend" role="img" aria-label="Globus po kojem riječ putuje od zemlje do zemlje i u svakoj se pojavljuje na jeziku te zemlje"></canvas>
@@ -252,9 +255,9 @@
 
 <a class="float-cta pill pill-accent" href="#ponuda">Zatražite ponudu</a>
 
-<script src="content.js?v=23"></script>
+<script src="content.js?v=25"></script>
 <script src="https://cdn.jsdelivr.net/npm/topojson-client@3.1.0/dist/topojson-client.min.js"></script>
-<script src="globe.js?v=23"></script>
-<script src="app.js?v=23"></script>
+<script src="globe.js?v=25"></script>
+<script src="app.js?v=25"></script>
 </body>
 </html>

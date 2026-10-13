@@ -19,29 +19,27 @@ function typeLine(text) {
 }
 typeTimer = setTimeout(() => typeLine(HERO_I18N.hr.typed), 700);
 
-// Flags under the buttons retype the first screen in another language
-const langSwitch = $("#langSwitch"), hero = $(".hero");
-Object.entries(HERO_I18N).forEach(([code, t]) => {
-  const b = document.createElement("button");
-  b.type = "button"; b.title = t.name; b.setAttribute("aria-label", t.name);
-  if (code === "hr") b.className = "on";
-  b.innerHTML = `<img src="https://cdn.jsdelivr.net/npm/flag-icons@7.2.3/flags/1x1/${t.flag}.svg" alt="">`;
-  b.addEventListener("click", () => {
-    if (b.classList.contains("on")) return;
-    langSwitch.querySelectorAll("button").forEach((x) => x.classList.toggle("on", x === b));
-    hero.classList.add("swap");
-    typeLine(t.typed);
-    setTimeout(() => {
-      $("#hLabel").textContent = t.label;
-      $("#hHead").innerHTML = `${t.head[0]}<em>${t.head[1]}</em>${t.head[2]}`;
-      $("#hHead").lang = $("#hLead").lang = code;
-      $("#hLead").textContent = t.lead;
-      $("#hCta1").textContent = t.cta1;
-      $("#hCta2").textContent = t.cta2;
-      hero.classList.remove("swap");
-    }, 260);
-  });
-  langSwitch.appendChild(b);
+// The light bulb in the header: each press lights it and retypes the first screen in the next language
+const bulb = $("#bulb"), hero = $(".hero"), heroLangs = Object.keys(HERO_I18N);
+let heroLang = 0;
+bulb.addEventListener("click", () => {
+  heroLang = (heroLang + 1) % heroLangs.length;
+  const code = heroLangs[heroLang], t = HERO_I18N[code];
+  bulb.classList.toggle("on", heroLang > 0);
+  hero.classList.toggle("lit", heroLang > 0);
+  $("#bulbLang").textContent = t.name;
+  if (scrollY > 80) scrollTo({ top: 0, behavior: "smooth" });
+  hero.classList.add("swap");
+  typeLine(t.typed);
+  setTimeout(() => {
+    $("#hLabel").textContent = t.label;
+    $("#hHead").innerHTML = `${t.head[0]}<wbr><em>${t.head[1]}</em>${t.head[2]}`;
+    $("#hHead").lang = $("#hLead").lang = code;
+    $("#hLead").textContent = t.lead;
+    $("#hCta1").textContent = t.cta1;
+    $("#hCta2").textContent = t.cta2;
+    hero.classList.remove("swap");
+  }, 260);
 });
 
 // Nav
