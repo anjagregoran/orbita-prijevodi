@@ -1,5 +1,10 @@
 const $ = (s) => document.querySelector(s);
 
+// Always start at the top after a refresh
+history.scrollRestoration = "manual";
+if (location.hash) history.replaceState(null, "", location.pathname);
+scrollTo(0, 0);
+
 // Nav
 const nav = $("#nav"), burger = $("#burger"), navLinks = $("#navLinks");
 addEventListener("scroll", () => nav.classList.toggle("scrolled", scrollY > 20), { passive: true });

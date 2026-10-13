@@ -64,7 +64,6 @@ main { overflow-x: clip; }
 .hero-text { position: relative; z-index: 2; }
 #globe { display: block; width: 100%; aspect-ratio: 1; cursor: grab; touch-action: pan-y; }
 #globe.grabbing { cursor: grabbing; }
-.globe-hint { position: absolute; left: 50%; bottom: 6%; translate: -50% 0; font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink-soft); opacity: 0.7; pointer-events: none; }
 
 /* Facts */
 .facts { display: grid; grid-template-columns: repeat(3, 1fr); border-block: 1px solid var(--line); margin-inline: var(--pad); }
