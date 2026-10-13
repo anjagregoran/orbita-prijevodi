@@ -22,7 +22,7 @@ a { color: inherit; text-decoration: none; }
 ul, ol { list-style: none; padding: 0; }
 button, input, textarea { font: inherit; color: inherit; }
 h1, h2, h3 { font-family: var(--serif); font-weight: 300; line-height: 1.05; letter-spacing: -0.025em; }
-h1 { font-size: clamp(48px, 7.2vw, 108px); }
+h1 { font-size: clamp(46px, min(6vw, 11.5vh), 100px); }
 h2 { font-size: clamp(34px, 4.8vw, 68px); max-width: 18ch; }
 h1 em, h2 em { font-style: italic; color: var(--accent); }
 .label { font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; font-weight: 500; color: var(--ink-soft); margin-bottom: 22px; }
@@ -61,8 +61,8 @@ h1 em, h2 em { font-style: italic; color: var(--accent); }
 
 /* Hero */
 main { overflow-x: clip; }
-.hero { min-height: 100svh; display: grid; grid-template-columns: 0.88fr 1.12fr; align-items: center; gap: 24px; padding: 136px var(--pad) 40px; }
-.hero-text { position: relative; z-index: 2; align-self: start; padding-top: clamp(24px, 9vh, 96px); }
+.hero { min-height: 100svh; display: grid; grid-template-columns: 0.88fr 1.12fr; align-items: center; gap: 24px; padding: 130px var(--pad) 30px; }
+.hero-text { position: relative; z-index: 2; align-self: center; padding-bottom: 3vh; }
 .typed { font-family: "DM Mono", ui-monospace, monospace; font-size: clamp(13px, 1.15vw, 16px); letter-spacing: 0.2em; text-transform: uppercase; color: var(--blue); min-height: 1.6em; margin-bottom: 18px; }
 .hero-label { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 22px; }
 .hero-label::before { display: none; }
@@ -77,7 +77,7 @@ main { overflow-x: clip; }
 @keyframes blink { 50% { opacity: 0; } }
 .lead { font-size: clamp(17px, 1.5vw, 21px); max-width: 46ch; margin: 26px 0 32px; color: var(--ink-soft); }
 .hero-cta { display: flex; flex-wrap: wrap; gap: 12px; }
-.globe-wrap { width: 100%; max-width: 860px; justify-self: center; }
+.globe-wrap { width: 100%; max-width: min(860px, calc(100svh - 170px)); justify-self: center; }
 #globe { display: block; width: 100%; aspect-ratio: 1; cursor: grab; touch-action: pan-y; }
 #globe.grabbing { cursor: grabbing; }
 
@@ -159,7 +159,7 @@ main { overflow-x: clip; }
 .about { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(32px, 6vw, 96px); align-items: start; }
 .about-text h2 { margin-bottom: 28px; }
 .about-text p:not(.label) { margin-bottom: 18px; max-width: 54ch; }
-.virtues { display: grid; grid-template-columns: 1fr 1fr; border-top: 1px solid var(--ink); align-self: end; }
+.virtues { display: grid; grid-template-columns: 1fr 1fr; border-top: 1px solid var(--ink); align-self: center; }
 .virtues article { padding: 34px 28px 40px 0; border-bottom: 1px solid var(--line); }
 .virtues article:nth-child(even) { padding-left: 28px; padding-right: 0; border-left: 1px solid var(--line); }
 .v-mark { display: block; font-family: var(--serif); font-style: italic; font-weight: 300; font-size: 64px; line-height: 1; height: 64px; color: var(--blue); margin-bottom: 30px; transition: transform 0.4s; }
@@ -241,6 +241,8 @@ blockquote { font-family: var(--serif); font-weight: 300; font-size: clamp(24px,
   .nav-links.open { opacity: 1; pointer-events: auto; translate: 0 0; }
   .hero { grid-template-columns: 1fr; padding-top: 110px; gap: 10px; }
   .globe-wrap { max-width: 520px; }
+  .hero-text { padding-bottom: 0; }
+  h1 { font-size: clamp(46px, 7.2vw, 100px); }
   .facts div { padding: 24px 14px; }
   .services, .about, .offer, .offices { grid-template-columns: 1fr; }
   .svc-panel { position: static; }

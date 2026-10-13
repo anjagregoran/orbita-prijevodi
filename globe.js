@@ -276,10 +276,10 @@ document.querySelectorAll("#globe, canvas.globe").forEach(function (el) {
     ctx.beginPath(); ctx.arc(cx, cy, R - 0.5, 0, 7); ctx.stroke();
 
     // The word's journey: each line starts where the last one landed
-    arcs = arcs.filter((a) => t - a.start < 4.2);
+    arcs = arcs.filter((a) => t - a.start < 3);
     arcs.forEach((a) => {
-      const age = t - a.start, grow = a.from ? Math.min(1, age / 1.2) : 1, head = 1 - Math.pow(1 - grow, 3);
-      const tail = age > 2 ? Math.min(1, (age - 2) / 1.4) : 0;
+      const age = t - a.start, grow = a.from ? Math.min(1, age / 0.8) : 1, head = 1 - Math.pow(1 - grow, 3);
+      const tail = age > 1.4 ? Math.min(1, (age - 1.4) / 1) : 0;
       const N = 56;
       if (a.from) {
         ctx.lineWidth = 2.6 * S; ctx.lineCap = "round";
@@ -296,8 +296,8 @@ document.querySelectorAll("#globe, canvas.globe").forEach(function (el) {
         ctx.shadowColor = "transparent"; ctx.shadowBlur = 0;
       }
       if (grow >= 1) {
-        const landed = a.from ? age - 1.2 : age;
-        const p = proj(a.city.v), fade = Math.min(1, landed / 0.2) * Math.min(1, (4.2 - age) / 0.5);
+        const landed = a.from ? age - 0.8 : age;
+        const p = proj(a.city.v), fade = Math.min(1, landed / 0.15) * Math.min(1, (3 - age) / 0.4);
         if (p[2] > 0.05) {
           const col = a.city.lang === "hr" ? BLUE : CORAL;
           if (a.city === cur) {
@@ -315,7 +315,7 @@ document.querySelectorAll("#globe, canvas.globe").forEach(function (el) {
     ring(-0.42, 1.25, 1.2, t * 0.22 + 1, T.ring, true);
     ring(0.5, 1.12, 1.11, -t * 0.3 + 2.4, CORAL, true);
 
-    if (!still && t - lastSpawn > (cur ? 1.75 : 0.4)) {
+    if (!still && t - lastSpawn > (cur ? 1.15 : 0.4)) {
       let next = opening.shift();
       if (!next) {
         const far = (c) => c !== cur && dot(c.v, cur.v) < 0.9976 && proj(c.v)[2] > 0.25 && !arcs.some((a) => dot(a.city.v, c.v) > 0.985);
