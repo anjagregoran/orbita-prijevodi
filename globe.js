@@ -3,7 +3,7 @@
   const el = document.getElementById("globe");
   if (!el) return;
   const ctx = el.getContext("2d");
-  const INK = "22,35,63", BLUE = "59,143,201", CORAL = "217,85,58";
+  const INK = "22,35,63", DEEP = "38,112,172", BLUE = "59,143,201", CORAL = "217,85,58";
   const RAD = Math.PI / 180;
   const TILT = 30 * RAD, cp = Math.cos(TILT), sp = Math.sin(TILT);
   const still = matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -28,7 +28,7 @@
     dpr = Math.min(devicePixelRatio || 1, 2);
     W = el.clientWidth;
     el.width = el.height = Math.round(W * dpr);
-    R = W * 0.36; cx = W / 2; cy = W / 2;
+    R = W * 0.37; cx = W / 2; cy = W / 2;
   }
 
   // Rotate a geo vector into view space, then project it flat.
@@ -69,7 +69,7 @@
       }));
       c.fill("evenodd");
       const data = c.getImageData(0, 0, mw, mh).data;
-      dots = fibonacci(16000, (lat, lon) => {
+      dots = fibonacci(30000, (lat, lon) => {
         if (lat < -60) return false;
         const x = Math.min(mw - 1, Math.floor(((lon + 180) / 360) * mw)), y = Math.min(mh - 1, Math.floor(((90 - lat) / 180) * mh));
         return data[(y * mw + x) * 4 + 3] > 120;
@@ -97,7 +97,7 @@
       return [cx + R * x1, cy - R * y2, z2];
     };
     ctx.lineWidth = 1;
-    ctx.strokeStyle = `rgba(${INK},${front ? 0.22 : 0.1})`;
+    ctx.strokeStyle = `rgba(${BLUE},${front ? 0.55 : 0.22})`;
     ctx.beginPath();
     let pen = false;
     for (let i = 0; i <= 180; i++) {
@@ -108,17 +108,18 @@
     const s = pt(t);
     if (s[2] > 0 === front) {
       ctx.fillStyle = `rgb(${color})`;
-      ctx.beginPath(); ctx.arc(s[0], s[1], W * 0.011, 0, 7); ctx.fill();
+      ctx.beginPath(); ctx.arc(s[0], s[1], W * 0.008, 0, 7); ctx.fill();
     }
   }
 
   function pill(text, x, y, alpha) {
-    ctx.font = `500 ${Math.max(11, W * 0.024)}px "DM Sans", sans-serif`;
-    const w = ctx.measureText(text).width + 22, h = Math.max(24, W * 0.05);
+    ctx.font = `500 ${Math.max(11, W * 0.019)}px "DM Sans", sans-serif`;
+    const w = ctx.measureText(text).width + 22, h = Math.max(24, W * 0.04);
     ctx.globalAlpha = alpha;
-    ctx.fillStyle = "#fbf8f2";
-    ctx.strokeStyle = `rgba(${INK},0.16)`;
-    ctx.beginPath(); ctx.roundRect(x - w / 2, y - h - 10, w, h, h / 2); ctx.fill(); ctx.stroke();
+    ctx.fillStyle = "#ffffff";
+    ctx.shadowColor = `rgba(${INK},0.18)`; ctx.shadowBlur = 14; ctx.shadowOffsetY = 4;
+    ctx.beginPath(); ctx.roundRect(x - w / 2, y - h - 10, w, h, h / 2); ctx.fill();
+    ctx.shadowColor = "transparent"; ctx.shadowBlur = 0; ctx.shadowOffsetY = 0;
     ctx.fillStyle = `rgb(${INK})`;
     ctx.textAlign = "center"; ctx.textBaseline = "middle";
     ctx.fillText(text, x, y - h / 2 - 9);
@@ -134,19 +135,22 @@
     ring(-0.42, 1.25, 1.36, t * 0.35, BLUE, false);
     ring(0.5, 1.12, 1.2, -t * 0.5 + 2, CORAL, false);
 
-    // Sphere body
-    const g = ctx.createRadialGradient(cx - R * 0.35, cy - R * 0.4, R * 0.1, cx, cy, R);
-    g.addColorStop(0, "#fffdf9"); g.addColorStop(1, "#efe7d8");
+    // Glow, then sphere body
+    const halo = ctx.createRadialGradient(cx, cy, R * 0.9, cx, cy, R * 1.32);
+    halo.addColorStop(0, `rgba(${BLUE},0.3)`); halo.addColorStop(1, `rgba(${BLUE},0)`);
+    ctx.fillStyle = halo;
+    ctx.beginPath(); ctx.arc(cx, cy, R * 1.32, 0, 7); ctx.fill();
+    const g = ctx.createRadialGradient(cx - R * 0.4, cy - R * 0.45, R * 0.05, cx, cy, R);
+    g.addColorStop(0, "#ffffff"); g.addColorStop(0.55, "#e6f1f9"); g.addColorStop(1, "#bfdcf0");
     ctx.fillStyle = g;
     ctx.beginPath(); ctx.arc(cx, cy, R, 0, 7); ctx.fill();
-    ctx.strokeStyle = `rgba(${INK},0.14)`; ctx.lineWidth = 1; ctx.stroke();
 
     // Land
-    const ds = Math.max(1.3, W * 0.0034);
+    const ds = Math.max(1, W * 0.0026);
     for (let i = 0; i < dots.length; i++) {
       const p = proj(dots[i]);
       if (p[2] <= 0.02) continue;
-      ctx.fillStyle = `rgba(${INK},${0.18 + 0.72 * p[2]})`;
+      ctx.fillStyle = `rgba(${DEEP},${0.25 + 0.75 * p[2]})`;
       ctx.beginPath(); ctx.arc(p[0], p[1], ds * (0.55 + 0.45 * p[2]), 0, 7); ctx.fill();
     }
 
@@ -156,7 +160,7 @@
       const age = t - a.start, grow = Math.min(1, age / 1.5), head = 1 - Math.pow(1 - grow, 3);
       const tail = age > 2.6 ? Math.min(1, (age - 2.6) / 1.4) : 0;
       const N = 44;
-      ctx.lineWidth = Math.max(1.4, W * 0.0036); ctx.lineCap = "round";
+      ctx.lineWidth = Math.max(1.4, W * 0.0028); ctx.lineCap = "round";
       let prev = null;
       for (let i = Math.floor(tail * N); i <= Math.ceil(head * N); i++) {
         const k = Math.min(head, i / N), p = proj(slerp(HUB, a.city.v, k), 1 + a.lift * Math.sin(Math.PI * k));
@@ -171,7 +175,7 @@
         const p = proj(a.city.v), fade = Math.min(1, (age - 1.5) / 0.3) * Math.min(1, (4.6 - age) / 0.5);
         if (p[2] > 0.05) {
           ctx.fillStyle = `rgba(${CORAL},${fade})`;
-          ctx.beginPath(); ctx.arc(p[0], p[1], W * 0.008, 0, 7); ctx.fill();
+          ctx.beginPath(); ctx.arc(p[0], p[1], W * 0.006, 0, 7); ctx.fill();
           pill(a.city.word, p[0], p[1], fade);
         }
       }
@@ -182,9 +186,9 @@
     if (h[2] > 0) {
       const pulse = (t % 2.4) / 2.4;
       ctx.strokeStyle = `rgba(${CORAL},${1 - pulse})`; ctx.lineWidth = 1.5;
-      ctx.beginPath(); ctx.arc(h[0], h[1], W * 0.012 + pulse * W * 0.04, 0, 7); ctx.stroke();
+      ctx.beginPath(); ctx.arc(h[0], h[1], W * 0.009 + pulse * W * 0.035, 0, 7); ctx.stroke();
       ctx.fillStyle = `rgb(${CORAL})`;
-      ctx.beginPath(); ctx.arc(h[0], h[1], W * 0.012, 0, 7); ctx.fill();
+      ctx.beginPath(); ctx.arc(h[0], h[1], W * 0.009, 0, 7); ctx.fill();
     }
 
     ring(-0.42, 1.25, 1.36, t * 0.35, BLUE, true);
