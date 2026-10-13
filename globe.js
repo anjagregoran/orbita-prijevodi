@@ -1,8 +1,18 @@
 // Hero: a huge globe seen from orbit, rising from the bottom of the first screen.
 // Croatian words leave Croatia in blue and land translated in orange.
-(function () {
-  const el = document.getElementById("globe");
-  if (!el) return;
+const GLOBE_THEMES = {
+  blue: { land: "65,146,197", halo: "65,146,197", ring: "65,146,197", body: ["#ffffff", "#eef6fb", "#cfe4f3"], grid: "rgba(255,255,255,0.9)", shade: "40,105,155", shadeA: 0.42, shine: 0.55 },
+  natural: { land: "108,150,112", halo: "120,172,192", ring: "120,172,192", body: ["#ffffff", "#e6f2f6", "#bedbe7"], grid: "rgba(255,255,255,0.85)", shade: "45,95,115", shadeA: 0.36, shine: 0.5 },
+  ink: { land: "38,42,50", halo: "150,150,150", ring: "38,42,50", body: ["#ffffff", "#f4f2ee", "#dcd9d2"], grid: "rgba(255,255,255,0.95)", shade: "70,70,70", shadeA: 0.26, shine: 0.6 },
+  sand: { land: "222,138,110", halo: "232,160,130", ring: "214,90,61", body: ["#ffffff", "#fbf2ea", "#f1dccb"], grid: "rgba(255,255,255,0.9)", shade: "170,95,55", shadeA: 0.28, shine: 0.55 },
+  duo: { land: "214,90,61", halo: "65,146,197", ring: "65,146,197", body: ["#ffffff", "#dcebf5", "#a8cee8"], grid: "rgba(255,255,255,0.9)", shade: "40,105,155", shadeA: 0.4, shine: 0.55 },
+  blend: { land: "65,146,197", blend: true, halo: "65,146,197", ring: "65,146,197", body: ["#ffffff", "#f6f4f1", "#e4e1dc"], grid: "rgba(255,255,255,0.95)", shade: "90,90,100", shadeA: 0.22, shine: 0.6 },
+  peach: { land: "65,146,197", halo: "214,90,61", ring: "214,90,61", body: ["#ffffff", "#fdeee8", "#f6cfc2"], grid: "rgba(255,255,255,0.9)", shade: "190,90,60", shadeA: 0.3, shine: 0.55 },
+  night: { land: "120,188,232", halo: "65,146,197", ring: "65,146,197", body: ["#3b4863", "#1f2738", "#0f131c"], grid: "rgba(255,255,255,0.1)", shade: "0,0,0", shadeA: 0.45, shine: 0.1 }
+};
+
+document.querySelectorAll("#globe, canvas.globe").forEach(function (el) {
+  const T = GLOBE_THEMES[el.dataset.theme] || GLOBE_THEMES.blue;
   const ctx = el.getContext("2d");
   const INK = "35,39,46", BLUE = "65,146,197", CORAL = "214,90,61", CREAM = "250,248,244";
   const RAD = Math.PI / 180;
@@ -204,7 +214,7 @@
     ctx.clearRect(0, 0, W, H);
     lam = (15 + 82 * Math.sin(t * 0.13)) * RAD + user;
 
-    ring(-0.42, 1.25, 1.2, t * 0.22 + 1, BLUE, false);
+    ring(-0.42, 1.25, 1.2, t * 0.22 + 1, T.ring, false);
     ring(0.5, 1.12, 1.11, -t * 0.3 + 2.4, CORAL, false);
 
     // Soft shadow under the globe
@@ -218,16 +228,16 @@
 
     // Atmosphere, then sphere body
     const halo = ctx.createRadialGradient(cx, cy, R * 0.97, cx, cy, R * 1.17);
-    halo.addColorStop(0, `rgba(${BLUE},0.5)`); halo.addColorStop(0.4, `rgba(${BLUE},0.16)`); halo.addColorStop(1, `rgba(${BLUE},0)`);
+    halo.addColorStop(0, `rgba(${T.halo},0.5)`); halo.addColorStop(0.4, `rgba(${T.halo},0.16)`); halo.addColorStop(1, `rgba(${T.halo},0)`);
     ctx.fillStyle = halo;
     ctx.beginPath(); ctx.arc(cx, cy, R * 1.17, 0, 7); ctx.fill();
     const g = ctx.createRadialGradient(cx - R * 0.42, cy - R * 0.48, R * 0.02, cx, cy, R);
-    g.addColorStop(0, "#ffffff"); g.addColorStop(0.45, "#eef6fb"); g.addColorStop(1, "#cfe4f3");
+    g.addColorStop(0, T.body[0]); g.addColorStop(0.45, T.body[1]); g.addColorStop(1, T.body[2]);
     ctx.fillStyle = g;
     ctx.beginPath(); ctx.arc(cx, cy, R, 0, 7); ctx.fill();
 
     // Latitude and longitude lines
-    ctx.strokeStyle = "rgba(255,255,255,0.9)"; ctx.lineWidth = 1;
+    ctx.strokeStyle = T.grid; ctx.lineWidth = 1;
     ctx.beginPath();
     for (let lon = -180; lon < 180; lon += 20) line((i) => vec(-80 + (i * 160) / 40, lon), 40);
     for (let lat = -60; lat <= 80; lat += 20) line((i) => vec(lat, -180 + (i * 360) / 90), 90);
@@ -238,7 +248,10 @@
     for (let i = 0; i < dots.length; i++) {
       const p = proj(dots[i]);
       if (p[2] <= 0.02) continue;
-      ctx.fillStyle = `rgba(${BLUE},${0.55 + 0.45 * p[2]})`;
+      if (T.blend) {
+        const k = Math.min(1, Math.max(0, (p[0] - cx) / R * 0.7 + 0.5));
+        ctx.fillStyle = `rgba(${Math.round(65 + 149 * k)},${Math.round(146 - 56 * k)},${Math.round(197 - 136 * k)},${0.6 + 0.4 * p[2]})`;
+      } else ctx.fillStyle = `rgba(${T.land},${0.55 + 0.45 * p[2]})`;
       ctx.beginPath(); ctx.arc(p[0], p[1], ds * (0.6 + 0.4 * p[2]), 0, 7); ctx.fill();
     }
 
@@ -246,13 +259,13 @@
     ctx.save();
     ctx.beginPath(); ctx.arc(cx, cy, R, 0, 7); ctx.clip();
     const shade = ctx.createRadialGradient(cx - R * 0.35, cy - R * 0.4, R * 0.5, cx - R * 0.1, cy - R * 0.1, R * 1.25);
-    shade.addColorStop(0, "rgba(40,105,155,0)"); shade.addColorStop(1, "rgba(40,105,155,0.42)");
+    shade.addColorStop(0, `rgba(${T.shade},0)`); shade.addColorStop(1, `rgba(${T.shade},${T.shadeA})`);
     ctx.fillStyle = shade; ctx.fillRect(cx - R, cy - R, R * 2, R * 2);
     const shine = ctx.createRadialGradient(cx - R * 0.45, cy - R * 0.5, 0, cx - R * 0.45, cy - R * 0.5, R * 0.75);
-    shine.addColorStop(0, "rgba(255,255,255,0.55)"); shine.addColorStop(1, "rgba(255,255,255,0)");
+    shine.addColorStop(0, `rgba(255,255,255,${T.shine})`); shine.addColorStop(1, "rgba(255,255,255,0)");
     ctx.fillStyle = shine; ctx.fillRect(cx - R, cy - R, R * 2, R * 2);
     ctx.restore();
-    ctx.strokeStyle = "rgba(255,255,255,0.9)"; ctx.lineWidth = 1.5;
+    ctx.strokeStyle = T.grid; ctx.lineWidth = 1.5;
     ctx.beginPath(); ctx.arc(cx, cy, R - 0.5, 0, 7); ctx.stroke();
 
     // Words in flight
@@ -294,7 +307,7 @@
       if (arcs.length) word(SOURCE[arcs[arcs.length - 1].n], h[0], h[1] + 66 * S, BLUE, Math.min(1, (t - arcs[arcs.length - 1].start) / 0.12), HR);
     }
 
-    ring(-0.42, 1.25, 1.2, t * 0.22 + 1, BLUE, true);
+    ring(-0.42, 1.25, 1.2, t * 0.22 + 1, T.ring, true);
     ring(0.5, 1.12, 1.11, -t * 0.3 + 2.4, CORAL, true);
 
     if (!still && t - lastSpawn > 0.9 && h[2] > 0.1) {
@@ -344,4 +357,4 @@
   size();
   loadLand();
   if (still) draw(0); else requestAnimationFrame(frame);
-})();
+});
