@@ -4,9 +4,9 @@
   const el = document.getElementById("globe");
   if (!el) return;
   const ctx = el.getContext("2d");
-  const INK = "35,39,46", BLUE = "65,146,197", CORAL = "214,90,61", CREAM = "246,241,231";
+  const INK = "35,39,46", BLUE = "65,146,197", CORAL = "214,90,61", CREAM = "250,248,244";
   const RAD = Math.PI / 180;
-  const TILT = 8 * RAD, cp = Math.cos(TILT), sp = Math.sin(TILT);
+  const TILT = 28 * RAD, cp = Math.cos(TILT), sp = Math.sin(TILT);
   const still = matchMedia("(prefers-reduced-motion: reduce)").matches;
 
   const vec = (lat, lon) => {
@@ -32,14 +32,12 @@
   let visible = true, lastSpawn = 0, lastCity = -1, turn = 0;
 
   function size() {
-    W = el.clientWidth;
-    R = Math.min(760, Math.max(330, W * 0.5));
-    H = Math.round(R * 0.95);
-    S = Math.min(1.25, Math.max(0.72, R / 520));
-    el.style.height = H + "px";
+    W = el.clientWidth; H = W;
+    R = W * 0.38;
+    S = Math.min(1.1, Math.max(0.6, R / 330));
     dpr = Math.min(devicePixelRatio || 1, W > 900 ? 1.5 : 2);
     el.width = Math.round(W * dpr); el.height = Math.round(H * dpr);
-    cx = W / 2; cy = R * 0.2 + R;
+    cx = W / 2; cy = H / 2;
   }
 
   // Rotate a geo vector into view space, then project it flat.
@@ -81,13 +79,13 @@
       }));
       c.fill("evenodd");
       const data = c.getImageData(0, 0, mw, mh).data;
-      dots = fibonacci(44000, (lat, lon) => {
-        if (lat < -20) return false;
+      dots = fibonacci(30000, (lat, lon) => {
+        if (lat < -60) return false;
         const x = Math.min(mw - 1, Math.floor(((lon + 180) / 360) * mw)), y = Math.min(mh - 1, Math.floor(((90 - lat) / 180) * mh));
         return data[(y * mw + x) * 4 + 3] > 120;
       });
     } catch (e) {
-      dots = fibonacci(2600, (lat) => lat > -20);
+      dots = fibonacci(2000, () => true);
     }
     if (still) draw(0);
   }
@@ -146,8 +144,8 @@
     ctx.clearRect(0, 0, W, H);
     lam = (15 + 42 * Math.sin(t * 0.09)) * RAD + user;
 
-    ring(-0.2, 1.36, 1.17, t * 0.22 + 1, BLUE, false);
-    ring(0.24, 1.3, 1.1, -t * 0.3 + 2.4, CORAL, false);
+    ring(-0.42, 1.25, 1.28, t * 0.22 + 1, BLUE, false);
+    ring(0.5, 1.12, 1.16, -t * 0.3 + 2.4, CORAL, false);
 
     // Atmosphere, then sphere body
     const halo = ctx.createRadialGradient(cx, cy, R * 0.96, cx, cy, R * 1.2);
@@ -160,7 +158,7 @@
     ctx.beginPath(); ctx.arc(cx, cy, R, 0, 7); ctx.fill();
 
     // Land
-    const ds = Math.max(1.5, R * 0.0042);
+    const ds = Math.max(1.1, R * 0.0072);
     for (let i = 0; i < dots.length; i++) {
       const p = proj(dots[i]);
       if (p[2] <= 0.02 || p[1] > H + 4 || p[0] < -4 || p[0] > W + 4) continue;
@@ -206,21 +204,16 @@
       ctx.beginPath(); ctx.arc(h[0], h[1], 7 * S, 0, 7); ctx.fill();
     }
 
-    ring(-0.2, 1.36, 1.17, t * 0.22 + 1, BLUE, true);
-    ring(0.24, 1.3, 1.1, -t * 0.3 + 2.4, CORAL, true);
-
-    // Fade the planet into the page
-    const fade = ctx.createLinearGradient(0, H * 0.8, 0, H);
-    fade.addColorStop(0, `rgba(${CREAM},0)`); fade.addColorStop(1, `rgba(${CREAM},1)`);
-    ctx.fillStyle = fade; ctx.fillRect(0, H * 0.8, W, H * 0.2 + 1);
+    ring(-0.42, 1.25, 1.28, t * 0.22 + 1, BLUE, true);
+    ring(0.5, 1.12, 1.16, -t * 0.3 + 2.4, CORAL, true);
 
     if (!still && t - lastSpawn > 1.1 && h[2] > 0.1) {
-      const ok = (c) => { const p = proj(c.v); return p[2] > 0.25 && p[1] < H * 0.8 && p[0] > 60 && p[0] < W - 60; };
+      const ok = (c) => { const p = proj(c.v); return p[2] > 0.25; };
       const pool = CITIES.map((c, i) => i).filter((i) => i !== lastCity && ok(CITIES[i]) && !arcs.some((a) => dot(a.city.v, CITIES[i].v) > 0.975));
       if (pool.length) {
         lastCity = pool[Math.floor(Math.random() * pool.length)];
         const c = CITIES[lastCity], d = Math.acos(Math.min(1, dot(HUB, c.v)));
-        arcs.push({ city: c, start: t, lift: 0.06 + d * 0.2, n: turn++ % SOURCE.length });
+        arcs.push({ city: c, start: t, lift: 0.1 + d * 0.26, n: turn++ % SOURCE.length });
         lastSpawn = t;
       }
     }

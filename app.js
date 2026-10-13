@@ -114,6 +114,7 @@ form.addEventListener("submit", (e) => {
     `S jezika: ${d.get("from") || "/"}`,
     `Na jezik: ${d.get("to") || "/"}`,
     `Rok: ${d.get("deadline") || "po dogovoru"}`,
+    `Ured: ${d.get("office")}`,
     "",
     d.get("msg") || "",
     "",
@@ -123,7 +124,8 @@ form.addEventListener("submit", (e) => {
     d.get("name")
   ];
   const subject = `Upit za ponudu${svc.length ? ": " + svc[0] : ""}`;
-  location.href = `mailto:${d.get("office")}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(lines.join("\n"))}`;
+  // Every enquiry goes to both offices
+  location.href = `mailto:info@orbitaprijevodi.com,zagreb@orbitaprijevodi.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(lines.join("\n"))}`;
   note.textContent = "Upit se otvorio u Vašem programu za e-poštu. Priložite dokument i pošaljite poruku.";
 });
 
