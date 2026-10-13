@@ -11,7 +11,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;1,9..144,300;1,9..144,400&family=DM+Sans:wght@400;500&family=DM+Mono:wght@400&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css?v=22">
+<link rel="stylesheet" href="styles.css?v=23">
 </head>
 <body>
 
@@ -35,18 +35,21 @@
   <section class="hero">
     <div class="hero-text">
       <p class="label hero-label">
-        <span>Prevoditeljska agencija</span>
+        <span id="hLabel">Prevoditeljska agencija</span>
         <a class="place" href="#kontakt"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M12 22s7-6.2 7-12a7 7 0 1 0-14 0c0 5.800 7 12 7 12Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><circle cx="12" cy="10" r="2.6" fill="currentColor"/></svg>Rijeka i Zagreb</a>
       </p>
-      <p class="typed" aria-label="Vaša poruka, razumljiva svugdje."><span id="typed" aria-hidden="true"></span><span class="caret" aria-hidden="true"></span></p>
-      <h1>Riječima <em>povezujemo</em> svjetove.</h1>
-      <p class="lead">Pisani, ovjereni i usmeni prijevodi na više od 30 jezika, uz lekturu i pisanje tekstova, sve na jednom mjestu i u roku koji Vam odgovara.</p>
+      <p class="typed"><span id="typed"></span><span class="caret" aria-hidden="true"></span></p>
+      <h1 id="hHead">Riječima <em>povezujemo</em> svjetove.</h1>
+      <p class="lead" id="hLead">Pisani, ovjereni i usmeni prijevodi na više od 30 jezika, uz lekturu i pisanje tekstova, sve na jednom mjestu i u roku koji Vam odgovara.</p>
       <div class="hero-cta">
-        <a class="pill pill-ink" href="#ponuda">Zatražite ponudu</a>
-        <a class="pill pill-line" href="#usluge">Pogledajte usluge</a>
+        <a class="pill pill-ink" href="#ponuda" id="hCta1">Zatražite ponudu</a>
+        <a class="pill pill-line" href="#usluge" id="hCta2">Pogledajte usluge</a>
       </div>
+      <div class="lang-switch" id="langSwitch" role="group" aria-label="Jezik uvodnog teksta"></div>
     </div>
-
+    <div class="globe-wrap">
+      <canvas id="globe" data-theme="blend" role="img" aria-label="Globus po kojem riječ putuje od zemlje do zemlje i u svakoj se pojavljuje na jeziku te zemlje"></canvas>
+    </div>
   </section>
 
   <section class="trust" aria-label="Vjeruju nam">
@@ -102,9 +105,6 @@
         <div class="lang-search reveal">
           <input id="langInput" type="search" placeholder="Npr. njemački" aria-label="Pretražite jezike" autocomplete="off">
         </div>
-      </div>
-      <div class="globe-wrap">
-        <canvas id="globe" data-theme="blend" role="img" aria-label="Globus s kojeg hrvatske riječi putuju u svijet i stižu prevedene na druge jezike"></canvas>
       </div>
     </div>
     <ul class="langs reveal" id="langs"></ul>
@@ -252,9 +252,9 @@
 
 <a class="float-cta pill pill-accent" href="#ponuda">Zatražite ponudu</a>
 
-<script src="content.js?v=22"></script>
+<script src="content.js?v=23"></script>
 <script src="https://cdn.jsdelivr.net/npm/topojson-client@3.1.0/dist/topojson-client.min.js"></script>
-<script src="globe.js?v=22"></script>
-<script src="app.js?v=22"></script>
+<script src="globe.js?v=23"></script>
+<script src="app.js?v=23"></script>
 </body>
 </html>

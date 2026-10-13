@@ -6,12 +6,43 @@ if (location.hash) history.replaceState(null, "", location.pathname);
 scrollTo(0, 0);
 
 // Typewriter line above the headline
-const typed = $("#typed"), phrase = "Vaša poruka, razumljiva svugdje.";
-if (matchMedia("(prefers-reduced-motion: reduce)").matches) typed.textContent = phrase;
-else setTimeout(function type() {
-  typed.textContent = phrase.slice(0, typed.textContent.length + 1);
-  if (typed.textContent.length < phrase.length) setTimeout(type, 45 + Math.random() * 60);
-}, 700);
+const typed = $("#typed"), calm = matchMedia("(prefers-reduced-motion: reduce)").matches;
+let typeTimer;
+function typeLine(text) {
+  clearTimeout(typeTimer);
+  typed.textContent = "";
+  if (calm) { typed.textContent = text; return; }
+  (function type() {
+    typed.textContent = text.slice(0, typed.textContent.length + 1);
+    if (typed.textContent.length < text.length) typeTimer = setTimeout(type, 40 + Math.random() * 50);
+  })();
+}
+typeTimer = setTimeout(() => typeLine(HERO_I18N.hr.typed), 700);
+
+// Flags under the buttons retype the first screen in another language
+const langSwitch = $("#langSwitch"), hero = $(".hero");
+Object.entries(HERO_I18N).forEach(([code, t]) => {
+  const b = document.createElement("button");
+  b.type = "button"; b.title = t.name; b.setAttribute("aria-label", t.name);
+  if (code === "hr") b.className = "on";
+  b.innerHTML = `<img src="https://cdn.jsdelivr.net/npm/flag-icons@7.2.3/flags/1x1/${t.flag}.svg" alt="">`;
+  b.addEventListener("click", () => {
+    if (b.classList.contains("on")) return;
+    langSwitch.querySelectorAll("button").forEach((x) => x.classList.toggle("on", x === b));
+    hero.classList.add("swap");
+    typeLine(t.typed);
+    setTimeout(() => {
+      $("#hLabel").textContent = t.label;
+      $("#hHead").innerHTML = `${t.head[0]}<em>${t.head[1]}</em>${t.head[2]}`;
+      $("#hHead").lang = $("#hLead").lang = code;
+      $("#hLead").textContent = t.lead;
+      $("#hCta1").textContent = t.cta1;
+      $("#hCta2").textContent = t.cta2;
+      hero.classList.remove("swap");
+    }, 260);
+  });
+  langSwitch.appendChild(b);
+});
 
 // Nav
 const nav = $("#nav"), burger = $("#burger"), navLinks = $("#navLinks");

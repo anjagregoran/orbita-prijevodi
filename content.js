@@ -86,3 +86,14 @@ const FLAGS = {
   Turski: "tr", Hebrejski: "il", Arapski: "sa", Japanski: "jp", Kineski: "cn", Perzijski: "ir",
   Rumunjski: "ro", Latinski: "va"
 };
+
+// First-screen text in other languages (flags under the buttons)
+const HERO_I18N = {
+  hr: { flag: "hr", name: "Hrvatski", label: "Prevoditeljska agencija", typed: "Vaša poruka, razumljiva svugdje.", head: ["Riječima ", "povezujemo", " svjetove."], lead: "Pisani, ovjereni i usmeni prijevodi na više od 30 jezika, uz lekturu i pisanje tekstova, sve na jednom mjestu i u roku koji Vam odgovara.", cta1: "Zatražite ponudu", cta2: "Pogledajte usluge" },
+  en: { flag: "gb", name: "English", label: "Translation agency", typed: "Your message, understood everywhere.", head: ["We ", "connect", " worlds through words."], lead: "Written, certified and spoken translation in more than 30 languages, with proofreading and copywriting, all in one place and on your deadline.", cta1: "Request a quote", cta2: "See our services" },
+  sl: { flag: "si", name: "Slovenščina", label: "Prevajalska agencija", typed: "Vaše sporočilo, razumljivo povsod.", head: ["Z besedami ", "povezujemo", " svetove."], lead: "Pisni, overjeni in ustni prevodi v več kot 30 jezikov, z lekturo in pisanjem besedil, vse na enem mestu in v roku, ki vam ustreza.", cta1: "Zahtevajte ponudbo", cta2: "Oglejte si storitve" },
+  de: { flag: "de", name: "Deutsch", label: "Übersetzungsagentur", typed: "Ihre Botschaft, überall verständlich.", head: ["Mit Worten ", "verbinden", " wir Welten."], lead: "Schriftliche, beglaubigte und mündliche Übersetzungen in mehr als 30 Sprachen, dazu Lektorat und Texterstellung, alles aus einer Hand und zu Ihrem Wunschtermin.", cta1: "Angebot anfordern", cta2: "Leistungen ansehen" },
+  it: { flag: "it", name: "Italiano", label: "Agenzia di traduzioni", typed: "Il vostro messaggio, comprensibile ovunque.", head: ["Con le parole ", "uniamo", " i mondi."], lead: "Traduzioni scritte, asseverate e orali in oltre 30 lingue, con revisione e redazione di testi, tutto in un unico posto e nei tempi che vi servono.", cta1: "Richiedi un preventivo", cta2: "Scopri i servizi" },
+  fr: { flag: "fr", name: "Français", label: "Agence de traduction", typed: "Votre message, compris partout.", head: ["Par les mots, nous ", "relions", " les mondes."], lead: "Traductions écrites, assermentées et orales dans plus de 30 langues, avec relecture et rédaction, le tout au même endroit et dans vos délais.", cta1: "Demander un devis", cta2: "Voir nos services" },
+  es: { flag: "es", name: "Español", label: "Agencia de traducción", typed: "Su mensaje, comprensible en todas partes.", head: ["Con palabras ", "unimos", " mundos."], lead: "Traducciones escritas, juradas y orales en más de 30 idiomas, con revisión y redacción de textos, todo en un solo lugar y en el plazo que necesite.", cta1: "Solicitar presupuesto", cta2: "Ver servicios" }
+};
