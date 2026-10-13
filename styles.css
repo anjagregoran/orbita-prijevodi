@@ -122,15 +122,16 @@ main { overflow-x: clip; }
 .glyph.o { color: var(--accent); }
 
 /* Trust strip and document picker */
-.trust { display: flex; align-items: center; gap: 36px; margin-inline: var(--pad); padding: 26px 0; }
-.trust .label { margin: 0; white-space: nowrap; }
+.trust { display: flex; align-items: center; gap: 44px; padding: 30px var(--pad); background: var(--accent); color: #fff; }
+.trust .label { margin: 0; white-space: nowrap; color: #fff; font-size: 13px; }
+.trust .label::before { display: none; }
 .marquee { overflow: hidden; flex: 1; mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); }
-.marquee-track { display: flex; width: max-content; animation: slide 36s linear infinite; font-family: var(--serif); font-size: clamp(20px, 2vw, 26px); color: var(--ink-soft); }
-.marquee-track span, .marquee-track i { font-style: normal; padding-right: 64px; white-space: nowrap; }
+.marquee-track { display: flex; width: max-content; animation: slide 36s linear infinite; font-family: var(--serif); font-size: clamp(26px, 2.6vw, 36px); color: #fff; }
+.marquee-track span, .marquee-track i { font-style: normal; padding-right: 84px; white-space: nowrap; }
 .marquee-track .dup { padding: 0; display: flex; }
 .marquee:hover .marquee-track { animation-play-state: paused; }
 @keyframes slide { to { transform: translateX(-50%); } }
-.docs { margin-inline: var(--pad); padding: clamp(50px, 7vw, 90px) 0; border-top: 1px solid var(--line); }
+.docs { margin-inline: var(--pad); padding: clamp(50px, 7vw, 90px) 0; }
 .docs h2 { max-width: none; }
 .doc-list { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 34px; }
 .doc { border: 1px solid var(--line); box-shadow: 0 1px 2px rgba(28, 31, 36, 0.04); background: var(--paper); border-radius: 999px; padding: 14px 24px; font-size: 17px; transition: background 0.25s, color 0.25s, border-color 0.25s, transform 0.25s; }
