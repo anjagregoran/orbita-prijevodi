@@ -45,8 +45,8 @@ h1 em, h2 em { font-style: italic; color: var(--accent); }
 .pill-accent:hover { background: #c04c31; }
 
 /* Nav */
-.nav { position: fixed; top: 14px; left: 50%; translate: -50% 0; width: min(1280px, calc(100% - 28px)); z-index: 50; display: flex; align-items: center; gap: 16px; padding: 10px 12px 10px 28px; border-radius: 999px; background: rgba(255, 255, 255, 0.06); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); border: 1px solid rgba(28, 31, 36, 0.22); transition: background 0.3s, border-color 0.3s; }
-.nav.scrolled { background: rgba(255, 255, 255, 0.18); border-color: rgba(28, 31, 36, 0.3); }
+.nav { position: fixed; top: 28px; left: 50%; translate: -50% 0; width: min(1280px, calc(100% - 40px)); z-index: 50; display: flex; align-items: center; gap: 16px; padding: 12px 14px 12px 30px; border-radius: 999px; background: linear-gradient(180deg, rgba(255, 255, 255, 0.22), rgba(255, 255, 255, 0.06)); -webkit-backdrop-filter: blur(14px) saturate(1.6); backdrop-filter: blur(14px) saturate(1.6); border: 1px solid rgba(28, 31, 36, 0.16); box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.95), inset 0 -1px 0 rgba(255, 255, 255, 0.35), 0 10px 34px rgba(28, 31, 36, 0.07); transition: top 0.3s, box-shadow 0.3s; }
+.nav.scrolled { top: 16px; box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.95), inset 0 -1px 0 rgba(255, 255, 255, 0.35), 0 14px 40px rgba(28, 31, 36, 0.12); }
 .brand { display: inline-flex; align-items: center; }
 .brand img { height: 42px; width: auto; display: block; }
 .nav-links { display: flex; gap: 4px; margin-left: auto; font-size: 17px; font-weight: 500; }
@@ -61,15 +61,18 @@ h1 em, h2 em { font-style: italic; color: var(--accent); }
 
 /* Hero */
 main { overflow-x: clip; }
-.hero { min-height: 100svh; display: grid; grid-template-columns: 0.88fr 1.12fr; align-items: center; gap: 24px; padding: 120px var(--pad) 40px; }
+.hero { min-height: 100svh; display: grid; grid-template-columns: 0.88fr 1.12fr; align-items: center; gap: 24px; padding: 136px var(--pad) 40px; }
 .hero-text { position: relative; z-index: 2; align-self: start; padding-top: clamp(24px, 9vh, 96px); }
 .typed { font-family: "DM Mono", ui-monospace, monospace; font-size: clamp(13px, 1.15vw, 16px); letter-spacing: 0.2em; text-transform: uppercase; color: var(--blue); min-height: 1.6em; margin-bottom: 18px; }
 .hero-label { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 22px; }
 .hero-label::before { display: none; }
 .hero-label span::before { content: ""; display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: var(--accent); margin-right: 12px; vertical-align: 2px; }
-.place { display: inline-flex; align-items: center; gap: 7px; padding: 7px 14px 7px 10px; border: 1px solid var(--line); border-radius: 999px; background: #fff; color: var(--ink); transition: border-color 0.25s, color 0.25s; }
-.place svg { color: var(--accent); }
-.place:hover { border-color: var(--blue); color: var(--blue); }
+.place { position: relative; display: inline-flex; align-items: center; gap: 7px; padding-left: 22px; color: var(--ink); }
+.place::before { content: ""; position: absolute; left: 0; top: 50%; width: 1px; height: 16px; translate: 0 -50%; background: var(--line); }
+.place::after { content: ""; position: absolute; left: 45px; right: 0.2em; bottom: -5px; height: 1px; background: var(--accent); transform: scaleX(0); transform-origin: left; transition: transform 0.3s; }
+.place:hover::after { transform: scaleX(1); }
+.place svg { color: var(--accent); transition: transform 0.3s; }
+.place:hover svg { transform: translateY(-3px); }
 .caret { display: inline-block; width: 2px; height: 1.15em; margin-left: 1px; background: var(--accent); vertical-align: -0.15em; animation: blink 1s steps(1) infinite; }
 @keyframes blink { 50% { opacity: 0; } }
 .lead { font-size: clamp(17px, 1.5vw, 21px); max-width: 46ch; margin: 26px 0 32px; color: var(--ink-soft); }
@@ -223,7 +226,8 @@ blockquote { font-family: var(--serif); font-weight: 300; font-size: clamp(24px,
   .trust { flex-direction: column; align-items: flex-start; gap: 14px; }
   .marquee { width: 100%; }
   .brand img { height: 36px; }
-  .nav { padding: 8px 8px 8px 20px; }
+  .nav { top: 16px; width: calc(100% - 24px); padding: 8px 8px 8px 20px; }
+  .nav.scrolled { top: 10px; }
   .nav-links { position: absolute; top: calc(100% + 10px); left: 0; right: 0; background: #fff; border: 1px solid var(--line); box-shadow: var(--shadow); border-radius: 28px; padding: 14px; flex-direction: column; gap: 2px; font-family: var(--serif); font-size: 26px; font-weight: 300; opacity: 0; pointer-events: none; translate: 0 -8px; transition: opacity 0.25s, translate 0.25s; margin: 0; }
   .nav-links.open { opacity: 1; pointer-events: auto; translate: 0 0; }
   .hero { grid-template-columns: 1fr; padding-top: 110px; gap: 10px; }
