@@ -58,13 +58,14 @@
     [35.7, 139.7, "ja", "jp"], [40.7, -74, "en", "us"], [45.5, -73.6, "fr", "ca"], [19.4, -99.1, "es", "mx"], [-34.6, -58.4, "es", "ar"],
     [-23.5, -46.6, "pt", "br"], [14.7, -17.4, "fr", "sn"], [-33.9, 18.4, "en", "za"], [-33.9, 151.2, "en", "au"], [1.35, 103.8, "zh", "sg"],
     [25.2, 55.3, "ar", "ae"]
-  ].map(([lat, lon, lang, cc]) => ({ words: LANG[lang], v: vec(lat, lon), flag: flagImage(cc) }));
+  ].map(([lat, lon, lang, cc]) => ({ lang, words: LANG[lang], v: vec(lat, lon), flag: flagImage(cc) }));
 
   const HR = flagImage("hr");
 
   let W = 0, H = 0, R = 0, S = 0, cx = 0, cy = 0, dpr = 1;
   let dots = [], arcs = [], lam = 0, user = 0, vel = 0, dragging = false, lastX = 0;
   let visible = true, lastSpawn = 0, lastCity = -1, turn = 0;
+  const used = new Set();
 
   function size() {
     W = el.clientWidth; H = W;
@@ -272,9 +273,7 @@
         prev = p;
       }
       ctx.shadowColor = "transparent"; ctx.shadowBlur = 0;
-      if (grow < 1) {
-        if (prev && shown(prev)) word(SOURCE[a.n], prev[0], prev[1] + 6 * S, BLUE, Math.min(1, age / 0.3) * Math.min(1, (1 - grow) / 0.15), HR);
-      } else {
+      if (grow >= 1) {
         const p = proj(a.city.v), fade = Math.min(1, (age - 1.7) / 0.3) * Math.min(1, (5.2 - age) / 0.6);
         if (p[2] > 0.05) {
           ctx.fillStyle = `rgba(${CORAL},${fade})`;
@@ -292,6 +291,7 @@
       ctx.beginPath(); ctx.arc(h[0], h[1], 7 * S + pulse * 26 * S, 0, 7); ctx.stroke();
       ctx.fillStyle = `rgb(${CORAL})`;
       ctx.beginPath(); ctx.arc(h[0], h[1], 7 * S, 0, 7); ctx.fill();
+      if (arcs.length) word(SOURCE[arcs[arcs.length - 1].n], h[0], h[1] + 66 * S, BLUE, Math.min(1, (t - arcs[arcs.length - 1].start) / 0.3), HR);
     }
 
     ring(-0.42, 1.25, 1.2, t * 0.22 + 1, BLUE, true);
@@ -299,10 +299,13 @@
 
     if (!still && t - lastSpawn > 1.5 && h[2] > 0.1) {
       const ok = (c) => { const p = proj(c.v); return p[2] > 0.25; };
-      const pool = CITIES.map((c, i) => i).filter((i) => i !== lastCity && ok(CITIES[i]) && !arcs.some((a) => dot(a.city.v, CITIES[i].v) > 0.975));
+      const near = CITIES.map((c, i) => i).filter((i) => ok(CITIES[i]) && !arcs.some((a) => dot(a.city.v, CITIES[i].v) > 0.975));
+      let pool = near.filter((i) => !used.has(CITIES[i].lang));
+      if (!pool.length && near.length) { used.clear(); arcs.forEach((a) => used.add(a.city.lang)); pool = near.filter((i) => !used.has(CITIES[i].lang)); }
       if (pool.length) {
         lastCity = pool[Math.floor(Math.random() * pool.length)];
-        const c = CITIES[lastCity], d = Math.acos(Math.min(1, dot(HUB, c.v)));
+        const c = CITIES[lastCity]; used.add(c.lang);
+        const d = Math.acos(Math.min(1, dot(HUB, c.v)));
         arcs.push({ city: c, start: t, lift: 0.1 + d * 0.26, n: turn++ % SOURCE.length });
         lastSpawn = t;
       }
