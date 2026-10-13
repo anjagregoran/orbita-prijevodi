@@ -14,18 +14,45 @@
     return [cl * Math.sin(lon * RAD), Math.sin(lat * RAD), cl * Math.cos(lon * RAD)];
   };
   const HUB = vec(45.6, 15.4);
-  const SOURCE = ["hvala", "bok", "dobrodošli"];
+  // Each language: thank you, hi, welcome, love, peace
+  const SOURCE = ["hvala", "bok", "dobrodošli", "ljubav", "mir"];
+  const LANG = {
+    en: ["thank you", "hello", "welcome", "love", "peace"],
+    de: ["danke", "hallo", "willkommen", "Liebe", "Frieden"],
+    es: ["gracias", "hola", "bienvenidos", "amor", "paz"],
+    fr: ["merci", "salut", "bienvenue", "amour", "paix"],
+    it: ["grazie", "ciao", "benvenuti", "amore", "pace"],
+    pt: ["obrigado", "olá", "bem-vindos", "amor", "paz"],
+    nl: ["dank je", "hallo", "welkom", "liefde", "vrede"],
+    sv: ["tack", "hej", "välkommen", "kärlek", "fred"],
+    da: ["tak", "hej", "velkommen", "kærlighed", "fred"],
+    pl: ["dziękuję", "cześć", "witamy", "miłość", "pokój"],
+    cs: ["děkuji", "ahoj", "vítejte", "láska", "mír"],
+    hu: ["köszönöm", "szia", "üdvözöljük", "szerelem", "béke"],
+    ro: ["mulțumesc", "salut", "bun venit", "dragoste", "pace"],
+    bg: ["благодаря", "здравей", "добре дошли", "любов", "мир"],
+    sq: ["faleminderit", "tungjatjeta", "mirë se vini", "dashuri", "paqe"],
+    lt: ["ačiū", "labas", "sveiki atvykę", "meilė", "taika"],
+    uk: ["дякую", "привіт", "ласкаво просимо", "любов", "мир"],
+    ru: ["спасибо", "привет", "добро пожаловать", "любовь", "мир"],
+    el: ["ευχαριστώ", "γεια σου", "καλώς ήρθατε", "αγάπη", "ειρήνη"],
+    tr: ["teşekkürler", "merhaba", "hoş geldiniz", "aşk", "barış"],
+    he: ["תודה", "שלום", "ברוכים הבאים", "אהבה", "שלום"],
+    ar: ["شكرا", "مرحبا", "أهلا وسهلا", "حب", "سلام"],
+    fa: ["ممنون", "سلام", "خوش آمدید", "عشق", "صلح"],
+    zh: ["谢谢", "你好", "欢迎", "爱", "和平"],
+    ja: ["ありがとう", "こんにちは", "ようこそ", "愛", "平和"]
+  };
   const CITIES = [
-    [51.5, -0.1, "thank you", "hello", "welcome"], [52.5, 13.4, "danke", "hallo", "willkommen"],
-    [40.4, -3.7, "gracias", "hola", "bienvenidos"], [59.3, 18.1, "tack", "hej", "välkommen"],
-    [50.5, 30.5, "дякую", "привіт", "ласкаво просимо"], [38, 23.7, "ευχαριστώ", "γεια σου", "καλώς ήρθατε"],
-    [39.9, 32.9, "teşekkürler", "merhaba", "hoş geldiniz"], [32.1, 34.8, "תודה", "שלום", "ברוכים הבאים"],
-    [24.7, 46.7, "شكرا", "مرحبا", "أهلا وسهلا"], [35.7, 51.4, "ممنون", "سلام", "خوش آمدید"],
-    [39.9, 116.4, "谢谢", "你好", "欢迎"], [35.7, 139.7, "ありがとう", "こんにちは", "ようこそ"],
-    [40.7, -74, "thank you", "hello", "welcome"], [-23.5, -46.6, "obrigado", "olá", "bem-vindos"],
-    [14.7, -17.4, "merci", "salut", "bienvenue"], [48.9, 2.3, "merci", "salut", "bienvenue"],
-    [41.9, 12.5, "grazie", "ciao", "benvenuti"], [52.2, 21, "dziękuję", "cześć", "witamy"]
-  ].map(([lat, lon, ...words]) => ({ words, v: vec(lat, lon) }));
+    [51.5, -0.1, "en"], [52.5, 13.4, "de"], [40.4, -3.7, "es"], [48.9, 2.3, "fr"], [41.9, 12.5, "it"],
+    [38.7, -9.1, "pt"], [52.4, 4.9, "nl"], [59.3, 18.1, "sv"], [55.7, 12.6, "da"], [52.2, 21, "pl"],
+    [50.1, 14.4, "cs"], [47.5, 19, "hu"], [44.4, 26.1, "ro"], [42.7, 23.3, "bg"], [41.3, 19.8, "sq"],
+    [54.7, 25.3, "lt"], [50.5, 30.5, "uk"], [55.8, 37.6, "ru"], [38, 23.7, "el"], [39.9, 32.9, "tr"],
+    [32.1, 34.8, "he"], [30, 31.2, "ar"], [24.7, 46.7, "ar"], [35.7, 51.4, "fa"], [39.9, 116.4, "zh"],
+    [35.7, 139.7, "ja"], [40.7, -74, "en"], [45.5, -73.6, "fr"], [19.4, -99.1, "es"], [-34.6, -58.4, "es"],
+    [-23.5, -46.6, "pt"], [14.7, -17.4, "fr"], [-33.9, 18.4, "en"], [-33.9, 151.2, "en"], [1.35, 103.8, "zh"],
+    [25.2, 55.3, "ar"], [64.1, -21.9, "da"], [43.7, -79.4, "en"]
+  ].map(([lat, lon, lang]) => ({ words: LANG[lang], v: vec(lat, lon) }));
 
   let W = 0, H = 0, R = 0, S = 0, cx = 0, cy = 0, dpr = 1;
   let dots = [], arcs = [], lam = 0, user = 0, vel = 0, dragging = false, lastX = 0;
@@ -33,11 +60,11 @@
 
   function size() {
     W = el.clientWidth; H = W;
-    R = W * 0.38;
+    R = W * 0.41;
     S = Math.min(1.1, Math.max(0.6, R / 330));
     dpr = Math.min(devicePixelRatio || 1, W > 900 ? 1.5 : 2);
     el.width = Math.round(W * dpr); el.height = Math.round(H * dpr);
-    cx = W / 2; cy = H / 2;
+    cx = W / 2; cy = H * 0.475;
   }
 
   // Rotate a geo vector into view space, then project it flat.
@@ -79,7 +106,7 @@
       }));
       c.fill("evenodd");
       const data = c.getImageData(0, 0, mw, mh).data;
-      dots = fibonacci(30000, (lat, lon) => {
+      dots = fibonacci(46000, (lat, lon) => {
         if (lat < -60) return false;
         const x = Math.min(mw - 1, Math.floor(((lon + 180) / 360) * mw)), y = Math.min(mh - 1, Math.floor(((90 - lat) / 180) * mh));
         return data[(y * mw + x) * 4 + 3] > 120;
@@ -94,6 +121,14 @@
     const om = Math.acos(Math.min(1, dot(a, b))), s = Math.sin(om) || 1;
     const k1 = Math.sin((1 - t) * om) / s, k2 = Math.sin(t * om) / s;
     return [a[0] * k1 + b[0] * k2, a[1] * k1 + b[1] * k2, a[2] * k1 + b[2] * k2];
+  }
+
+  function line(f, n) {
+    let pen = false;
+    for (let i = 0; i <= n; i++) {
+      const p = proj(f(i));
+      if (p[2] > 0.02) { pen ? ctx.lineTo(p[0], p[1]) : ctx.moveTo(p[0], p[1]); pen = true; } else pen = false;
+    }
   }
 
   function ring(tiltZ, tiltX, r, t, color, front) {
@@ -144,27 +179,56 @@
     ctx.clearRect(0, 0, W, H);
     lam = (15 + 42 * Math.sin(t * 0.09)) * RAD + user;
 
-    ring(-0.42, 1.25, 1.28, t * 0.22 + 1, BLUE, false);
-    ring(0.5, 1.12, 1.16, -t * 0.3 + 2.4, CORAL, false);
+    ring(-0.42, 1.25, 1.2, t * 0.22 + 1, BLUE, false);
+    ring(0.5, 1.12, 1.11, -t * 0.3 + 2.4, CORAL, false);
+
+    // Soft shadow under the globe
+    ctx.save();
+    ctx.translate(cx, cy + R * 1.1); ctx.scale(1, 0.1);
+    const sh = ctx.createRadialGradient(0, 0, 0, 0, 0, R * 0.85);
+    sh.addColorStop(0, `rgba(${INK},0.22)`); sh.addColorStop(1, `rgba(${INK},0)`);
+    ctx.fillStyle = sh;
+    ctx.beginPath(); ctx.arc(0, 0, R * 0.85, 0, 7); ctx.fill();
+    ctx.restore();
 
     // Atmosphere, then sphere body
-    const halo = ctx.createRadialGradient(cx, cy, R * 0.96, cx, cy, R * 1.2);
-    halo.addColorStop(0, `rgba(${BLUE},0.42)`); halo.addColorStop(1, `rgba(${BLUE},0)`);
+    const halo = ctx.createRadialGradient(cx, cy, R * 0.97, cx, cy, R * 1.17);
+    halo.addColorStop(0, `rgba(${BLUE},0.5)`); halo.addColorStop(0.4, `rgba(${BLUE},0.16)`); halo.addColorStop(1, `rgba(${BLUE},0)`);
     ctx.fillStyle = halo;
-    ctx.beginPath(); ctx.arc(cx, cy, R * 1.2, 0, 7); ctx.fill();
-    const g = ctx.createRadialGradient(cx - R * 0.3, cy - R * 0.75, R * 0.05, cx, cy, R);
-    g.addColorStop(0, "#ffffff"); g.addColorStop(0.5, "#e9f3fa"); g.addColorStop(1, "#b5d6ed");
+    ctx.beginPath(); ctx.arc(cx, cy, R * 1.17, 0, 7); ctx.fill();
+    const g = ctx.createRadialGradient(cx - R * 0.42, cy - R * 0.48, R * 0.02, cx, cy, R);
+    g.addColorStop(0, "#ffffff"); g.addColorStop(0.45, "#eef6fb"); g.addColorStop(1, "#cfe4f3");
     ctx.fillStyle = g;
     ctx.beginPath(); ctx.arc(cx, cy, R, 0, 7); ctx.fill();
 
+    // Latitude and longitude lines
+    ctx.strokeStyle = "rgba(255,255,255,0.9)"; ctx.lineWidth = 1;
+    ctx.beginPath();
+    for (let lon = -180; lon < 180; lon += 20) line((i) => vec(-80 + (i * 160) / 40, lon), 40);
+    for (let lat = -60; lat <= 80; lat += 20) line((i) => vec(lat, -180 + (i * 360) / 90), 90);
+    ctx.stroke();
+
     // Land
-    const ds = Math.max(1.1, R * 0.0072);
+    const ds = Math.max(1.1, R * 0.0066);
     for (let i = 0; i < dots.length; i++) {
       const p = proj(dots[i]);
-      if (p[2] <= 0.02 || p[1] > H + 4 || p[0] < -4 || p[0] > W + 4) continue;
-      ctx.fillStyle = `rgba(${BLUE},${0.6 + 0.4 * p[2]})`;
-      ctx.beginPath(); ctx.arc(p[0], p[1], ds * (0.72 + 0.28 * p[2]), 0, 7); ctx.fill();
+      if (p[2] <= 0.02) continue;
+      ctx.fillStyle = `rgba(${BLUE},${0.55 + 0.45 * p[2]})`;
+      ctx.beginPath(); ctx.arc(p[0], p[1], ds * (0.6 + 0.4 * p[2]), 0, 7); ctx.fill();
     }
+
+    // Light from the top left, shade towards the bottom right
+    ctx.save();
+    ctx.beginPath(); ctx.arc(cx, cy, R, 0, 7); ctx.clip();
+    const shade = ctx.createRadialGradient(cx - R * 0.35, cy - R * 0.4, R * 0.5, cx - R * 0.1, cy - R * 0.1, R * 1.25);
+    shade.addColorStop(0, "rgba(40,105,155,0)"); shade.addColorStop(1, "rgba(40,105,155,0.42)");
+    ctx.fillStyle = shade; ctx.fillRect(cx - R, cy - R, R * 2, R * 2);
+    const shine = ctx.createRadialGradient(cx - R * 0.45, cy - R * 0.5, 0, cx - R * 0.45, cy - R * 0.5, R * 0.75);
+    shine.addColorStop(0, "rgba(255,255,255,0.55)"); shine.addColorStop(1, "rgba(255,255,255,0)");
+    ctx.fillStyle = shine; ctx.fillRect(cx - R, cy - R, R * 2, R * 2);
+    ctx.restore();
+    ctx.strokeStyle = "rgba(255,255,255,0.9)"; ctx.lineWidth = 1.5;
+    ctx.beginPath(); ctx.arc(cx, cy, R - 0.5, 0, 7); ctx.stroke();
 
     // Words in flight
     arcs = arcs.filter((a) => t - a.start < 5.2);
@@ -172,7 +236,8 @@
       const age = t - a.start, grow = Math.min(1, age / 1.7), head = 1 - Math.pow(1 - grow, 3);
       const tail = age > 3 ? Math.min(1, (age - 3) / 1.6) : 0;
       const N = 56;
-      ctx.lineWidth = 2.4 * S; ctx.lineCap = "round";
+      ctx.lineWidth = 2.6 * S; ctx.lineCap = "round";
+      ctx.shadowColor = `rgba(${CORAL},0.55)`; ctx.shadowBlur = 10;
       let prev = null;
       for (let i = Math.floor(tail * N); i <= Math.ceil(head * N); i++) {
         const k = Math.min(head, i / N), p = proj(slerp(HUB, a.city.v, k), 1 + a.lift * Math.sin(Math.PI * k));
@@ -182,6 +247,7 @@
         }
         prev = p;
       }
+      ctx.shadowColor = "transparent"; ctx.shadowBlur = 0;
       if (grow < 1) {
         if (prev && shown(prev)) word(SOURCE[a.n], prev[0], prev[1] + 6 * S, BLUE, Math.min(1, age / 0.3) * Math.min(1, (1 - grow) / 0.15), false);
       } else {
@@ -204,10 +270,10 @@
       ctx.beginPath(); ctx.arc(h[0], h[1], 7 * S, 0, 7); ctx.fill();
     }
 
-    ring(-0.42, 1.25, 1.28, t * 0.22 + 1, BLUE, true);
-    ring(0.5, 1.12, 1.16, -t * 0.3 + 2.4, CORAL, true);
+    ring(-0.42, 1.25, 1.2, t * 0.22 + 1, BLUE, true);
+    ring(0.5, 1.12, 1.11, -t * 0.3 + 2.4, CORAL, true);
 
-    if (!still && t - lastSpawn > 1.1 && h[2] > 0.1) {
+    if (!still && t - lastSpawn > 0.8 && h[2] > 0.1) {
       const ok = (c) => { const p = proj(c.v); return p[2] > 0.25; };
       const pool = CITIES.map((c, i) => i).filter((i) => i !== lastCity && ok(CITIES[i]) && !arcs.some((a) => dot(a.city.v, CITIES[i].v) > 0.975));
       if (pool.length) {
