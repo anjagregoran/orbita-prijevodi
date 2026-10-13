@@ -76,5 +76,3 @@ const QUOTES = [
     who: "Zoran Mandić", role: "tehnički direktor, Inspirion d.o.o."
   }
 ];
-
-const GREETINGS = ["Dobrodošli", "Welcome", "Willkommen", "Benvenuti", "Bienvenue", "Bienvenidos", "Добро пожаловать", "Witamy", "ようこそ"];

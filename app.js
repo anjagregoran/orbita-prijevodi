@@ -10,18 +10,6 @@ burger.addEventListener("click", () => {
 });
 navLinks.addEventListener("click", () => { navLinks.classList.remove("open"); burger.classList.remove("open"); });
 
-// Hero greeting
-const greeting = $("#greeting");
-let g = 0;
-setInterval(() => {
-  greeting.classList.add("out");
-  setTimeout(() => {
-    g = (g + 1) % GREETINGS.length;
-    greeting.textContent = GREETINGS[g];
-    greeting.classList.remove("out");
-  }, 400);
-}, 2600);
-
 // Services
 const svcList = $("#svcList"), svcPanel = $("#svcPanel");
 function showService(i) {

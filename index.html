@@ -14,7 +14,7 @@
 
 <header class="nav" id="nav">
   <a class="brand" href="#top" aria-label="Orbita prijevodi, početna">
-    <span class="brand-mark" aria-hidden="true"></span>orbita
+    <img src="assets/orbita-logo.png" alt="Orbita" width="473" height="108">
   </a>
   <nav class="nav-links" id="navLinks">
     <a href="#usluge">Usluge</a>
@@ -41,23 +41,9 @@
       <p class="hero-note">Neobvezujuću ponudu šaljemo u najkraćem mogućem roku.</p>
     </div>
 
-    <div class="orbit" aria-hidden="true">
-      <div class="ring r1"></div>
-      <div class="ring r2"></div>
-      <div class="ring r3"></div>
-      <div class="core"><span id="greeting">Dobrodošli</span></div>
-      <div class="track t1"><span>English</span></div>
-      <div class="track t1 d2"><span>Slovenščina</span></div>
-      <div class="track t1 d3"><span>Deutsch</span></div>
-      <div class="track t2"><span>Italiano</span></div>
-      <div class="track t2 d2"><span>Français</span></div>
-      <div class="track t2 d3"><span>Español</span></div>
-      <div class="track t2 d4"><span>Srpski</span></div>
-      <div class="track t3"><span>日本語</span></div>
-      <div class="track t3 d2"><span>Українська</span></div>
-      <div class="track t3 d3"><span>العربية</span></div>
-      <div class="track t3 d4"><span>Ελληνικά</span></div>
-      <div class="track t3 d5"><span>中文</span></div>
+    <div class="globe-wrap">
+      <canvas id="globe" role="img" aria-label="Globus s pozdravima na raznim jezicima koji putuju iz Hrvatske u svijet"></canvas>
+      <p class="globe-hint">Povucite globus</p>
     </div>
   </section>
 
@@ -213,7 +199,7 @@
 
 <footer class="footer">
   <div class="footer-top">
-    <a class="brand" href="#top"><span class="brand-mark" aria-hidden="true"></span>orbita</a>
+    <a class="brand" href="#top"><img src="assets/orbita-logo.png" alt="Orbita" width="473" height="108"></a>
     <p>Riječima povezujemo svjetove.</p>
   </div>
   <div class="footer-bottom">
@@ -224,7 +210,9 @@
 
 <a class="float-cta pill pill-accent" href="#ponuda">Zatražite ponudu</a>
 
+<script src="https://cdn.jsdelivr.net/npm/topojson-client@3.1.0/dist/topojson-client.min.js"></script>
 <script src="content.js"></script>
+<script src="globe.js"></script>
 <script src="app.js"></script>
 </body>
 </html>
