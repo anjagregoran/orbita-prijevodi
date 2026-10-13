@@ -39,6 +39,8 @@ bulb.addEventListener("click", () => {
     $("#hLead").textContent = t.lead;
     $("#hCta1").textContent = t.cta1;
     $("#hCta2").textContent = t.cta2;
+    $("#hF1").textContent = t.f1;
+    $("#hF2").textContent = t.f2;
     hero.classList.remove("swap");
   }, 260);
 });

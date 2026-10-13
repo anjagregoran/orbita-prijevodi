@@ -89,7 +89,7 @@ const FLAGS = {
 
 // First-screen text in other languages (the light bulb in the header steps through them)
 const HERO_I18N = {
-  hr: { name: "", label: "Prevoditeljska agencija", typed: "Vaša poruka, razumljiva svugdje.", head: ["Riječima ", "povezujemo", " svjetove."], lead: "Pisani, ovjereni i usmeni prijevodi na više od 30 jezika, uz lekturu i pisanje tekstova, sve na jednom mjestu i u roku koji Vam odgovara.", cta1: "Zatražite ponudu", cta2: "Pogledajte usluge" },
-  pt: { name: "Português", label: "Agência de tradução", typed: "A sua mensagem, compreendida em todo o lado.", head: ["Com palavras ", "ligamos", " mundos."], lead: "Traduções escritas, certificadas e interpretação em mais de 30 línguas, com revisão e redação de textos, tudo num só lugar e no prazo que lhe convém.", cta1: "Pedir orçamento", cta2: "Ver serviços" },
-  zh: { name: "中文", label: "翻译公司", typed: "您的信息，世界都能读懂。", head: ["用语言", "连接", "世界。"], lead: "提供30多种语言的笔译、认证翻译和口译服务，并提供校对与文案撰写，一站式服务，按您的时间交付。", cta1: "获取报价", cta2: "查看服务" }
+  hr: { f1: "jezika", f2: "vrsta usluga", name: "", label: "Prevoditeljska agencija", typed: "Vaša poruka, razumljiva svugdje.", head: ["Riječima ", "povezujemo", " svjetove."], lead: "Pisani, ovjereni i usmeni prijevodi na više od 30 jezika, uz lekturu i pisanje tekstova, sve na jednom mjestu i u roku koji Vam odgovara.", cta1: "Zatražite ponudu", cta2: "Pogledajte usluge" },
+  pt: { f1: "línguas", f2: "tipos de serviço", name: "Português", label: "Agência de tradução", typed: "A sua mensagem, compreendida em todo o lado.", head: ["Com palavras ", "ligamos", " mundos."], lead: "Traduções escritas, certificadas e interpretação em mais de 30 línguas, com revisão e redação de textos, tudo num só lugar e no prazo que lhe convém.", cta1: "Pedir orçamento", cta2: "Ver serviços" },
+  zh: { f1: "种语言", f2: "类服务", name: "中文", label: "翻译公司", typed: "您的信息，世界都能读懂。", head: ["用语言", "连接", "世界。"], lead: "提供30多种语言的笔译、认证翻译和口译服务，并提供校对与文案撰写，一站式服务，按您的时间交付。", cta1: "获取报价", cta2: "查看服务" }
 };
