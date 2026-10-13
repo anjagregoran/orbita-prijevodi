@@ -3,7 +3,7 @@
   const el = document.getElementById("globe");
   if (!el) return;
   const ctx = el.getContext("2d");
-  const INK = "22,35,63", DEEP = "38,112,172", BLUE = "59,143,201", CORAL = "217,85,58";
+  const INK = "35,39,46", DEEP = "65,146,197", BLUE = "65,146,197", CORAL = "214,90,61";
   const RAD = Math.PI / 180;
   const TILT = 30 * RAD, cp = Math.cos(TILT), sp = Math.sin(TILT);
   const still = matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -150,7 +150,7 @@
     for (let i = 0; i < dots.length; i++) {
       const p = proj(dots[i]);
       if (p[2] <= 0.02) continue;
-      ctx.fillStyle = `rgba(${DEEP},${0.25 + 0.75 * p[2]})`;
+      ctx.fillStyle = `rgba(${DEEP},${0.35 + 0.65 * p[2]})`;
       ctx.beginPath(); ctx.arc(p[0], p[1], ds * (0.55 + 0.45 * p[2]), 0, 7); ctx.fill();
     }
 
@@ -166,7 +166,7 @@
         const k = Math.min(head, i / N), p = proj(slerp(HUB, a.city.v, k), 1 + a.lift * Math.sin(Math.PI * k));
         if (prev && shown(p) && shown(prev)) {
           const mix = k;
-          ctx.strokeStyle = `rgba(${Math.round(59 + (217 - 59) * mix)},${Math.round(143 + (85 - 143) * mix)},${Math.round(201 + (58 - 201) * mix)},0.95)`;
+          ctx.strokeStyle = `rgba(${Math.round(65 + (214 - 65) * mix)},${Math.round(146 + (90 - 146) * mix)},${Math.round(197 + (61 - 197) * mix)},0.95)`;
           ctx.beginPath(); ctx.moveTo(prev[0], prev[1]); ctx.lineTo(p[0], p[1]); ctx.stroke();
         }
         prev = p;
