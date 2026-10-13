@@ -5,6 +5,14 @@ history.scrollRestoration = "manual";
 if (location.hash) history.replaceState(null, "", location.pathname);
 scrollTo(0, 0);
 
+// Typewriter line above the headline
+const typed = $("#typed"), phrase = "Vaša poruka, razumljiva svugdje.";
+if (matchMedia("(prefers-reduced-motion: reduce)").matches) typed.textContent = phrase;
+else setTimeout(function type() {
+  typed.textContent = phrase.slice(0, typed.textContent.length + 1);
+  if (typed.textContent.length < phrase.length) setTimeout(type, 45 + Math.random() * 60);
+}, 700);
+
 // Nav
 const nav = $("#nav"), burger = $("#burger"), navLinks = $("#navLinks");
 addEventListener("scroll", () => nav.classList.toggle("scrolled", scrollY > 20), { passive: true });

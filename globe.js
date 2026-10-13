@@ -64,7 +64,7 @@
 
   let W = 0, H = 0, R = 0, S = 0, cx = 0, cy = 0, dpr = 1;
   let dots = [], arcs = [], lam = 0, user = 0, vel = 0, dragging = false, lastX = 0;
-  let visible = true, lastSpawn = 0, lastCity = -1, turn = 0;
+  let visible = true, lastSpawn = 0, turn = 0, now_t = 0, moved = 0;
   const used = new Set();
 
   function size() {
@@ -202,7 +202,7 @@
     const t = now / 1000;
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     ctx.clearRect(0, 0, W, H);
-    lam = (15 + 42 * Math.sin(t * 0.09)) * RAD + user;
+    lam = (15 + 82 * Math.sin(t * 0.17)) * RAD + user;
 
     ring(-0.42, 1.25, 1.2, t * 0.22 + 1, BLUE, false);
     ring(0.5, 1.12, 1.11, -t * 0.3 + 2.4, CORAL, false);
@@ -256,10 +256,10 @@
     ctx.beginPath(); ctx.arc(cx, cy, R - 0.5, 0, 7); ctx.stroke();
 
     // Words in flight
-    arcs = arcs.filter((a) => t - a.start < 5.2);
+    arcs = arcs.filter((a) => t - a.start < 2.6);
     arcs.forEach((a) => {
-      const age = t - a.start, grow = Math.min(1, age / 1.7), head = 1 - Math.pow(1 - grow, 3);
-      const tail = age > 3 ? Math.min(1, (age - 3) / 1.6) : 0;
+      const age = t - a.start, grow = Math.min(1, age / 0.85), head = 1 - Math.pow(1 - grow, 3);
+      const tail = age > 1.4 ? Math.min(1, (age - 1.4) / 1) : 0;
       const N = 56;
       ctx.lineWidth = 2.6 * S; ctx.lineCap = "round";
       ctx.shadowColor = `rgba(${CORAL},0.55)`; ctx.shadowBlur = 10;
@@ -274,7 +274,7 @@
       }
       ctx.shadowColor = "transparent"; ctx.shadowBlur = 0;
       if (grow >= 1) {
-        const p = proj(a.city.v), fade = Math.min(1, (age - 1.7) / 0.3) * Math.min(1, (5.2 - age) / 0.6);
+        const p = proj(a.city.v), fade = Math.min(1, (age - 0.85) / 0.15) * Math.min(1, (2.6 - age) / 0.35);
         if (p[2] > 0.05) {
           ctx.fillStyle = `rgba(${CORAL},${fade})`;
           ctx.beginPath(); ctx.arc(p[0], p[1], 4.5 * S, 0, 7); ctx.fill();
@@ -291,25 +291,26 @@
       ctx.beginPath(); ctx.arc(h[0], h[1], 7 * S + pulse * 26 * S, 0, 7); ctx.stroke();
       ctx.fillStyle = `rgb(${CORAL})`;
       ctx.beginPath(); ctx.arc(h[0], h[1], 7 * S, 0, 7); ctx.fill();
-      if (arcs.length) word(SOURCE[arcs[arcs.length - 1].n], h[0], h[1] + 66 * S, BLUE, Math.min(1, (t - arcs[arcs.length - 1].start) / 0.3), HR);
+      if (arcs.length) word(SOURCE[arcs[arcs.length - 1].n], h[0], h[1] + 66 * S, BLUE, Math.min(1, (t - arcs[arcs.length - 1].start) / 0.12), HR);
     }
 
     ring(-0.42, 1.25, 1.2, t * 0.22 + 1, BLUE, true);
     ring(0.5, 1.12, 1.11, -t * 0.3 + 2.4, CORAL, true);
 
-    if (!still && t - lastSpawn > 1.5 && h[2] > 0.1) {
-      const ok = (c) => { const p = proj(c.v); return p[2] > 0.25; };
-      const near = CITIES.map((c, i) => i).filter((i) => ok(CITIES[i]) && !arcs.some((a) => dot(a.city.v, CITIES[i].v) > 0.975));
+    if (!still && t - lastSpawn > 0.55 && h[2] > 0.1) {
+      const near = CITIES.map((c, i) => i).filter((i) => proj(CITIES[i].v)[2] > 0.2 && !arcs.some((a) => dot(a.city.v, CITIES[i].v) > 0.975));
       let pool = near.filter((i) => !used.has(CITIES[i].lang));
       if (!pool.length && near.length) { used.clear(); arcs.forEach((a) => used.add(a.city.lang)); pool = near.filter((i) => !used.has(CITIES[i].lang)); }
-      if (pool.length) {
-        lastCity = pool[Math.floor(Math.random() * pool.length)];
-        const c = CITIES[lastCity]; used.add(c.lang);
-        const d = Math.acos(Math.min(1, dot(HUB, c.v)));
-        arcs.push({ city: c, start: t, lift: 0.1 + d * 0.26, n: turn++ % SOURCE.length });
-        lastSpawn = t;
-      }
+      if (pool.length) launch(CITIES[pool[Math.floor(Math.random() * pool.length)]], t);
     }
+    now_t = t;
+  }
+
+  function launch(c, t) {
+    used.add(c.lang);
+    const d = Math.acos(Math.min(1, dot(HUB, c.v)));
+    arcs.push({ city: c, start: t, lift: 0.1 + d * 0.26, n: turn++ % SOURCE.length });
+    lastSpawn = t;
   }
 
   function frame(now) {
@@ -318,14 +319,24 @@
     requestAnimationFrame(frame);
   }
 
-  el.addEventListener("pointerdown", (e) => { dragging = true; lastX = e.clientX; vel = 0; el.setPointerCapture(e.pointerId); el.classList.add("grabbing"); });
+  el.addEventListener("pointerdown", (e) => { dragging = true; lastX = e.clientX; vel = 0; moved = 0; el.setPointerCapture(e.pointerId); el.classList.add("grabbing"); });
   el.addEventListener("pointermove", (e) => {
     if (!dragging) return;
     const d = ((e.clientX - lastX) / R) * -1;
-    user += d; vel = d; lastX = e.clientX;
+    user += d; vel = d; moved += Math.abs(e.clientX - lastX); lastX = e.clientX;
   });
   const drop = () => { dragging = false; el.classList.remove("grabbing"); };
-  el.addEventListener("pointerup", drop);
+  el.addEventListener("pointerup", (e) => {
+    drop();
+    if (moved > 6) return;
+    const r = el.getBoundingClientRect(), x = e.clientX - r.left, y = e.clientY - r.top;
+    let best = null, bd = 1e9;
+    CITIES.forEach((c) => {
+      const p = proj(c.v), dd = Math.hypot(p[0] - x, p[1] - y);
+      if (p[2] > 0.1 && dd < bd && !arcs.some((a) => a.city === c)) { bd = dd; best = c; }
+    });
+    if (best && bd < R * 0.5) launch(best, now_t);
+  });
   el.addEventListener("pointercancel", drop);
 
   new IntersectionObserver(([en]) => (visible = en.isIntersecting)).observe(el);
