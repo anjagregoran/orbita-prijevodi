@@ -94,6 +94,7 @@ document.addEventListener("click", (e) => {
   const a = e.target.closest("[data-svc]");
   if (!a) return;
   chips.querySelectorAll("input").forEach((c) => (c.checked = c.value === a.dataset.svc));
+  if (a.dataset.doc) form.elements.msg.value = `Dokument: ${a.dataset.doc}`;
 });
 form.addEventListener("submit", (e) => {
   e.preventDefault();
@@ -135,5 +136,16 @@ document.querySelectorAll(".reveal").forEach((el) => io.observe(el));
 // Floating button hides once the form is on screen
 const floatCta = $(".float-cta");
 new IntersectionObserver(([en]) => floatCta.classList.toggle("hide", en.isIntersecting), { threshold: 0.05 }).observe($("#ponuda"));
+
+// Decorative letters drift a little as the page scrolls
+const glyphs = [...document.querySelectorAll(".glyph")];
+if (!matchMedia("(prefers-reduced-motion: reduce)").matches) {
+  const drift = () => glyphs.forEach((gl) => {
+    const r = gl.parentElement.getBoundingClientRect();
+    gl.style.transform = `translateY(${(r.top - innerHeight / 2) * gl.dataset.speed}px)`;
+  });
+  addEventListener("scroll", drift, { passive: true });
+  drift();
+}
 
 $("#year").textContent = new Date().getFullYear();
