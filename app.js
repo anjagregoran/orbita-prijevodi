@@ -197,16 +197,4 @@ if (!matchMedia("(prefers-reduced-motion: reduce)").matches) {
   drift();
 }
 
-// The photo behind the first screen drifts with scrolling and with the mouse
-const heroBg = $("#heroBg");
-if (!calm) {
-  let bx = 0, by = 0, tx = 0, ty = 0;
-  addEventListener("pointermove", (e) => { tx = e.clientX / innerWidth - 0.5; ty = e.clientY / innerHeight - 0.5; }, { passive: true });
-  (function drift() {
-    bx += (tx - bx) * 0.06; by += (ty - by) * 0.06;
-    if (scrollY < innerHeight * 1.2) heroBg.style.transform = `translate3d(${bx * -46}px, ${by * -30 + scrollY * 0.32}px, 0) scale(1.04)`;
-    requestAnimationFrame(drift);
-  })();
-}
-
 $("#year").textContent = new Date().getFullYear();
