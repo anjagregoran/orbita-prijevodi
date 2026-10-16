@@ -80,7 +80,7 @@ h1 em, h2 em { font-style: italic; color: var(--accent); }
 /* Hero */
 main { overflow-x: clip; }
 .hero { position: relative; min-height: 100svh; display: grid; grid-template-columns: 1.05fr 0.95fr; align-items: center; gap: 24px; padding: 130px var(--pad) 165px; color: #fbf5ec; background: #14161b; overflow: clip; }
-.hero-bg { position: absolute; inset: 0; background: url("assets/hero-desk.jpg") right center / cover no-repeat; }
+.hero-bg { position: absolute; inset: 0; background: url("assets/hero-desk.jpg?v=43") right center / cover no-repeat; }
 .hero::before { content: ""; position: absolute; inset: 0; z-index: 1; background: linear-gradient(0deg, rgba(38, 20, 8, 0.5) 0%, rgba(38, 20, 8, 0) 32%), linear-gradient(90deg, rgba(38, 20, 8, 0.66) 0%, rgba(38, 20, 8, 0.42) 48%, rgba(38, 20, 8, 0.16) 100%); }
 /* Warm variation of the photo, previewed with ?warm in the address */
 .hero.warm .hero-bg { filter: sepia(0.7) saturate(1.6) hue-rotate(-10deg) brightness(1.22) contrast(0.94); }
