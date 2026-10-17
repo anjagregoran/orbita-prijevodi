@@ -54,7 +54,7 @@ h1 em, h2 em { font-style: italic; color: var(--accent); }
 .nav-links a:hover { background: var(--accent); color: #fff; }
 .nav-cta { padding: 15px 26px; font-size: 16px; box-shadow: none; }
 .lamp { position: absolute; top: 100%; left: 42%; display: flex; flex-direction: column; align-items: center; padding: 0 16px 16px; background: none; border: 0; cursor: pointer; color: var(--ink); transform-origin: top center; animation: sway 5s ease-in-out infinite; }
-.lamp .cord { width: 1.5px; height: 64px; background: currentColor; opacity: 0.75; }
+.lamp .cord { width: 1.5px; height: 104px; background: currentColor; opacity: 0.75; }
 .lamp svg { display: block; overflow: visible; width: 40px; height: 52px; }
 .lamp .glass { fill: rgba(255, 255, 255, 0.14); stroke: currentColor; transition: fill 0.3s, stroke 0.3s, filter 0.3s; }
 .lamp:hover .glass { fill: rgba(255, 214, 120, 0.35); }
@@ -305,7 +305,7 @@ blockquote { font-family: var(--serif); font-weight: 300; font-size: clamp(24px,
   .svc-panel { position: static; }
   .steps { grid-template-columns: 1fr 1fr; }
   .float-cta { display: inline-flex; }
-  .quote-stage { min-height: 380px; }
+  .quote-stage { min-height: 320px; }
 }
 @media (max-width: 560px) {
   .steps, .virtues, .row { grid-template-columns: 1fr; }
@@ -321,4 +321,31 @@ blockquote { font-family: var(--serif); font-weight: 300; font-size: clamp(24px,
   .reveal { opacity: 1; transform: none; transition: none; }
   html { scroll-behavior: auto; }
   .marquee-track { animation: none; }
+}
+
+/* Phones: tighter rhythm, shorter page */
+@media (max-width: 900px) {
+  .section { padding: 64px var(--pad); }
+  .section-head { margin-bottom: 30px; }
+  .docs { padding: 48px 0 40px; }
+  .doc-list { flex-wrap: nowrap; overflow-x: auto; margin: 26px calc(-1 * var(--pad)) 0; padding: 4px var(--pad) 12px; scrollbar-width: none; }
+  .doc-list::-webkit-scrollbar { display: none; }
+  .doc { flex: none; padding: 12px 20px; font-size: 15px; }
+  .svc-list li.active button { padding-left: 12px; }
+  .svc-list .svc-panel { position: static; margin: 2px 0 22px; padding: 24px 22px; }
+  .svc-panel h3 { font-size: 26px; }
+  .svc-list .svc-panel p:not(.label) { font-size: 15px; }
+  .langs { margin-top: 30px; }
+  .langs button { padding: 11px 0; font-size: 18px; gap: 10px; }
+  .steps { gap: 12px; }
+  .steps li { padding: 22px 22px 24px; }
+  .steps h3 { margin: 10px 0 6px; font-size: 22px; }
+  .virtues article { padding: 24px 0 26px; }
+  .v-mark { font-size: 44px; height: 44px; margin-bottom: 14px; }
+  .team li { padding: 12px 0; font-size: 20px; }
+  .hero-foot { display: grid; grid-template-columns: 1fr 1fr; justify-items: center; gap: 14px 0; font-size: 12.5px; }
+  .hero-foot > * { padding: 0 8px; }
+  .form { padding: 24px 20px; gap: 18px; }
+  .office { padding: 26px 22px; }
+  .footer { padding: 44px var(--pad) 100px; }
 }

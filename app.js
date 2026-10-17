@@ -64,7 +64,10 @@ navLinks.addEventListener("click", () => { navLinks.classList.remove("open"); bu
 
 // Services
 const svcList = $("#svcList"), svcPanel = $("#svcPanel");
+const svcHome = svcPanel.parentElement;
+let svcCurrent = 0;
 function showService(i) {
+  svcCurrent = i;
   const s = SERVICES[i];
   [...svcList.children].forEach((li, n) => li.classList.toggle("active", n === i));
   svcPanel.innerHTML = `
@@ -73,6 +76,9 @@ function showService(i) {
     <p>${s.text}</p>
     <ul>${s.items.map((x) => `<li>${x}</li>`).join("")}</ul>
     <a class="pill pill-ink" href="#ponuda" data-svc="${s.name}">Zatražite ponudu za ovu uslugu</a>`;
+  // On phones the details open right under the tapped service, like an accordion
+  if (innerWidth < 900) svcList.children[i].appendChild(svcPanel);
+  else if (svcPanel.parentElement !== svcHome) svcHome.appendChild(svcPanel);
   svcPanel.classList.remove("in");
   void svcPanel.offsetWidth;
   svcPanel.classList.add("in");
@@ -183,8 +189,15 @@ const io = new IntersectionObserver((entries) => {
 document.querySelectorAll(".reveal").forEach((el) => io.observe(el));
 
 // Floating button hides once the form is on screen
-const floatCta = $(".float-cta");
-new IntersectionObserver(([en]) => floatCta.classList.toggle("hide", en.isIntersecting), { threshold: 0.05 }).observe($("#ponuda"));
+const floatCta = $(".float-cta"), seen = new Set();
+new IntersectionObserver((entries) => {
+  entries.forEach((en) => en.isIntersecting ? seen.add(en.target) : seen.delete(en.target));
+  floatCta.classList.toggle("hide", seen.size > 0);
+}, { threshold: 0.05 }).observe($("#ponuda"));
+// The first screen already has its own button, so the floating one waits until it is passed
+new IntersectionObserver(([en]) => { en.isIntersecting ? seen.add(en.target) : seen.delete(en.target); floatCta.classList.toggle("hide", seen.size > 0); }, { threshold: 0.35 }).observe($(".hero"));
+// Move the service details between accordion and side panel when the window crosses the phone width
+addEventListener("resize", () => { const phone = innerWidth < 900, inSide = svcPanel.parentElement === svcHome; if (phone === inSide) showService(svcCurrent); });
 
 // Decorative letters drift a little as the page scrolls
 const glyphs = [...document.querySelectorAll(".glyph")];
@@ -206,7 +219,7 @@ function placeLamp() {
   typed.parentElement.appendChild(probe);
   const end = probe.getBoundingClientRect().right;
   probe.remove();
-  bulb.style.left = `${end + 22 - nav.getBoundingClientRect().left - bulb.offsetWidth / 2}px`;
+  bulb.style.left = `${end + 60 - nav.getBoundingClientRect().left - bulb.offsetWidth / 2}px`;
 }
 document.fonts.ready.then(placeLamp);
 addEventListener("resize", placeLamp);
