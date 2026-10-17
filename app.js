@@ -197,4 +197,18 @@ if (!matchMedia("(prefers-reduced-motion: reduce)").matches) {
   drift();
 }
 
+// Hang the bulb just past the end of the typed line "Vaša poruka, razumljiva svugdje."
+function placeLamp() {
+  if (innerWidth <= 900) { bulb.style.left = ""; return; }
+  const probe = document.createElement("span");
+  probe.textContent = HERO_I18N.hr.typed;
+  probe.style.cssText = "position:absolute;visibility:hidden;white-space:nowrap";
+  typed.parentElement.appendChild(probe);
+  const end = probe.getBoundingClientRect().right;
+  probe.remove();
+  bulb.style.left = `${end + 22 - nav.getBoundingClientRect().left - bulb.offsetWidth / 2}px`;
+}
+document.fonts.ready.then(placeLamp);
+addEventListener("resize", placeLamp);
+
 $("#year").textContent = new Date().getFullYear();
