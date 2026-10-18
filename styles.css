@@ -253,6 +253,7 @@ blockquote { font-family: var(--serif); font-weight: 300; font-size: clamp(24px,
 /* Offices */
 .offices { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
 .office { border: 1px solid var(--line); box-shadow: var(--shadow); background: var(--paper); border-radius: 32px; padding: clamp(28px, 4vw, 52px); }
+.office-note { margin: -14px 0 26px; font-size: 14px; color: var(--ink-soft); max-width: 40ch; }
 .office h3 { font-size: clamp(26px, 2.8vw, 38px); margin-bottom: 26px; }
 .office ul { margin-bottom: 30px; }
 .office li { border-top: 1px solid var(--line); }

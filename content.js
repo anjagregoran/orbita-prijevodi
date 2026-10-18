@@ -46,7 +46,7 @@ const SERVICES = [
   {
     name: "Marketinški tekstovi",
     short: "Za tisak, radio, televiziju i internet",
-    text: "Tekstove pišemo s pažnjom prema identitetu Vaše tvrtke i mediju u kojem se objavljuju. Tvrtkama pomažemo i u daljnjem predstavljanju na tržištu, od pisanja projekata do reklamnih tekstova.",
+    text: "Tekstove pišemo s pažnjom prema identitetu Vaše tvrtke i mediju u kojem se objavljuju. Poslovnim subjektima pomažemo i u daljnjem predstavljanju na tržištu, od pisanja projekata do reklamnih tekstova.",
     items: ["Reklame", "Brošure i katalozi", "Pozivnice i cjenici", "Tekstovi za mrežne stranice"]
   }
 ];
@@ -60,7 +60,7 @@ const LANGUAGES = [
 
 const QUOTES = [
   {
-    text: "S tvrtkom Orbita surađujemo već duže vrijeme. Izuzetno su pouzdan i stručno potkovan partner koji se odmah odaziva i na kojega se uvijek možeš osloniti. Sve se odvija profesionalno i u dogovorenom roku.",
+    text: "S prevoditeljskom agencijom Orbita surađujemo već duže vrijeme. Izuzetno su pouzdan i stručno potkovan partner koji se odmah odaziva i na kojega se uvijek možeš osloniti. Sve se odvija profesionalno i u dogovorenom roku.",
     who: "Robert Šefman", role: "IT, Petrol d.d., Ljubljana"
   },
   {
