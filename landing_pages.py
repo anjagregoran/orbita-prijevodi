@@ -159,10 +159,12 @@ def lp_nav(wa=None):
 </header>
 '''
 
+LP_IMAGES = {'sudski-tumac-za-engleski-jezik': ('1520986606214-8b456906c813', 'center 40%'), 'sudski-tumac-za-slovenski-jezik': ('1773658088032-87e28148ea1b', 'center'), 'sudski-tumac-za-srpski-jezik': ('1608816747977-4d303f476571', 'center'), 'sudski-tumaci-za-sve-jezike': ('1521295121783-8a321d551ad2', '70% center'), 'profesionalno-sastavljanje-zivotopisa-cv-curriculum-vitae': ('1499750310107-5fef28a66643', 'center'), 'lektura': ('1455390582262-044cdead277a', 'center 55%'), 'medicinski-prijevodi': ('1758691462848-ba1e929da259', 'center'), 'individualne-poduke-stranih-jezika-hrvatskog-jezika-za-strance': ('1434030216411-0b793f4b4173', 'center')}
+
 def lp_hero(d):
     n = LP_PHONE[2]; wa = d.get("wa", WA_TEXT)
     return f'''<section class="hero page-hero lp-hero">
-    <div class="hero-bg" aria-hidden="true"></div>
+    <div class="hero-bg lp-photo" aria-hidden="true" style="background-image:url(https://images.unsplash.com/photo-{LP_IMAGES[d["slug"]][0]}?auto=format&fit=crop&w=2000&q=70);background-position:{LP_IMAGES[d["slug"]][1]}"></div>
     <div class="hero-text">
       <p class="label lp-kicker">{e(d["kicker"])}</p>
       <h1>{e(d["h1"][0])}<em>{e(d["h1"][1])}</em></h1>
