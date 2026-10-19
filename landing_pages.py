@@ -118,21 +118,43 @@ LANDINGS = [
     faq=[faq_tr("")[1], faq_tr("")[2], faq_tr("")[3], ("Prevodite li i stručne medicinske tekstove?", "Da. Osim dokumentacije pacijenata prevodimo istraživačke radove i tekstove iz svih područja medicine, predavanja za studente medicine, prezentacije, skripte, priručnike i konferencijske tekstove za zdravstvene djelatnike, kao i medicinsko-pravne tekstove poput diploma, licenci i dozvola za rad."), ("Kada ste dostupni?", HOURS)]),
 ]
 
-def lp_nav():
-    n = LP_PHONE[2]
+LESSON_WA = quote("Poštovani, zanima me individualna poduka iz jezika.")
+LANDINGS.append(dict(slug="individualne-poduke-stranih-jezika-hrvatskog-jezika-za-strance",
+    title="Individualna poduka: engleski, slovenski, talijanski i hrvatski za strance | Orbita",
+    desc="Individualna poduka iz engleskog, slovenskog i talijanskog jezika te hrvatskog jezika za strance. Plan učenja po mjeri Vašeg cilja, u Zagrebu i Kastvu.",
+    kicker="Individualna poduka iz jezika", h1=("Jezik koji ćete ", "stvarno govoriti"),
+    lead="Individualna poduka iz engleskog, slovenskog i talijanskog jezika te hrvatskog za strance. Bez učionice i bez tuđeg tempa: učite točno ono što Vama treba, za školu, posao ili život u novoj zemlji.",
+    micro="Javite nam se i dogovorit ćemo prvi sat, bez obveze.",
+    wa=LESSON_WA, wa_label="Javite se na WhatsApp", aside_cta="Prijavite se", steps_title="Od prve poruke do prvog razgovora.",
+    trust=[("1 na 1", "individualni sati"), ("4 jezika", "engleski, slovenski, talijanski, hrvatski"), ("Vaš cilj", "plan učenja po mjeri"), ("24 sata", "dostupni na mobitel")],
+    steps=[("Javite nam se", "Recite nam koji jezik želite učiti, koliko ga već znate i što želite postići."), ("Plan po mjeri", "Dogovaramo plan učenja i termine koji Vam odgovaraju."), ("Učite i napredujete", "Na svakom satu radite upravo ono što Vama treba, od razgovora do gramatike i pisanja.")],
+    chips=("Za koga je poduka", ["Učenici i maturanti", "Studenti", "Poslovni ljudi", "Radnici prije odlaska u inozemstvo", "Turistički djelatnici", "Stranci koji žive u Hrvatskoj"]),
+    sections=[
+      ("Zašto individualna poduka", ["U grupi se tempo prilagođava svima, a na individualnom satu samo Vama. Nema čekanja na druge ni preskakanja onoga što Vam je teško: svaki je sat posvećen Vašem cilju, bilo da je to bolja ocjena, matura, razgovor za posao ili prvi razgovor sa susjedima na novom jeziku."], []),
+      ("Učite od ljudi koji jezikom žive", ["Orbita je prevoditeljska agencija, pa jezike ne poznajemo samo iz udžbenika: s njima radimo svaki dan, s dokumentima, poslovnim partnerima i klijentima iz cijele Europe. To iskustvo prenosimo i na Vas, s naglaskom na jezik koji ćete stvarno koristiti."], []),
+      ("Četiri jezika, četiri nove prilike", ["Living in Croatia and want to learn Croatian? We offer one-to-one Croatian lessons for foreigners, at your own pace."], ["Engleski za školu, studij, posao i putovanja", "Slovenski za posao i život s druge strane granice", "Talijanski za turizam, posao i sve koji vole Italiju", "Hrvatski za strance, za život i posao u Hrvatskoj"]),
+    ],
+    faq=[("Koje jezike podučavate?", "Individualnu poduku nudimo iz engleskog, slovenskog i talijanskog jezika te hrvatskog jezika za strance."),
+      ("Za koju je razinu poduka?", "Za svaku, od potpunih početnika do naprednih. Na početku procijenimo Vaše znanje i složimo plan prema Vašem cilju."),
+      ("Gdje se održava poduka?", "U našim uredima u Zagrebu i Kastvu. Javite nam se, a termine ćemo dogovoriti prema Vašim mogućnostima."),
+      ("Kako se mogu prijaviti?", "Nazovite nas ili nam pošaljite poruku Viberom ili WhatsAppom na 098 163 19 30 ili 091 612 6784, ili e-poštom na info@orbitaprijevodi.com."),
+      ("Kada ste dostupni?", HOURS)]))
+
+def lp_nav(wa=None):
+    n = LP_PHONE[2]; wa = wa or WA_TEXT
     return f'''<header class="nav nav-lp" id="nav">
   <a class="brand" href="../" aria-label="Orbita prijevodi, početna">
     <img src="../assets/orbita-logo.webp" alt="Orbita" width="473" height="108">
   </a>
   <div class="lp-actions">
     <a class="lp-phone" href="tel:+{n}">{LP_PHONE[1]}</a>
-    <a class="pill pill-ink" href="https://wa.me/{n}?text={WA_TEXT}" target="_blank" rel="noopener">Pošaljite dokument</a>
+    <a class="pill pill-ink" href="https://wa.me/{n}?text={wa}" target="_blank" rel="noopener">{"Pošaljite poruku" if wa != WA_TEXT else "Pošaljite dokument"}</a>
   </div>
 </header>
 '''
 
 def lp_hero(d):
-    n = LP_PHONE[2]
+    n = LP_PHONE[2]; wa = d.get("wa", WA_TEXT)
     return f'''<section class="hero page-hero lp-hero">
     <div class="hero-bg" aria-hidden="true"></div>
     <div class="hero-text">
@@ -140,7 +162,7 @@ def lp_hero(d):
       <h1>{e(d["h1"][0])}<em>{e(d["h1"][1])}</em></h1>
       <p class="lead">{e(d["lead"])}</p>
       <div class="hero-cta">
-        <a class="pill pill-ink" href="https://wa.me/{n}?text={WA_TEXT}" target="_blank" rel="noopener">Pošaljite na WhatsApp</a>
+        <a class="pill pill-ink" href="https://wa.me/{n}?text={wa}" target="_blank" rel="noopener">{d.get("wa_label", "Pošaljite na WhatsApp")}</a>
         <a class="pill pill-line" href="viber://chat?number=%2B{n}">Viber</a>
         <a class="pill pill-line" href="tel:+{n}">Nazovite {LP_PHONE[1]}</a>
       </div>
@@ -160,14 +182,14 @@ def lp_page(d):
     chips = ''.join(f'<li>{e(c)}</li>' for c in d["chips"][1])
     quotes = ''.join(f'<figure><blockquote>{e(q)}</blockquote><figcaption><strong>{e(w)}</strong>{e(r)}</figcaption></figure>' for q, w, r in QUOTES_LP)
     clients = ''.join(f'<span>{c}</span>' for c in CLIENTS)
-    n = LP_PHONE[2]
+    n = LP_PHONE[2]; wa = d.get("wa", WA_TEXT)
     ld = {"@context": "https://schema.org", "@graph": [
         {"@type": "Service", "name": d["h1"][0] + d["h1"][1], "description": d["desc"], "areaServed": ["Zagreb", "Rijeka", "Kastav", "Hrvatska"],
          "provider": {"@type": "ProfessionalService", "name": "Orbita prijevodi", "url": SITE + "/", "telephone": "+385981631930"}},
         faq_ld(d["faq"])]}
     body = f'''<section class="lp-trust" aria-label="Zašto Orbita">{trust}</section>
   <section class="section">
-    <div class="section-head"><p class="label">Kako to ide</p><h2>Tri koraka do prijevoda.</h2></div>
+    <div class="section-head"><p class="label">Kako to ide</p><h2>{e(d.get("steps_title", "Tri koraka do prijevoda."))}</h2></div>
     <ol class="steps lp-steps">{steps}</ol>
   </section>
   <section class="section lp-detail">
@@ -176,7 +198,7 @@ def lp_page(d):
       <aside class="page-aside">
         <p class="label">{e(d["chips"][0])}</p>
         <ul class="chips-list">{chips}</ul>
-        <a class="pill pill-ink" href="https://wa.me/{n}?text={WA_TEXT}" target="_blank" rel="noopener">Pošaljite dokument</a>
+        <a class="pill pill-ink" href="https://wa.me/{n}?text={wa}" target="_blank" rel="noopener">{d.get("aside_cta", "Pošaljite dokument")}</a>
       </aside>
     </div>
   </section>
@@ -193,12 +215,12 @@ def lp_page(d):
   </section>
   ''' + cta_band()
     bar = f'''<div class="lp-bar">
-  <a href="https://wa.me/{n}?text={WA_TEXT}" target="_blank" rel="noopener">WhatsApp</a>
+  <a href="https://wa.me/{n}?text={wa}" target="_blank" rel="noopener">WhatsApp</a>
   <a href="viber://chat?number=%2B{n}">Viber</a>
   <a href="tel:+{n}">Nazovite</a>
 </div>
 '''
-    out = head(d["title"], d["desc"], path, ld).replace('<body class="subpage">', '<body class="subpage landing">') + lp_nav() + '<main>\n  ' + lp_hero(d) + '  ' + body + '</main>\n' + bar + footer()
+    out = head(d["title"], d["desc"], path, ld).replace('<body class="subpage">', '<body class="subpage landing">') + lp_nav(d.get("wa")) + '<main>\n  ' + lp_hero(d) + '  ' + body + '</main>\n' + bar + footer()
     write(d["slug"], out)
     pages.append(path)
 
