@@ -405,13 +405,15 @@ html_out = head("Kontakt | Orbita prijevodi, Kastav i Zagreb", "Uredi Orbita pri
 write("kontakt", html_out); pages.append(path)
 
 # Old addresses that now live elsewhere: send people (and Google) to the right place
-REDIRECTS = {"o-nama": "../#o-nama", "blog": "../", "novosti": "../", "lektura": "../lektoriranje/"}
+REDIRECTS = {"o-nama": "../#o-nama", "blog": "../", "novosti": "../"}
 for slug, target in REDIRECTS.items():
     final = SITE + "/" + (target.replace("../", "") or "")
     write(slug, f'''<!doctype html><html lang="hr"><head><meta charset="utf-8"><title>Orbita prijevodi</title>
 <link rel="canonical" href="{final}"><meta http-equiv="refresh" content="0; url={target}"><meta name="robots" content="noindex"></head>
 <body><p><a href="{target}">Orbita prijevodi</a></p></body></html>
 ''')
+
+exec(open("landing_pages.py").read())
 
 # Sitemap for Google
 urls = [""] + pages

@@ -7,7 +7,7 @@ const onScroll = () => {
 };
 addEventListener("scroll", onScroll, { passive: true });
 onScroll();
-burger.addEventListener("click", () => {
+if (burger) burger.addEventListener("click", () => {
   const open = navLinks.classList.toggle("open");
   burger.classList.toggle("open", open);
   burger.setAttribute("aria-expanded", open);
