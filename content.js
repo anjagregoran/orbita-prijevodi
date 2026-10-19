@@ -89,6 +89,14 @@ const QUOTES = [
   {
     text: "Ne samo da su odmah riješili zadatak, cijelom poslu dodali su i jednu dublju dimenziju. Svojim osobnim pristupom posao pretvaraju u suradnju. Izuzetno mi je zadovoljstvo raditi s Orbitom.",
     who: "Zoran Mandić", role: "tehnički direktor, Inspirion d.o.o."
+  },
+  {
+    text: "Obratila sam se agenciji Orbita i u vrlo kratkom roku dobila odlično napravljen životopis i motivacijsko pismo s prijevodom na njemački jezik. Oduševila me fleksibilnost i individualni pristup mojim potrebama.",
+    who: "AMB", role: "liječnica"
+  },
+  {
+    text: "Osobno sam vrlo zadovoljan temeljito izrađenim CV-jem koji mi je napravljen u agenciji Orbita. Profesionalno, detaljno, vremenski brzo i financijski pristojno.",
+    who: "Milan Drenovac", role: "pomorac"
   }
 ];
 

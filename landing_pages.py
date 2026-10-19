@@ -9,6 +9,12 @@ QUOTES_LP = [
   ("Imali smo dosta obiman tekst za prijevod, korisničke upute i jamstvene listove. Odabrali smo ih po preporuci i jako smo zadovoljni obavljenim poslom.", "Primož Prosen", "Product Manager, Euroton d.o.o."),
   ("U prevoditeljskoj agenciji Orbita dobili smo svu potrebnu podršku. Pokazali su se vrlo fleksibilnim i pouzdanim poslovnim partnerom koji je odličan u pronalaženju rješenja za najteže i najsloženije probleme.", "Anita Satler", "direktorica, AKTA Co d.o.o."),
 ]
+CV_QUOTES = [
+  ("Obratila sam se agenciji Orbita i u vrlo kratkom roku dobila odlično napravljen životopis i motivacijsko pismo s prijevodom na njemački jezik. Djelatnica s kojom sam surađivala oduševila me fleksibilnošću i individualnim pristupom. Iskreno preporučujem svima koji trebaju brzu stručnu pomoć za pisanje i prijevod životopisa.", "AMB", "liječnica s 15 godina radnog iskustva"),
+  ("Osobno sam vrlo zadovoljan temeljito izrađenim CV-jem koji mi je napravljen u agenciji Orbita. Profesionalno, detaljno, vremenski brzo i financijski pristojno.", "Milan Drenovac", "pomorac"),
+  ("Trebao mi je prijevod diploma, Europass CV i molba za posao u inozemstvu. Sve su obavili kako smo se dogovorili, kao i dodatne izmjene koje nisu dodatno naplatili, što iznimno cijenim. Agenciju Orbita preporučujem svima kojima su potrebni stručno sastavljeni CV i motivacijsko pismo!", "Alen Grgić", ""),
+  ("Za agenciju Orbita imam sve pohvale na uslugu pisanja i prijevoda životopisa i motivacijskog pisma. Uz ljubaznost, pristupačnost i brzinu zahvaljujem Vam i na svakom savjetu i poticaju koje dajete od srca.", "Jelena Jeremiš", ""),
+]
 CLIENTS = ["Petrol", "Bureau Veritas", "Trea Trade", "Euroton", "AKTA", "Inspirion", "IAPC", "Edit"]
 
 TRUST_TR = [("1 sat", "do ponude"), ("2 sata", "za prijevod jedne stranice"), ("24 sata", "dostupni na mobitel"), ("2 ureda", "u Zagrebu i Kastvu")]
@@ -76,7 +82,7 @@ LANDINGS = [
   dict(slug="profesionalno-sastavljanje-zivotopisa-cv-curriculum-vitae",
     title="Profesionalno sastavljanje životopisa (CV) i motivacijskog pisma | Orbita",
     desc="Profesionalno sastavljanje životopisa i motivacijskih pisama za posao i stipendije, u kronološkom, funkcionalnom ili kombiniranom obliku, uz prijevod na strani jezik.",
-    kicker="Profesionalno sastavljanje životopisa", micro="Pošaljite nam postojeći životopis ili osnovne podatke, bez obveze.", h1=("Životopis koji ", "otvara vrata"),
+    quotes=CV_QUOTES, kicker="Profesionalno sastavljanje životopisa", micro="Pošaljite nam postojeći životopis ili osnovne podatke, bez obveze.", h1=("Životopis koji ", "otvara vrata"),
     lead="Životopis i motivacijsko pismo često su prvi dojam koji ostavljate na poslodavca ili sveučilište. Pomoći ćemo Vam da se istaknete u mnoštvu prijava, na hrvatskom ili na stranom jeziku.",
     trust=[("CV", "i motivacijsko pismo"), ("3 modela", "kronološki, funkcionalni, kombinirani"), ("Prijevod", "na strani jezik"), ("24 sata", "dostupni na mobitel")],
     steps=[("Javite nam se", "Pošaljite nam postojeći životopis ili osnovne podatke Viberom, WhatsAppom ili e-poštom."), ("Biramo pravi model", "Zajedno biramo oblik koji najbolje predstavlja Vaše iskustvo i cilj."), ("Gotov životopis", "Dobivate dotjeran životopis i motivacijsko pismo, po želji i prevedene na strani jezik.")],
@@ -180,7 +186,7 @@ def lp_page(d):
         secs += f'<h2>{e(h)}</h2>' + ''.join(f'<p>{e(p)}</p>' for p in paras)
         if bullets: secs += '<ul class="lp-bullets">' + ''.join(f'<li>{e(b)}</li>' for b in bullets) + '</ul>'
     chips = ''.join(f'<li>{e(c)}</li>' for c in d["chips"][1])
-    quotes = ''.join(f'<figure><blockquote>{e(q)}</blockquote><figcaption><strong>{e(w)}</strong>{e(r)}</figcaption></figure>' for q, w, r in QUOTES_LP)
+    quotes = ''.join(f'<figure><blockquote>{e(q)}</blockquote><figcaption><strong>{e(w)}</strong>{e(r)}</figcaption></figure>' for q, w, r in d.get("quotes", QUOTES_LP))
     clients = ''.join(f'<span>{c}</span>' for c in CLIENTS)
     n = LP_PHONE[2]; wa = d.get("wa", WA_TEXT)
     ld = {"@context": "https://schema.org", "@graph": [
