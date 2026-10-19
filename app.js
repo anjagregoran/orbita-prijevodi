@@ -75,6 +75,7 @@ function showService(i) {
     <h3>${s.name}</h3>
     <p>${s.text}</p>
     <ul>${s.items.map((x) => `<li>${x}</li>`).join("")}</ul>
+    <a class="svc-more" href="${s.slug}/">Više o usluzi</a><br>
     <a class="pill pill-ink" href="#ponuda" data-svc="${s.name}">Zatražite ponudu za ovu uslugu</a>`;
   // On phones the details open right under the tapped service, like an accordion
   if (innerWidth < 900) svcList.children[i].appendChild(svcPanel);

@@ -357,3 +357,52 @@ blockquote { font-family: var(--serif); font-weight: 300; font-size: clamp(24px,
   .office { padding: 26px 22px; }
   .footer { padding: 44px var(--pad) 100px; }
 }
+
+/* Separate pages: services, cities, FAQ, contact */
+.page-hero { min-height: 68svh; grid-template-columns: 1fr; padding: 170px var(--pad) 90px; }
+.page-hero .hero-text { max-width: 640px; padding-bottom: 0; }
+.page-hero::before { background: linear-gradient(90deg, rgba(38, 20, 8, 0.8) 0%, rgba(38, 20, 8, 0.6) 45%, rgba(38, 20, 8, 0.2) 100%); }
+.nav-links a { white-space: nowrap; }
+.page-hero h1 { font-size: clamp(42px, min(6vw, 11vh), 88px); }
+.crumbs { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 22px; font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(251, 245, 236, 0.75); }
+.crumbs a:hover { color: #fff; }
+.page-body { display: grid; grid-template-columns: 1.25fr 0.75fr; gap: clamp(32px, 6vw, 90px); align-items: start; }
+.prose h2 { margin-bottom: 24px; }
+.prose p:not(.label) { margin-bottom: 18px; max-width: 62ch; color: var(--ink-soft); }
+.page-aside { position: sticky; top: 120px; background: #fff; border: 1px solid var(--line); box-shadow: var(--shadow); border-radius: 28px; padding: 30px; }
+.page-aside-office { background: none; border: 0; box-shadow: none; padding: 0; }
+.chips-list { display: flex; flex-wrap: wrap; gap: 8px; margin: 4px 0 22px; }
+.chips-list li { border: 1px solid var(--line); border-radius: 999px; padding: 7px 15px; font-size: 14px; }
+.aside-note { font-size: 14px; color: var(--ink-soft); margin-bottom: 22px; }
+.faq { max-width: 920px; border-top: 1px solid var(--ink); }
+.faq-item { border-bottom: 1px solid var(--line); }
+.faq-item summary { position: relative; list-style: none; cursor: pointer; padding: 22px 44px 22px 0; font-family: var(--serif); font-weight: 300; font-size: clamp(20px, 2vw, 26px); transition: color 0.25s; }
+.faq-item summary::-webkit-details-marker { display: none; }
+.faq-item summary::after { content: "+"; position: absolute; right: 4px; top: 50%; translate: 0 -50%; font-family: var(--sans); font-size: 26px; color: var(--accent); transition: transform 0.3s; }
+.faq-item summary:hover { color: var(--accent); }
+.faq-item[open] summary::after { transform: rotate(45deg); }
+.faq-item p { max-width: 70ch; padding: 0 0 24px; color: var(--ink-soft); }
+.related { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); column-gap: 44px; border-top: 1px solid var(--ink); }
+.related li { border-bottom: 1px solid var(--line); }
+.related a { display: flex; justify-content: space-between; align-items: center; gap: 16px; padding: 18px 0; font-family: var(--serif); font-weight: 300; font-size: 22px; transition: color 0.25s, padding 0.3s; }
+.related a::after { content: "→"; font-family: var(--sans); font-size: 16px; }
+.related a:hover { color: var(--accent); padding-left: 8px; }
+.svc-cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; }
+.svc-card { display: flex; flex-direction: column; gap: 12px; padding: 30px; background: #fff; border: 1px solid var(--line); border-radius: 28px; transition: transform 0.3s, box-shadow 0.3s; }
+.svc-card h3 { font-size: 28px; }
+.svc-card p { flex: 1; font-size: 15px; color: var(--ink-soft); }
+.svc-card span { font-size: 14px; font-weight: 500; color: var(--accent); }
+.svc-card:hover { transform: translateY(-4px); box-shadow: var(--shadow); }
+.cta-more { margin-top: 28px; }
+.svc-more { display: inline-block; margin: 0 0 22px; font-weight: 500; color: var(--accent); border-bottom: 1px solid currentColor; }
+.footer-links { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 30px; padding: 34px 0; border-bottom: 1px solid var(--line); }
+.footer-links div:first-child ul { columns: 2; column-gap: 30px; }
+.footer-links li { margin: 0 0 9px; font-size: 15px; break-inside: avoid; }
+.footer-links a:hover { color: var(--accent); }
+@media (max-width: 900px) {
+  .page-hero { min-height: 0; padding: 140px var(--pad) 64px; }
+  .page-body { grid-template-columns: 1fr; }
+  .page-aside { position: static; padding: 24px 22px; }
+  .footer-links { grid-template-columns: 1fr; }
+  .footer-links div:first-child ul { columns: 1; }
+}

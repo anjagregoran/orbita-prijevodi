@@ -3,48 +3,56 @@
 const SERVICES = [
   {
     name: "Ovjereni prijevodi",
+    slug: "ovjereni-prijevodi",
     short: "S pečatom i potpisom sudskog tumača",
     text: "Službene dokumente za Vas brzo i uredno pripremaju naši provjereni sudski tumači. Prijevod se uvezuje s izvornikom ili njegovom kopijom, a tumač pečatom i potpisom jamči da je istovjetan izvornom dokumentu.",
     items: ["Svjedodžbe i diplome", "Rodni i vjenčani listovi", "Radne dozvole", "Izvaci iz sudskog registra", "Stručna i vještačka mišljenja", "Medicinski nalazi"]
   },
   {
     name: "Pisani prijevodi",
+    slug: "pisani-prijevodi",
     short: "Opći i stručni tekstovi iz svih područja",
     text: "Povjerite nam opće i stručne tekstove, rukopise, titlove, internetske stranice i programsku opremu. Na stručnim tekstovima rade prevoditelji koji poznaju područje i njegovu terminologiju, a za engleski i talijanski jezik nudimo i rad u CAT alatima.",
     items: ["Stručni i tehnički tekstovi", "Internetske stranice", "Programska oprema", "Titlovi", "Rukopisi"]
   },
   {
     name: "Usmeno prevođenje",
+    slug: "usmeni-prijevodi",
     short: "Simultano, konsekutivno i šaptano",
     text: "Izgovorenu riječ na Vašim događanjima prepustite prevoditeljima s velikim iskustvom i iznimnim poznavanjem jezika. Osiguravamo i sudskog tumača za javnog bilježnika ili sud, prevođenje uz pratnju te više jezika u istom danu.",
     items: ["Konferencije i seminari", "Poslovni sastanci i pregovori", "Sajmovi i prezentacije", "Sjednice i godišnje skupštine", "Javni bilježnik i sud"]
   },
   {
     name: "Lektura i korektura",
+    slug: "lektoriranje",
     short: "Jezična i stilska dorada prije objave",
     text: "Lektor jezično i stilski dotjeruje tekst te ispravlja pravopisne, interpunkcijske i tipografske pogreške. Preporučujemo da svaki tekst koji izlazi u javnost prije objave pregleda iskusan lektor.",
     items: ["Lektura izvornih tekstova", "Pregled prijevoda", "Korektura prije tiska"]
   },
   {
     name: "Životopisi i motivacijska pisma",
+    slug: "asistiranje-u-pisanju-teksta",
     short: "Prijava kojom se izdvajate među kandidatima",
     text: "Pomažemo Vam odabrati i sastaviti životopis i motivacijsko pismo prilagođene Vašem iskustvu, obrazovanju, interesima i ciljevima, a po želji ih i prevodimo na strani jezik.",
     items: ["Životopis (CV)", "Motivacijsko pismo", "Prijevod na strani jezik"]
   },
   {
     name: "Studij i posao u inozemstvu",
+    slug: "pisanje-dokumentacije-za-studij-i-zaposlenje-u-inozemstvu",
     short: "Eseji i prijavna dokumentacija",
     text: "Naši stručnjaci i sami su se školovali u inozemstvu. Kroz individualne konzultacije vode Vas u pripremi eseja i prijavne dokumentacije te u profesionalnom pisanju koje se danas očekuje na radnom mjestu.",
     items: ["Eseji za upis na sveučilište", "Prijave za stipendije", "Poslovna korespondencija", "Individualne konzultacije"]
   },
   {
     name: "Stručni tekstovi",
+    slug: "pisanje-u-raznim-profesionalnim-podrucjima",
     short: "Pisanje prilagođeno struci",
     text: "Okupljamo stručnjake za pisanje tekstova u društvenim, tehničkim i prirodoslovnim područjima. Tekst strukturom, leksikom i stilom prilagođavamo struci, od opisa metodologije do predstavljanja rezultata.",
     items: ["Znanstveni i stručni radovi", "Opis metodologije i rezultata", "Molbe i prijave", "Mentorstvo u pisanju"]
   },
   {
     name: "Marketinški tekstovi",
+    slug: "marketinski-tekstovi",
     short: "Za tisak, radio, televiziju i internet",
     text: "Tekstove pišemo s pažnjom prema identitetu Vaše tvrtke i mediju u kojem se objavljuju. Poslovnim subjektima pomažemo i u daljnjem predstavljanju na tržištu, od pisanja projekata do reklamnih tekstova.",
     items: ["Reklame", "Brošure i katalozi", "Pozivnice i cjenici", "Tekstovi za mrežne stranice"]
