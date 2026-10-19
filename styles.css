@@ -182,7 +182,7 @@ main { overflow-x: clip; }
 .lang-search input { width: min(100%, 520px); background: transparent; border: 0; border-bottom: 1px solid var(--ink); padding: 14px 0; font-family: var(--serif); font-size: clamp(24px, 3vw, 38px); font-weight: 300; outline: none; color: var(--ink); }
 .lang-search input::placeholder { color: rgba(28, 31, 36, 0.3); }
 .lang-search input:focus { border-color: var(--blue); }
-.langs { display: grid; grid-template-columns: repeat(4, 1fr); column-gap: clamp(20px, 3.5vw, 56px); margin-top: 46px; border-top: 1px solid var(--ink); }
+.langs { display: grid; grid-template-columns: repeat(4, 1fr); column-gap: clamp(20px, 3.5vw, 56px); margin-top: 30px; }
 .langs li { border-bottom: 1px solid var(--line); }
 .langs button { display: flex; align-items: center; gap: 14px; width: 100%; padding: 15px 0; background: none; border: 0; text-align: left; font-family: var(--serif); font-weight: 300; font-size: clamp(19px, 1.7vw, 24px); letter-spacing: -0.01em; cursor: pointer; transition: color 0.25s, padding 0.3s; }
 .langs button::after { content: "→"; margin-left: auto; font-family: var(--sans); font-size: 15px; opacity: 0; transform: translateX(-8px); transition: opacity 0.25s, transform 0.25s; }
