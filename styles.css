@@ -237,6 +237,9 @@ blockquote { font-family: var(--serif); font-weight: 300; font-size: clamp(24px,
 .contact-row p span { display: inline-block; min-width: 82px; font-family: var(--sans); font-size: 12px; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(255, 255, 255, 0.66); }
 .contact-row div { display: flex; flex-wrap: wrap; gap: 8px; }
 .contact-row .pill { padding: 11px 20px; font-size: 14px; }
+.pill-msg { background: #fbf5ec; color: var(--ink); }
+.pill-msg:hover { background: var(--accent); color: #fff; }
+.quick-lead { color: rgba(255, 255, 255, 0.85); max-width: 40ch; }
 .form { background: #fff; color: var(--ink); border-radius: 32px; padding: clamp(24px, 3.5vw, 46px); display: grid; gap: 22px; }
 .form fieldset { border: 0; padding: 0; min-width: 0; }
 .form legend, .form label { font-size: 13px; letter-spacing: 0.04em; color: var(--ink-soft); display: block; }
