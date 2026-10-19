@@ -159,7 +159,7 @@ def lp_nav(wa=None):
 </header>
 '''
 
-LP_IMAGES = {'sudski-tumac-za-engleski-jezik': ('1520986606214-8b456906c813', 'center 40%'), 'sudski-tumac-za-slovenski-jezik': ('1773658088032-87e28148ea1b', 'center'), 'sudski-tumac-za-srpski-jezik': ('1608816747977-4d303f476571', 'center'), 'sudski-tumaci-za-sve-jezike': ('1521295121783-8a321d551ad2', '70% center'), 'profesionalno-sastavljanje-zivotopisa-cv-curriculum-vitae': ('1499750310107-5fef28a66643', 'center'), 'lektura': ('1455390582262-044cdead277a', 'center 55%'), 'medicinski-prijevodi': ('1758691462848-ba1e929da259', 'center'), 'individualne-poduke-stranih-jezika-hrvatskog-jezika-za-strance': ('1434030216411-0b793f4b4173', 'center')}
+LP_IMAGES = {'sudski-tumac-za-engleski-jezik': ('1520986606214-8b456906c813', 'center 40%'), 'sudski-tumac-za-slovenski-jezik': ('1773658088032-87e28148ea1b', 'center'), 'sudski-tumac-za-srpski-jezik': ('1608816747977-4d303f476571', 'center'), 'sudski-tumaci-za-sve-jezike': ('1521295121783-8a321d551ad2', '70% center'), 'profesionalno-sastavljanje-zivotopisa-cv-curriculum-vitae': ('1499750310107-5fef28a66643', 'center'), 'lektura': ('1455390582262-044cdead277a', 'center 55%'), 'medicinski-prijevodi': ('1758691462848-ba1e929da259', 'center'), 'individualne-poduke-stranih-jezika-hrvatskog-jezika-za-strance': ('1706403615881-d83dc2067c5d', 'center')}
 
 def lp_hero(d):
     n = LP_PHONE[2]; wa = d.get("wa", WA_TEXT)
@@ -188,7 +188,11 @@ def lp_page(d):
         secs += f'<h2>{e(h)}</h2>' + ''.join(f'<p>{e(p)}</p>' for p in paras)
         if bullets: secs += '<ul class="lp-bullets">' + ''.join(f'<li>{e(b)}</li>' for b in bullets) + '</ul>'
     chips = ''.join(f'<li>{e(c)}</li>' for c in d["chips"][1])
-    quotes = ''.join(f'<figure><blockquote>{e(q)}</blockquote><figcaption><strong>{e(w)}</strong>{e(r)}</figcaption></figure>' for q, w, r in d.get("quotes", QUOTES_LP))
+    qs = d.get("quotes", QUOTES_LP)
+    slides = ''.join(f'<figure class="lp-slide{" on" if i == 0 else ""}"><blockquote>{e(q)}</blockquote><figcaption><strong>{e(w)}</strong>{(" · " + e(r)) if r else ""}</figcaption></figure>' for i, (q, w, r) in enumerate(qs))
+    on_cls = ' class="on"'
+    dots = ''.join(f'<button type="button" aria-label="Preporuka {i+1}"{on_cls if i == 0 else ""}></button>' for i in range(len(qs)))
+    quotes = f'<div class="lp-slider"><div class="lp-slides">{slides}</div><div class="lp-dots"><button type="button" class="lp-prev" aria-label="Prethodna">←</button>{dots}<button type="button" class="lp-next" aria-label="Sljedeća">→</button></div></div>'
     clients = ''.join(f'<span>{c}</span>' for c in CLIENTS)
     n = LP_PHONE[2]; wa = d.get("wa", WA_TEXT)
     ld = {"@context": "https://schema.org", "@graph": [
@@ -211,8 +215,8 @@ def lp_page(d):
     </div>
   </section>
   <section class="section lp-proof">
-    <div class="section-head"><p class="label">Vjeruju nam</p></div>
-    <div class="lp-quotes">{quotes}</div>
+    <p class="label lp-proof-label">Što kažu klijenti</p>
+    {quotes}
     <div class="lp-clients">{clients}</div>
   </section>
   ''' + faq_block(d["faq"]) + f'''  <section class="section">

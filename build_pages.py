@@ -8,7 +8,7 @@ import json, os, html
 from urllib.parse import quote
 
 SITE = "https://www.orbitaprijevodi.com"
-V = "57"  # bump together with ?v= in index.html
+V = "58"  # bump together with ?v= in index.html
 
 PHONES = [("Rijeka", "098 163 19 30", "385981631930"), ("Zagreb", "091 612 6784", "385916126784")]
 WA_TEXT = quote("Poštovani, šaljem fotografije dokumenta za ponudu prijevoda.")
