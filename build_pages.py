@@ -121,8 +121,6 @@ SERVICES = [
     faq=[("Prevodite li i marketinške tekstove?", "Da. Marketinške tekstove prevodimo i prilagođavamo tako da na stranom jeziku zvuče prirodno i zadrže ton Vaše tvrtke."), Q_SEND, Q_WHEN]),
 ]
 
-LESSONS_LINK = ("individualne-poduke-stranih-jezika-hrvatskog-jezika-za-strance", "Poduka iz jezika", "Individualna poduka iz engleskog, slovenskog i talijanskog te hrvatskog za strance.")
-
 OFFICES = {
   "rijeka": dict(label="Ured u Rijeci", street="Ćikovići 109", city="51215 Kastav", note="",
     phones=[("+385 98 163 19 30", "+385981631930"), ("+385 51 223 932", "+38551223932")], email="info@orbitaprijevodi.com",
@@ -274,7 +272,7 @@ def office_card(key):
       </article>'''
 
 def related(exclude=None, title="Ostale usluge"):
-    links = ''.join(f'<li><a href="../{s["slug"]}/">{e(s["name"])}</a></li>' for s in SERVICES if s["slug"] != exclude) + f'<li><a href="../{LESSONS_LINK[0]}/">{LESSONS_LINK[1]}</a></li>'
+    links = ''.join(f'<li><a href="../{s["slug"]}/">{e(s["name"])}</a></li>' for s in SERVICES if s["slug"] != exclude)
     return f'''<section class="section">
     <div class="section-head"><p class="label">Usluge</p><h2>{title}</h2></div>
     <ul class="related">{links}</ul>
@@ -282,7 +280,7 @@ def related(exclude=None, title="Ostale usluge"):
 '''
 
 def footer():
-    svc = ''.join(f'<li><a href="../{s["slug"]}/">{e(s["name"])}</a></li>' for s in SERVICES) + f'<li><a href="../{LESSONS_LINK[0]}/">{LESSONS_LINK[1]}</a></li>'
+    svc = ''.join(f'<li><a href="../{s["slug"]}/">{e(s["name"])}</a></li>' for s in SERVICES)
     return f'''<footer class="footer">
   <div class="footer-top">
     <a class="brand" href="../"><img src="../assets/orbita-logo.webp" alt="Orbita" width="473" height="108"></a>
@@ -386,7 +384,7 @@ write("cesta-pitanja", html_out); pages.append(path)
 
 # Services overview
 path = "usluge/"
-cards = ''.join(f'''<a class="svc-card" href="../{s["slug"]}/"><h3>{e(s["name"])}</h3><p>{e(s["lead"])}</p><span>Saznajte više</span></a>''' for s in SERVICES) + f'''<a class="svc-card" href="../{LESSONS_LINK[0]}/"><h3>{LESSONS_LINK[1]}</h3><p>{LESSONS_LINK[2]}</p><span>Saznajte više</span></a>'''
+cards = ''.join(f'''<a class="svc-card" href="../{s["slug"]}/"><h3>{e(s["name"])}</h3><p>{e(s["lead"])}</p><span>Saznajte više</span></a>''' for s in SERVICES)
 ld = {"@context": "https://schema.org", "@graph": [crumbs_ld([("Početna", ""), ("Usluge", path)])]}
 html_out = head("Usluge: ovjereni, pisani i usmeni prijevodi, lektura | Orbita prijevodi", "Ovjereni prijevodi sudskih tumača, pisani i usmeni prijevodi, lektura, životopisi, dokumentacija za studij u inozemstvu, stručni i marketinški tekstovi. Rijeka, Kastav i Zagreb.", path, ld) + NAV + '<main>\n  ' + page_hero([("Početna", "../"), ("Usluge", None)], ("Naše ", "usluge"), "Sve što Vašem tekstu treba, od prijevoda do objave.") + f'''  <section class="section">
     <div class="svc-cards">{cards}</div>
@@ -449,7 +447,7 @@ html_out = head("Zaštita privatnosti | Orbita prijevodi", "Kako Orbita prijevod
 write("zastita-privatnosti", html_out); pages.append(path)
 
 # Old addresses that now live elsewhere: send people (and Google) to the right place
-REDIRECTS = {"o-nama": "../#o-nama", "blog": "../", "novosti": "../"}
+REDIRECTS = {"o-nama": "../#o-nama", "blog": "../", "novosti": "../", "individualne-poduke-stranih-jezika-hrvatskog-jezika-za-strance": "../usluge/"}
 for slug, target in REDIRECTS.items():
     final = SITE + "/" + (target.replace("../", "") or "")
     write(slug, f'''<!doctype html><html lang="hr"><head><meta charset="utf-8"><title>Orbita prijevodi</title>

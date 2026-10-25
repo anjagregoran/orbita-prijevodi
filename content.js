@@ -56,13 +56,6 @@ const SERVICES = [
     short: "Za tisak, radio, televiziju i internet",
     text: "Tekstove pišemo s pažnjom prema identitetu Vaše tvrtke i mediju u kojem se objavljuju. Poslovnim subjektima pomažemo i u daljnjem predstavljanju na tržištu, od pisanja projekata do reklamnih tekstova.",
     items: ["Reklame", "Brošure i katalozi", "Pozivnice i cjenici", "Tekstovi za mrežne stranice"]
-  },
-  {
-    name: "Poduka iz jezika",
-    slug: "individualne-poduke-stranih-jezika-hrvatskog-jezika-za-strance",
-    short: "Engleski, slovenski, talijanski i hrvatski za strance",
-    text: "Individualna poduka po mjeri: učite točno ono što Vama treba, za školu, posao ili život u novoj zemlji, uz ljude koji jezicima žive svaki dan.",
-    items: ["Engleski", "Slovenski", "Talijanski", "Hrvatski za strance", "Sati jedan na jedan"]
   }
 ];
 

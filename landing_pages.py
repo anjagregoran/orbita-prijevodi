@@ -124,28 +124,6 @@ LANDINGS = [
     faq=[faq_tr("")[1], faq_tr("")[2], faq_tr("")[3], ("Prevodite li i stručne medicinske tekstove?", "Da. Osim dokumentacije pacijenata prevodimo istraživačke radove i tekstove iz svih područja medicine, predavanja za studente medicine, prezentacije, skripte, priručnike i konferencijske tekstove za zdravstvene djelatnike, kao i medicinsko-pravne tekstove poput diploma, licenci i dozvola za rad."), ("Kada ste dostupni?", HOURS)]),
 ]
 
-LESSON_WA = quote("Poštovani, zanima me individualna poduka iz jezika.")
-LANDINGS.append(dict(slug="individualne-poduke-stranih-jezika-hrvatskog-jezika-za-strance",
-    title="Individualna poduka: engleski, slovenski, talijanski i hrvatski za strance | Orbita",
-    desc="Individualna poduka iz engleskog, slovenskog i talijanskog jezika te hrvatskog jezika za strance. Plan učenja po mjeri Vašeg cilja, u Zagrebu i Kastvu.",
-    kicker="Individualna poduka iz jezika", h1=("Jezik koji ćete ", "stvarno govoriti"),
-    lead="Individualna poduka iz engleskog, slovenskog i talijanskog jezika te hrvatskog za strance. Bez učionice i bez tuđeg tempa: učite točno ono što Vama treba, za školu, posao ili život u novoj zemlji.",
-    micro="Javite nam se i dogovorit ćemo prvi sat, bez obveze.",
-    wa=LESSON_WA, wa_label="Javite se na WhatsApp", aside_cta="Prijavite se", steps_title="Od prve poruke do prvog razgovora.",
-    trust=[("1 na 1", "individualni sati"), ("4 jezika", "engleski, slovenski, talijanski, hrvatski"), ("Vaš cilj", "plan učenja po mjeri"), ("24 sata", "dostupni na mobitel")],
-    steps=[("Javite nam se", "Recite nam koji jezik želite učiti, koliko ga već znate i što želite postići."), ("Plan po mjeri", "Dogovaramo plan učenja i termine koji Vam odgovaraju."), ("Učite i napredujete", "Na svakom satu radite upravo ono što Vama treba, od razgovora do gramatike i pisanja.")],
-    chips=("Za koga je poduka", ["Učenici i maturanti", "Studenti", "Poslovni ljudi", "Radnici prije odlaska u inozemstvo", "Turistički djelatnici", "Stranci koji žive u Hrvatskoj"]),
-    sections=[
-      ("Zašto individualna poduka", ["U grupi se tempo prilagođava svima, a na individualnom satu samo Vama. Nema čekanja na druge ni preskakanja onoga što Vam je teško: svaki je sat posvećen Vašem cilju, bilo da je to bolja ocjena, matura, razgovor za posao ili prvi razgovor sa susjedima na novom jeziku."], []),
-      ("Učite od ljudi koji jezikom žive", ["Orbita je prevoditeljska agencija, pa jezike ne poznajemo samo iz udžbenika: s njima radimo svaki dan, s dokumentima, poslovnim partnerima i klijentima iz cijele Europe. To iskustvo prenosimo i na Vas, s naglaskom na jezik koji ćete stvarno koristiti."], []),
-      ("Četiri jezika, četiri nove prilike", ["Living in Croatia and want to learn Croatian? We offer one-to-one Croatian lessons for foreigners, at your own pace."], ["Engleski za školu, studij, posao i putovanja", "Slovenski za posao i život s druge strane granice", "Talijanski za turizam, posao i sve koji vole Italiju", "Hrvatski za strance, za život i posao u Hrvatskoj"]),
-    ],
-    faq=[("Koje jezike podučavate?", "Individualnu poduku nudimo iz engleskog, slovenskog i talijanskog jezika te hrvatskog jezika za strance."),
-      ("Za koju je razinu poduka?", "Za svaku, od potpunih početnika do naprednih. Na početku procijenimo Vaše znanje i složimo plan prema Vašem cilju."),
-      ("Gdje se održava poduka?", "U našim uredima u Zagrebu i Kastvu. Javite nam se, a termine ćemo dogovoriti prema Vašim mogućnostima."),
-      ("Kako se mogu prijaviti?", "Nazovite nas ili nam pošaljite poruku Viberom ili WhatsAppom na 098 163 19 30 ili 091 612 6784, ili e-poštom na info@orbitaprijevodi.com."),
-      ("Kada ste dostupni?", HOURS)]))
-
 def lp_nav(wa=None):
     n = LP_PHONE[2]; wa = wa or WA_TEXT
     return f'''<header class="nav nav-lp" id="nav">
@@ -159,7 +137,7 @@ def lp_nav(wa=None):
 </header>
 '''
 
-LP_IMAGES = {'sudski-tumac-za-engleski-jezik': ('1520986606214-8b456906c813', 'center 40%'), 'sudski-tumac-za-slovenski-jezik': ('1773658088032-87e28148ea1b', 'center'), 'sudski-tumac-za-srpski-jezik': ('1608816747977-4d303f476571', 'center'), 'sudski-tumaci-za-sve-jezike': ('1521295121783-8a321d551ad2', '70% center'), 'profesionalno-sastavljanje-zivotopisa-cv-curriculum-vitae': ('1499750310107-5fef28a66643', 'center'), 'lektura': ('1455390582262-044cdead277a', 'center 55%'), 'medicinski-prijevodi': ('1758691462848-ba1e929da259', 'center'), 'individualne-poduke-stranih-jezika-hrvatskog-jezika-za-strance': ('1706403615881-d83dc2067c5d', 'center')}
+LP_IMAGES = {'sudski-tumac-za-engleski-jezik': ('1520986606214-8b456906c813', 'center 40%'), 'sudski-tumac-za-slovenski-jezik': ('1773658088032-87e28148ea1b', 'center'), 'sudski-tumac-za-srpski-jezik': ('1608816747977-4d303f476571', 'center'), 'sudski-tumaci-za-sve-jezike': ('1521295121783-8a321d551ad2', '70% center'), 'profesionalno-sastavljanje-zivotopisa-cv-curriculum-vitae': ('1499750310107-5fef28a66643', 'center'), 'lektura': ('1455390582262-044cdead277a', 'center 55%'), 'medicinski-prijevodi': ('1758691462848-ba1e929da259', 'center')}
 
 def lp_hero(d):
     n = LP_PHONE[2]; wa = d.get("wa", WA_TEXT)
