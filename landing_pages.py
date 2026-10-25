@@ -3,7 +3,7 @@
 # one page in 2 hours for the main languages, office hours 9 to 17, phones 24 hours.
 
 LP_PHONE = PHONES[0]  # Rijeka mobile is the main WhatsApp/Viber number on landing pages
-HOURS = "U uredu smo svakim radnim danom od 9 do 17 sati, a na mobitel smo Vam dostupni 24 sata dnevno."
+HOURS = "U uredu smo svakim radnim danom od 8 do 16 sati, a na mobitel smo Vam dostupni 24 sata dnevno."
 
 QUOTES_LP = [
   ("Imali smo dosta obiman tekst za prijevod, korisničke upute i jamstvene listove. Odabrali smo ih po preporuci i jako smo zadovoljni obavljenim poslom.", "Primož Prosen", "Product Manager, Euroton d.o.o."),

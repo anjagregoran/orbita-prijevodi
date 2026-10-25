@@ -458,3 +458,16 @@ blockquote { font-family: var(--serif); font-weight: 300; font-size: clamp(20px,
   .lp-bar a + a { border-left: 1px solid rgba(255, 255, 255, 0.15); }
   body.landing { padding-bottom: 76px; }
 }
+
+/* Legal pages */
+.legal-list { max-width: 820px; border-top: 1px solid var(--ink); }
+.legal-list div { display: grid; grid-template-columns: 220px 1fr; gap: 20px; padding: 16px 0; border-bottom: 1px solid var(--line); }
+.legal-list dt { font-size: 12px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink-soft); padding-top: 3px; }
+.legal-list dd { margin: 0; }
+.legal-list a:hover, .legal-prose a:hover { color: var(--accent); }
+.legal-prose { max-width: 760px; }
+.legal-prose h2 { font-size: clamp(24px, 2.4vw, 32px); margin: 36px 0 12px; }
+.legal-prose h2:first-child { margin-top: 0; }
+.legal-date { margin-top: 30px; font-size: 14px; }
+mark.todo { background: #ffe58a; color: #5a4300; padding: 1px 6px; border-radius: 4px; font-size: 13px; font-weight: 500; }
+@media (max-width: 560px) { .legal-list div { grid-template-columns: 1fr; gap: 4px; } }

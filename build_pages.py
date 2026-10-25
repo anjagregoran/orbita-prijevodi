@@ -294,8 +294,8 @@ def footer():
     <div><p class="label">Orbita</p><ul><li><a href="../cesta-pitanja/">Česta pitanja</a></li><li><a href="../kontakt/">Kontakt</a></li><li><a href="../#o-nama">O nama</a></li><li><a href="../#ponuda">Zatražite ponudu</a></li></ul></div>
   </div>
   <div class="footer-bottom">
-    <span>© <span id="year"></span> Orbita prijevodi</span>
-    <nav><a href="../usluge/">Usluge</a><a href="../cesta-pitanja/">Česta pitanja</a><a href="../kontakt/">Kontakt</a></nav>
+    <span>© <span id="year"></span> Orbita prijevodi · OMNIA d.o.o., OIB 42140363484</span>
+    <nav><a href="../kontakt/">Kontakt</a><a href="../pravne-informacije/">Pravne informacije</a><a href="../zastita-privatnosti/">Zaštita privatnosti</a></nav>
   </div>
 </footer>
 <script src="../page.js?v={V}"></script>
@@ -405,6 +405,48 @@ html_out = head("Kontakt | Orbita prijevodi, Kastav i Zagreb", "Uredi Orbita pri
   </section>
   ''' + cta_band() + '</main>\n' + footer()
 write("kontakt", html_out); pages.append(path)
+
+
+# Legal pages: company details (Zakon o trgovačkim društvima, Zakon o elektroničkoj trgovini) and privacy (GDPR)
+TODO = '<mark class="todo">POTVRDITI</mark>'
+COMPANY_ROWS = [
+  ("Tvrtka", "OMNIA d.o.o. za usluge (skraćeno OMNIA d.o.o.)"),
+  ("Robna marka", "Orbita prijevodi"),
+  ("Sjedište", "Ćikovići 109, 51215 Kastav"),
+  ("Sudski registar", "Trgovački sud u Rijeci, MBS 040366010"),
+  ("OIB", "42140363484"),
+  ("Član uprave", "Diana Jenul, zastupa društvo samostalno i pojedinačno"),
+  ("Temeljni kapital", TODO + " iznos u eurima, uplaćen u cijelosti"),
+  ("Banka i IBAN", TODO),
+  ("E-pošta", '<a href="mailto:info@orbitaprijevodi.com">info@orbitaprijevodi.com</a>'),
+  ("Telefon", '<a href="tel:+385981631930">+385 98 163 19 30</a>'),
+]
+rows = ''.join(f'<div><dt>{k}</dt><dd>{v}</dd></div>' for k, v in COMPANY_ROWS)
+path = "pravne-informacije/"
+ld = {"@context": "https://schema.org", "@graph": [crumbs_ld([("Početna", ""), ("Pravne informacije", path)])]}
+html_out = head("Pravne informacije | Orbita prijevodi, OMNIA d.o.o.", "Podaci o tvrtki OMNIA d.o.o., koja pruža usluge pod nazivom Orbita prijevodi: sjedište, sudski registar, OIB i kontakt.", path, ld) + NAV + '<main>\n  ' + page_hero([("Početna", "../"), ("Pravne informacije", None)], ("Pravne ", "informacije"), "Orbita prijevodi usluga je tvrtke OMNIA d.o.o. iz Kastva.") + f'''  <section class="section">
+    <dl class="legal-list">{rows}</dl>
+  </section>
+''' + '</main>\n' + footer()
+write("pravne-informacije", html_out); pages.append(path)
+
+PRIVACY = [
+  ("Tko je voditelj obrade", ["Voditelj obrade Vaših osobnih podataka je OMNIA d.o.o., Ćikovići 109, 51215 Kastav, OIB 42140363484, koja pruža usluge pod nazivom Orbita prijevodi. Za sva pitanja o zaštiti podataka možete nam se obratiti na info@orbitaprijevodi.com."]),
+  ("Koje podatke prikupljamo", ["Kada nam se obratite putem obrasca na stranici, e-poštom, telefonom, Viberom ili WhatsAppom, obrađujemo podatke koje nam sami pošaljete: ime i prezime, adresu e-pošte, broj telefona, sadržaj poruke te dokumente koje nam dostavite na prijevod ili lekturu. Dokumenti mogu sadržavati i osobne podatke drugih osoba ili osjetljive podatke, primjerice medicinsku dokumentaciju."]),
+  ("Zašto ih obrađujemo", ["Podatke koristimo samo kako bismo Vam izradili ponudu, obavili naručenu uslugu, dostavili Vam gotov prijevod i izdali račun. Pravna osnova je izvršavanje ugovora i radnje prije sklapanja ugovora na Vaš zahtjev, te zakonske obveze, primjerice u računovodstvu."]),
+  ("Tko ih vidi", ["Vašim podacima i dokumentima pristupaju samo naši djelatnici i suradnici, prevoditelji, sudski tumači i lektori koji rade na Vašem zahtjevu i obvezani su na povjerljivost. Podatke ne prodajemo i ne ustupamo trećima u marketinške svrhe. Stranica se poslužuje putem pružatelja usluge smještaja (hostinga), a e-pošta putem našeg pružatelja usluge e-pošte."]),
+  ("Koliko ih čuvamo", ["Podatke čuvamo onoliko dugo koliko je potrebno za obavljanje usluge, a nakon toga samo onoliko koliko nam to nalažu propisi, primjerice za račune i računovodstvene isprave. Dokumente dostavljene na prijevod ne čuvamo dulje nego što je potrebno."]),
+  ("Vaša prava", ["Imate pravo zatražiti pristup svojim podacima, njihov ispravak ili brisanje, ograničenje obrade i prijenos podataka te uložiti prigovor na obradu. Zahtjev nam možete poslati na info@orbitaprijevodi.com. Ako smatrate da su Vaša prava povrijeđena, možete podnijeti pritužbu Agenciji za zaštitu osobnih podataka (azop.hr)."]),
+  ("Kolačići", ["Stranica sama ne koristi kolačiće za praćenje. Ako uvedemo analitiku posjeta, primjerice Google Analytics, kolačići će se koristiti samo uz Vašu privolu, koju ćete moći dati ili odbiti pri prvom posjetu stranici."]),
+]
+secs = ''.join(f'<h2>{e(h)}</h2>' + ''.join(f'<p>{e(p)}</p>' for p in ps) for h, ps in PRIVACY)
+path = "zastita-privatnosti/"
+ld = {"@context": "https://schema.org", "@graph": [crumbs_ld([("Početna", ""), ("Zaštita privatnosti", path)])]}
+html_out = head("Zaštita privatnosti | Orbita prijevodi", "Kako Orbita prijevodi (OMNIA d.o.o.) obrađuje i štiti Vaše osobne podatke i dokumente.", path, ld) + NAV + '<main>\n  ' + page_hero([("Početna", "../"), ("Zaštita privatnosti", None)], ("Zaštita ", "privatnosti"), "Vaši podaci i dokumenti kod nas su povjerljivi. Ovdje pišemo kako ih obrađujemo i štitimo.") + f'''  <section class="section">
+    <div class="prose legal-prose">{secs}<p class="legal-date">Zadnja izmjena: listopad 2026.</p></div>
+  </section>
+''' + '</main>\n' + footer()
+write("zastita-privatnosti", html_out); pages.append(path)
 
 # Old addresses that now live elsewhere: send people (and Google) to the right place
 REDIRECTS = {"o-nama": "../#o-nama", "blog": "../", "novosti": "../"}
