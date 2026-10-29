@@ -10,6 +10,11 @@ from urllib.parse import quote
 SITE = "https://www.orbitaprijevodi.com"
 V = "58"  # bump together with ?v= in index.html
 
+# The Blog link appears in menus only once at least one article Diana approved is in _blog/
+HAS_BLOG = any(f.endswith(".md") for f in os.listdir("_blog"))
+BLOG_NAV = '\n    <a href="../blog/">Blog</a>' if HAS_BLOG else ""
+BLOG_LI = '<li><a href="../blog/">Blog</a></li>' if HAS_BLOG else ""
+
 PHONES = [("Rijeka", "098 163 19 30", "385981631930"), ("Zagreb", "091 612 6784", "385916126784")]
 WA_TEXT = quote("Poštovani, šaljem fotografije dokumenta za ponudu prijevoda.")
 AVAILABLE = "Dostupni smo stalno, pa nas u vezi s prijevodom možete u bilo koje vrijeme nazvati ili nam poslati poruku ili e-poštu."
@@ -189,15 +194,14 @@ def head(title, desc, path, ld):
 <body class="subpage">
 '''
 
-NAV = '''<header class="nav" id="nav">
+NAV = f'''<header class="nav" id="nav">
   <a class="brand" href="../" aria-label="Orbita prijevodi, početna">
     <img src="../assets/orbita-logo.webp" alt="Orbita" width="473" height="108">
   </a>
   <nav class="nav-links" id="navLinks">
     <a href="../usluge/">Usluge</a>
     <a href="../#jezici">Jezici</a>
-    <a href="../cesta-pitanja/">Česta pitanja</a>
-    <a href="../blog/">Blog</a>
+    <a href="../cesta-pitanja/">Česta pitanja</a>{BLOG_NAV}
     <a href="../#o-nama">O nama</a>
     <a href="../kontakt/">Kontakt</a>
   </nav>
@@ -290,7 +294,7 @@ def footer():
   <div class="footer-links">
     <div><p class="label">Usluge</p><ul>{svc}</ul></div>
     <div><p class="label">Gradovi</p><ul><li><a href="../prijevodi-rijeka/">Prijevodi Rijeka i Kastav</a></li><li><a href="../prijevodi-zagreb/">Prijevodi Zagreb</a></li></ul></div>
-    <div><p class="label">Orbita</p><ul><li><a href="../cesta-pitanja/">Česta pitanja</a></li><li><a href="../blog/">Blog</a></li><li><a href="../kontakt/">Kontakt</a></li><li><a href="../#o-nama">O nama</a></li><li><a href="../#ponuda">Zatražite ponudu</a></li></ul></div>
+    <div><p class="label">Orbita</p><ul><li><a href="../cesta-pitanja/">Česta pitanja</a></li>{BLOG_LI}<li><a href="../kontakt/">Kontakt</a></li><li><a href="../#o-nama">O nama</a></li><li><a href="../#ponuda">Zatražite ponudu</a></li></ul></div>
   </div>
   <div class="footer-bottom">
     <span>© <span id="year"></span> Orbita prijevodi · OMNIA d.o.o., OIB 42140363484</span>
@@ -447,10 +451,20 @@ html_out = head("Zaštita privatnosti | Orbita prijevodi", "Kako Orbita prijevod
 ''' + '</main>\n' + footer()
 write("zastita-privatnosti", html_out); pages.append(path)
 
-exec(open("blog_pages.py").read())
+if HAS_BLOG:
+    exec(open("blog_pages.py").read())
+
+# Home page is hand-written: keep its Blog links in step with HAS_BLOG
+home = open("index.html").read()
+for plain, linked in [('    <a href="#o-nama">O nama</a>\n    <a href="#kontakt">', '    <a href="#o-nama">O nama</a>\n    <a href="blog/">Blog</a>\n    <a href="#kontakt">'),
+                      ('<li><a href="cesta-pitanja/">Česta pitanja</a></li><li><a href="kontakt/">', '<li><a href="cesta-pitanja/">Česta pitanja</a></li><li><a href="blog/">Blog</a></li><li><a href="kontakt/">')]:
+    home = home.replace(linked, plain)
+    if HAS_BLOG:
+        home = home.replace(plain, linked)
+open("index.html", "w").write(home)
 
 # Old addresses that now live elsewhere: send people (and Google) to the right place
-REDIRECTS = {"o-nama": "../#o-nama", "novosti": "../", "individualne-poduke-stranih-jezika-hrvatskog-jezika-za-strance": "../usluge/"}
+REDIRECTS = {"o-nama": "../#o-nama", **({} if HAS_BLOG else {"blog": "../"}), "novosti": "../", "individualne-poduke-stranih-jezika-hrvatskog-jezika-za-strance": "../usluge/"}
 for slug, target in REDIRECTS.items():
     final = SITE + "/" + (target.replace("../", "") or "")
     write(slug, f'''<!doctype html><html lang="hr"><head><meta charset="utf-8"><title>Orbita prijevodi</title>
