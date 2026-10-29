@@ -487,3 +487,9 @@ mark.todo { background: #ffe58a; color: #5a4300; padding: 1px 6px; border-radius
 .blog-empty h2 { font-size: clamp(26px, 2.6vw, 34px); margin-bottom: 14px; }
 .blog-empty p { color: var(--ink-soft); margin-bottom: 24px; }
 .blog-more { margin-top: 32px; }
+.post-contact { max-width: 760px; margin-bottom: 44px; padding: 20px 24px; background: #fff; border: 1px solid var(--line); border-radius: 22px; font-size: 15px; }
+.post-contact p { margin-bottom: 10px; color: var(--ink); }
+.post-contact ul { display: grid; gap: 6px; }
+.post-contact li { display: flex; flex-wrap: wrap; gap: 4px 18px; color: var(--ink-soft); }
+.post-contact li span { min-width: 120px; }
+.post-contact a:hover { color: var(--accent); }

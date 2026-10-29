@@ -8,7 +8,7 @@ import json, os, html
 from urllib.parse import quote
 
 SITE = "https://www.orbitaprijevodi.com"
-V = "60"  # bump together with ?v= in index.html
+V = "61"  # bump together with ?v= in index.html
 
 BLOG_NAV = '\n    <a href="../blog/">Blog</a>'
 BLOG_LI = '<li><a href="../blog/">Blog</a></li>'

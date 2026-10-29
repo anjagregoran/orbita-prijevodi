@@ -40,6 +40,15 @@ for fn in sorted(os.listdir("_blog"), reverse=True):
     posts.append(dict(slug=meta["Adresa (slug)"], title=lines[0].lstrip("# ").strip(), seo=meta["SEO naslov"], desc=meta["Meta opis"],
         date=fn[:10], date_hr=f"{d}. {MONTHS[m - 1]} {y}.", body=md_html("\n".join(lines[1:]))))
 
+# Short contact line above every article, so a reader can get in touch without scrolling
+POST_CONTACT = '''<aside class="post-contact" aria-label="Kontakt">
+      <p>Trebate prijevod ili savjet oko dokumenata? Javite nam se:</p>
+      <ul>
+        <li><span>Rijeka i Kastav</span><a href="tel:+385981631930">098 163 19 30</a><a href="mailto:info@orbitaprijevodi.com">info@orbitaprijevodi.com</a></li>
+        <li><span>Zagreb</span><a href="tel:+385916126784">091 612 6784</a><a href="mailto:zagreb@orbitaprijevodi.com">zagreb@orbitaprijevodi.com</a></li>
+      </ul>
+    </aside>'''
+
 for p in posts:
     path = f"blog/{p['slug']}/"
     ld = {"@context": "https://schema.org", "@graph": [crumbs_ld([("Početna", ""), ("Blog", "blog/"), (p["title"], path)]),
@@ -49,7 +58,15 @@ for p in posts:
     html_out = (head(p["seo"] + " | Orbita", p["desc"], path, ld).replace('content="website"', 'content="article"') + NAV + "<main>\n  "
         + page_hero([("Početna", "../"), ("Blog", "../blog/"), (p["title"], None)], (p["title"], ""), f"Objavljeno {p['date_hr']}")
         + f'''  <section class="section">
+    {POST_CONTACT}
     <article class="prose blog-prose">{p["body"]}</article>
+  </section>
+  <section class="section">
+    <div class="section-head"><p class="label">Kontakt</p><h2>Javite nam se, <em>rado ćemo pomoći</em></h2></div>
+    <div class="offices">
+      {office_card("rijeka")}
+      {office_card("zagreb")}
+    </div>
   </section>
   ''' + cta_band() + "</main>\n" + footer())
     # Article pages sit two folders deep, so every relative link needs one more step up
