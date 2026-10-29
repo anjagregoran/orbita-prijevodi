@@ -8,12 +8,10 @@ import json, os, html
 from urllib.parse import quote
 
 SITE = "https://www.orbitaprijevodi.com"
-V = "59"  # bump together with ?v= in index.html
+V = "60"  # bump together with ?v= in index.html
 
-# The Blog link appears in menus only once at least one article Diana approved is in _blog/
-HAS_BLOG = any(f.endswith(".md") for f in os.listdir("_blog"))
-BLOG_NAV = '\n    <a href="../blog/">Blog</a>' if HAS_BLOG else ""
-BLOG_LI = '<li><a href="../blog/">Blog</a></li>' if HAS_BLOG else ""
+BLOG_NAV = '\n    <a href="../blog/">Blog</a>'
+BLOG_LI = '<li><a href="../blog/">Blog</a></li>'
 
 PHONES = [("Rijeka", "098 163 19 30", "385981631930"), ("Zagreb", "091 612 6784", "385916126784")]
 WA_TEXT = quote("Poštovani, šaljem fotografije dokumenta za ponudu prijevoda.")
@@ -451,20 +449,10 @@ html_out = head("Zaštita privatnosti | Orbita prijevodi", "Kako Orbita prijevod
 ''' + '</main>\n' + footer()
 write("zastita-privatnosti", html_out); pages.append(path)
 
-if HAS_BLOG:
-    exec(open("blog_pages.py").read())
-
-# Home page is hand-written: keep its Blog links in step with HAS_BLOG
-home = open("index.html").read()
-for plain, linked in [('    <a href="#o-nama">O nama</a>\n    <a href="#kontakt">', '    <a href="#o-nama">O nama</a>\n    <a href="blog/">Blog</a>\n    <a href="#kontakt">'),
-                      ('<li><a href="cesta-pitanja/">Česta pitanja</a></li><li><a href="kontakt/">', '<li><a href="cesta-pitanja/">Česta pitanja</a></li><li><a href="blog/">Blog</a></li><li><a href="kontakt/">')]:
-    home = home.replace(linked, plain)
-    if HAS_BLOG:
-        home = home.replace(plain, linked)
-open("index.html", "w").write(home)
+exec(open("blog_pages.py").read())
 
 # Old addresses that now live elsewhere: send people (and Google) to the right place
-REDIRECTS = {"o-nama": "../#o-nama", **({} if HAS_BLOG else {"blog": "../"}), "novosti": "../", "individualne-poduke-stranih-jezika-hrvatskog-jezika-za-strance": "../usluge/"}
+REDIRECTS = {"o-nama": "../#o-nama", "novosti": "../", "individualne-poduke-stranih-jezika-hrvatskog-jezika-za-strance": "../usluge/"}
 for slug, target in REDIRECTS.items():
     final = SITE + "/" + (target.replace("../", "") or "")
     write(slug, f'''<!doctype html><html lang="hr"><head><meta charset="utf-8"><title>Orbita prijevodi</title>

@@ -58,12 +58,36 @@ for p in posts:
 
 path = "blog/"
 cards = "".join(f'''<a class="svc-card" href="{p["slug"]}/"><p class="post-date">{p["date_hr"]}</p><h3>{e(p["title"])}</h3><p>{e(p["desc"])}</p><span>Pročitajte</span></a>''' for p in posts)
+if posts:
+    listing = f'<div class="svc-cards">{cards}</div>'
+else:
+    listing = '''<div class="blog-empty">
+      <h2>Prvi članci stižu uskoro</h2>
+      <p>Pripremamo praktične vodiče o ovjerenim prijevodima, apostilleu i dokumentima za inozemstvo, i ponešto o jezicima. Dok ih ne objavimo, odgovore na najčešća pitanja pronaći ćete na stranici Česta pitanja.</p>
+      <a class="pill pill-line" href="../cesta-pitanja/">Česta pitanja</a>
+    </div>'''
 ld = {"@context": "https://schema.org", "@graph": [crumbs_ld([("Početna", ""), ("Blog", path)])]}
 html_out = (head("Blog: savjeti o prijevodima, ovjerama i dokumentima | Orbita prijevodi", "Praktični savjeti o ovjerenim prijevodima, apostilleu i dokumentima za inozemstvo te zanimljivosti o jezicima, iz svakodnevnog rada prevoditeljske agencije Orbita.", path, ld)
     + NAV + "<main>\n  " + page_hero([("Početna", "../"), ("Blog", None)], ("Savjeti iz ", "prevoditeljskog ureda"), "Praktični vodiči za dokumente, prijevode i ovjere, i ponešto o jezicima, iz našeg svakodnevnog rada.")
     + f'''  <section class="section">
-    <div class="svc-cards">{cards}</div>
+    {listing}
   </section>
   ''' + cta_band() + "</main>\n" + footer())
+if not posts:  # keep an empty listing out of Google until the first article is up
+    html_out = html_out.replace("<head>", '<head>\n<meta name="robots" content="noindex">', 1)
 write("blog", html_out)
-pages.append(path)
+if posts:
+    pages.append(path)
+
+# Home page: the three newest articles, shown only once there is at least one
+home_cards = "".join(f'''<a class="svc-card" href="blog/{p["slug"]}/"><p class="post-date">{p["date_hr"]}</p><h3>{e(p["title"])}</h3><p>{e(p["desc"])}</p><span>Pročitajte</span></a>''' for p in posts[:3])
+home_section = f'''
+  <section class="section" id="blog">
+    <div class="section-head reveal"><p class="label">Blog</p><h2>Savjeti iz <em>prevoditeljskog ureda</em></h2></div>
+    <div class="svc-cards">{home_cards}</div>
+    <p class="blog-more"><a class="pill pill-line" href="blog/">Svi članci</a></p>
+  </section>
+  ''' if posts else ""
+home = open("index.html").read()
+home = re.sub(r"<!--BLOG-->.*?<!--/BLOG-->", lambda m: "<!--BLOG-->" + home_section + "<!--/BLOG-->", home, flags=re.S)
+open("index.html", "w").write(home)

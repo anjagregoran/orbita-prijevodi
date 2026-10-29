@@ -483,3 +483,7 @@ mark.todo { background: #ffe58a; color: #5a4300; padding: 1px 6px; border-radius
 .blog-prose a:hover { color: var(--accent); }
 .blog-prose .post-note { margin-top: 36px; padding-top: 18px; border-top: 1px solid var(--line, rgba(0,0,0,.12)); font-size: 15px; }
 .post-date { font-size: 13px; letter-spacing: .02em; color: var(--ink-soft); margin-bottom: 10px; }
+.blog-empty { max-width: 620px; padding: 40px; background: #fff; border: 1px solid var(--line); border-radius: 28px; }
+.blog-empty h2 { font-size: clamp(26px, 2.6vw, 34px); margin-bottom: 14px; }
+.blog-empty p { color: var(--ink-soft); margin-bottom: 24px; }
+.blog-more { margin-top: 32px; }
