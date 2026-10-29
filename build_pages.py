@@ -197,6 +197,7 @@ NAV = '''<header class="nav" id="nav">
     <a href="../usluge/">Usluge</a>
     <a href="../#jezici">Jezici</a>
     <a href="../cesta-pitanja/">Česta pitanja</a>
+    <a href="../blog/">Blog</a>
     <a href="../#o-nama">O nama</a>
     <a href="../kontakt/">Kontakt</a>
   </nav>
@@ -289,7 +290,7 @@ def footer():
   <div class="footer-links">
     <div><p class="label">Usluge</p><ul>{svc}</ul></div>
     <div><p class="label">Gradovi</p><ul><li><a href="../prijevodi-rijeka/">Prijevodi Rijeka i Kastav</a></li><li><a href="../prijevodi-zagreb/">Prijevodi Zagreb</a></li></ul></div>
-    <div><p class="label">Orbita</p><ul><li><a href="../cesta-pitanja/">Česta pitanja</a></li><li><a href="../kontakt/">Kontakt</a></li><li><a href="../#o-nama">O nama</a></li><li><a href="../#ponuda">Zatražite ponudu</a></li></ul></div>
+    <div><p class="label">Orbita</p><ul><li><a href="../cesta-pitanja/">Česta pitanja</a></li><li><a href="../blog/">Blog</a></li><li><a href="../kontakt/">Kontakt</a></li><li><a href="../#o-nama">O nama</a></li><li><a href="../#ponuda">Zatražite ponudu</a></li></ul></div>
   </div>
   <div class="footer-bottom">
     <span>© <span id="year"></span> Orbita prijevodi · OMNIA d.o.o., OIB 42140363484</span>
@@ -446,8 +447,10 @@ html_out = head("Zaštita privatnosti | Orbita prijevodi", "Kako Orbita prijevod
 ''' + '</main>\n' + footer()
 write("zastita-privatnosti", html_out); pages.append(path)
 
+exec(open("blog_pages.py").read())
+
 # Old addresses that now live elsewhere: send people (and Google) to the right place
-REDIRECTS = {"o-nama": "../#o-nama", "blog": "../", "novosti": "../", "individualne-poduke-stranih-jezika-hrvatskog-jezika-za-strance": "../usluge/"}
+REDIRECTS = {"o-nama": "../#o-nama", "novosti": "../", "individualne-poduke-stranih-jezika-hrvatskog-jezika-za-strance": "../usluge/"}
 for slug, target in REDIRECTS.items():
     final = SITE + "/" + (target.replace("../", "") or "")
     write(slug, f'''<!doctype html><html lang="hr"><head><meta charset="utf-8"><title>Orbita prijevodi</title>

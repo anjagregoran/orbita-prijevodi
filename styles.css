@@ -471,3 +471,15 @@ blockquote { font-family: var(--serif); font-weight: 300; font-size: clamp(20px,
 .legal-date { margin-top: 30px; font-size: 14px; }
 mark.todo { background: #ffe58a; color: #5a4300; padding: 1px 6px; border-radius: 4px; font-size: 13px; font-weight: 500; }
 @media (max-width: 560px) { .legal-list div { grid-template-columns: 1fr; gap: 4px; } }
+
+/* Blog */
+.blog-prose { max-width: 760px; }
+.blog-prose h2 { font-size: clamp(24px, 2.4vw, 32px); margin: 40px 0 14px; }
+.blog-prose h2:first-child { margin-top: 0; }
+.blog-prose ol, .blog-prose ul { margin: 0 0 20px; padding-left: 22px; max-width: 62ch; color: var(--ink-soft); }
+.blog-prose li { margin-bottom: 10px; padding-left: 4px; }
+.blog-prose strong { color: var(--ink); font-weight: 500; }
+.blog-prose a { color: var(--ink); text-decoration: underline; text-underline-offset: 3px; }
+.blog-prose a:hover { color: var(--accent); }
+.blog-prose .post-note { margin-top: 36px; padding-top: 18px; border-top: 1px solid var(--line, rgba(0,0,0,.12)); font-size: 15px; }
+.post-date { font-size: 13px; letter-spacing: .02em; color: var(--ink-soft); margin-bottom: 10px; }
