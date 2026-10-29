@@ -8,7 +8,7 @@ import json, os, html
 from urllib.parse import quote
 
 SITE = "https://www.orbitaprijevodi.com"
-V = "58"  # bump together with ?v= in index.html
+V = "59"  # bump together with ?v= in index.html
 
 # The Blog link appears in menus only once at least one article Diana approved is in _blog/
 HAS_BLOG = any(f.endswith(".md") for f in os.listdir("_blog"))
