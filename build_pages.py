@@ -494,7 +494,7 @@ write("kontakt", html_out); pages.append(path)
 
 # Legal pages: company details (Zakon o trgovačkim društvima, Zakon o elektroničkoj trgovini) and privacy (GDPR)
 COMPANY_ROWS = [
-  ("Tvrtka", "OMNIA d.o.o. za usluge (skraćeno OMNIA d.o.o.)"),
+  ("Tvrtka", "OMNIA d.o.o."),
   ("Robna marka", "Orbita prijevodi"),
   ("Sjedište", "Ćikovići 109, 51215 Kastav"),
   ("Sudski registar", "Trgovački sud u Rijeci, MBS 040366010"),
