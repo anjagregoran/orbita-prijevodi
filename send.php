@@ -56,6 +56,8 @@ if (isset($_POST['svc']) && is_array($_POST['svc'])) {
 $service = one_line(field('service', 120));
 if ($service !== '') $services[] = $service;
 $office = field('office', 20) === 'Zagreb' ? 'Zagreb' : 'Rijeka';
+$SOURCES = ['Google oglas', 'Google pretraživanje', 'Google karte', 'Preporuka', 'Facebook/Instagram', 'Već sam bio/la klijent', 'Drugo'];
+$source = in_array(field('source', 60), $SOURCES, true) ? field('source', 60) : '/';
 
 $lines = [
     'Novi upit s web stranice orbitaprijevodi.com',
@@ -68,6 +70,7 @@ $lines = [
     'Na jezik: ' . (one_line(field('to', 80)) ?: '/'),
     'Rok: ' . (one_line(field('deadline', 120)) ?: '/'),
     'Ured: ' . $office,
+    'Kako su saznali za nas: ' . $source,
     '',
     'Poruka:',
     field('msg', 5000) ?: '/',

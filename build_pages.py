@@ -8,7 +8,7 @@ import json, os, html, re
 from urllib.parse import quote
 
 SITE = "https://www.orbitaprijevodi.com"
-V = "63"  # bump together with ?v= in index.html
+V = "64"  # bump together with ?v= in index.html
 
 BLOG_NAV = '\n    <a href="../blog/">Blog</a>'
 BLOG_LI = '<li><a href="../blog/">Blog</a></li>'
@@ -315,6 +315,16 @@ def form_html(service, action):
           <label>Na jezik<input name="to" placeholder="Engleski"></label>
         </div>
         <label>Poruka<textarea name="msg" rows="3" placeholder="Vrsta dokumenta, rok i sve što nam može pomoći."></textarea></label>
+        <label>Kako ste saznali za nas?<select name="source">
+          <option value="">Odaberite</option>
+          <option>Google oglas</option>
+          <option>Google pretraživanje</option>
+          <option>Google karte</option>
+          <option>Preporuka</option>
+          <option>Facebook/Instagram</option>
+          <option>Već sam bio/la klijent</option>
+          <option>Drugo</option>
+        </select></label>
         <label class="file-drop">Dokumenti za ponudu<input type="file" name="files[]" multiple accept=".pdf,.jpg,.jpeg,.png,.heic,.webp,.doc,.docx,.odt,.rtf,.txt,.xls,.xlsx,.ppt,.pptx"><span class="file-hint">Fotografije ili skenovi, do 10 datoteka i ukupno 20 MB</span></label>
         <fieldset>
           <legend>Koji Vam je ured bliži?</legend>
