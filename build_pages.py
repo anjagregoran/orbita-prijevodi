@@ -501,7 +501,7 @@ COMPANY_ROWS = [
   ("Matični broj", "4630327"),
   ("OIB", "42140363484"),
   ("Uprava", "Diana Jenul, zastupa društvo samostalno i pojedinačno"),
-  ("Temeljni kapital", "2.654,46 € (20.000,00 kn), uplaćen u cijelosti"),
+  ("Temeljni kapital", "2.655 € (20.000 kn), uplaćen u cijelosti"),
   ("Banka", "Erste&amp;Steiermärkische Bank d.d., Jadranski trg 3A, 51000 Rijeka"),
   ("IBAN", "HR47 2402 0061 1008 0465 2"),
   ("SWIFT/BIC", "ESBCHR22"),
