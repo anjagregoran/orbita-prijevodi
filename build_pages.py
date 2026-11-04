@@ -272,13 +272,15 @@ def contact_rows():
           </div>''' for c, d, n in PHONES)
     return f'<div class="quick">{rows}\n        </div>'
 
-def cta_band():
+def cta_band(price=PRICE, photo=True):
+    first = " ".join(rich(t) for t in (price, SEND_PHOTO if photo else "") if t)
+    first_p = f'<p class="sub">{first}</p>' if first else ""
     return f'''<section class="section dark">
     <div class="offer">
       <div class="offer-intro">
         <p class="label">Ponuda</p>
         <h2>Pošaljite dokument, a mi šaljemo ponudu.</h2>
-        <p class="sub">{rich(PRICE)} {rich(SEND_PHOTO)}</p>
+        {first_p}
         <p class="sub">{rich(AVAILABLE)}</p>
       </div>
       <div>
@@ -427,7 +429,7 @@ for s in SERVICES:
     </div>
   </section>
 '''
-    html_out = head(s["title"], s["desc"], path, ld) + NAV + '<main>\n  ' + page_hero([("Početna", "../"), ("Usluge", "../usluge/"), (s["name"], None)], s["h1"], s["lead"]) + '  ' + body + '  ' + faq_block(s["faq"]) + '  ' + cta_band() + '  ' + related(s["slug"]) + '</main>\n' + footer()
+    html_out = head(s["title"], s["desc"], path, ld) + NAV + '<main>\n  ' + page_hero([("Početna", "../"), ("Usluge", "../usluge/"), (s["name"], None)], s["h1"], s["lead"]) + '  ' + body + '  ' + faq_block(s["faq"]) + '  ' + cta_band(price, s.get("photo", True)) + '  ' + related(s["slug"]) + '</main>\n' + footer()
     write(s["slug"], html_out); pages.append(path)
 
 for c in CITIES:
