@@ -56,7 +56,7 @@ if (isset($_POST['svc']) && is_array($_POST['svc'])) {
 $service = one_line(field('service', 120));
 if ($service !== '') $services[] = $service;
 $office = field('office', 20) === 'Zagreb' ? 'Zagreb' : 'Rijeka';
-$SOURCES = ['Google oglas', 'Google pretraživanje', 'Google karte', 'Preporuka', 'Facebook/Instagram', 'Već sam bio/la klijent', 'Drugo'];
+$SOURCES = ['Google oglas', 'Google pretraživanje', 'Google karte', 'Preporuka', 'Facebook', 'Već sam bio/la klijent', 'Umjetna inteligencija (AI)', 'Drugo'];
 $source = in_array(field('source', 60), $SOURCES, true) ? field('source', 60) : '/';
 
 $lines = [
