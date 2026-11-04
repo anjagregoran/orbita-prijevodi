@@ -140,9 +140,9 @@ $("#qNext").addEventListener("click", () => showQuote(q + 1));
 showQuote(0);
 
 // Quote form
-const form = $("#quoteForm"), chips = $("#svcChips"), note = $("#formNote");
+const form = $("#quoteForm"), chips = $("#svcChips");
 SERVICES.forEach((s) => {
-  chips.insertAdjacentHTML("beforeend", `<label class="chip"><input type="checkbox" name="svc" value="${s.name}"><span>${s.name}</span></label>`);
+  chips.insertAdjacentHTML("beforeend", `<label class="chip"><input type="checkbox" name="svc[]" value="${s.name}"><span>${s.name}</span></label>`);
 });
 document.addEventListener("click", (e) => {
   const a = e.target.closest("[data-svc]");
@@ -150,38 +150,7 @@ document.addEventListener("click", (e) => {
   chips.querySelectorAll("input").forEach((c) => (c.checked = c.value === a.dataset.svc));
   if (a.dataset.doc) form.elements.msg.value = `Dokument: ${a.dataset.doc}`;
 });
-form.addEventListener("submit", (e) => {
-  e.preventDefault();
-  const d = new FormData(form);
-  if (!d.get("name").trim()) {
-    note.textContent = "Upišite ime i prezime kako bismo znali kome odgovaramo.";
-    form.elements.name.focus();
-    return;
-  }
-  const svc = d.getAll("svc");
-  const lines = [
-    "Poštovani,",
-    "",
-    "molim Vas ponudu za sljedeće:",
-    "",
-    `Usluga: ${svc.length ? svc.join(", ") : "nije odabrano"}`,
-    `S jezika: ${d.get("from") || "/"}`,
-    `Na jezik: ${d.get("to") || "/"}`,
-    `Rok: ${d.get("deadline") || "po dogovoru"}`,
-    `Ured: ${d.get("office")}`,
-    "",
-    d.get("msg") || "",
-    "",
-    "Dokument šaljem u privitku.",
-    "",
-    "Srdačan pozdrav,",
-    d.get("name")
-  ];
-  const subject = `Upit za ponudu${svc.length ? ": " + svc[0] : ""}`;
-  // Every enquiry goes to both offices
-  location.href = `mailto:info@orbitaprijevodi.com,zagreb@orbitaprijevodi.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(lines.join("\n"))}`;
-  note.textContent = "Upit se otvorio u Vašem programu za e-poštu. Priložite dokument i pošaljite poruku.";
-});
+
 
 // Reveal on scroll
 const io = new IntersectionObserver((entries) => {
