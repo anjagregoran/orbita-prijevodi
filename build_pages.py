@@ -8,7 +8,7 @@ import json, os, html, re
 from urllib.parse import quote
 
 SITE = "https://www.orbitaprijevodi.com"
-V = "66"  # bump together with ?v= in index.html
+V = "67"  # bump together with ?v= in index.html
 
 BLOG_NAV = '\n    <a href="../blog/">Blog</a>'
 BLOG_LI = '<li><a href="../blog/">Blog</a></li>'
@@ -538,18 +538,18 @@ write("pravne-informacije", html_out); pages.append(path)
 
 PRIVACY = [
   ("Tko je voditelj obrade", ["Voditelj obrade Vaših osobnih podataka je OMNIA d.o.o., Ćikovići 109, 51215 Kastav, OIB 42140363484, koja pruža usluge pod nazivom Orbita prijevodi. Za sva pitanja o zaštiti podataka možete nam se obratiti na info@orbitaprijevodi.com."]),
-  ("Koje podatke prikupljamo", ["Kada nam se obratite putem obrasca na stranici, e-poštom, telefonom, Viberom ili WhatsAppom, obrađujemo podatke koje nam sami pošaljete: ime i prezime, adresu e-pošte, broj telefona, sadržaj poruke te dokumente koje nam dostavite na prijevod ili lekturu. Dokumenti mogu sadržavati i osobne podatke drugih osoba ili osjetljive podatke, primjerice medicinsku dokumentaciju."]),
+  ("Koje podatke prikupljamo", ["Kada nam se obratite putem obrasca na stranici, e-poštom, telefonom, Viberom ili WhatsAppom, obrađujemo podatke koje nam sami pošaljete: ime i prezime, adresu e-pošte, broj telefona, sadržaj poruke te dokumente koje nam dostavite na prijevod ili lekturu. Dokumenti mogu sadržavati i osobne podatke drugih osoba ili osjetljive podatke, primjerice medicinsku dokumentaciju.", "Kako bismo stranicu zaštitili od automatiziranog slanja neželjenih poruka, pri slanju obrasca kratko bilježimo šifrirani zapis Vaše IP adrese i vrijeme slanja. Taj zapis služi samo za ograničavanje broja upita, a nakon 10 minuta više se ne uzima u obzir. Pravna osnova je naš legitimni interes za zaštitu od zlouporabe."]),
   ("Zašto ih obrađujemo", ["Podatke koristimo samo kako bismo Vam izradili ponudu, obavili naručenu uslugu, dostavili Vam gotov prijevod i izdali račun. Pravna osnova je izvršavanje ugovora i radnje prije sklapanja ugovora na Vaš zahtjev, te zakonske obveze, primjerice u računovodstvu."]),
   ("Tko ih vidi", ["Vašim podacima i dokumentima pristupaju samo naši djelatnici i suradnici, prevoditelji, sudski tumači i lektori koji rade na Vašem zahtjevu i obvezani su na povjerljivost. Podatke ne prodajemo i ne ustupamo trećima u marketinške svrhe. Stranica se poslužuje putem pružatelja usluge smještaja (hostinga), a e-pošta putem našeg pružatelja usluge e-pošte. Dokumente poslane putem obrasca na stranici primamo izravno na adrese info@orbitaprijevodi.com i zagreb@orbitaprijevodi.com."]),
   ("Koliko ih čuvamo", ["Podatke čuvamo onoliko dugo koliko je potrebno za obavljanje usluge, a nakon toga samo onoliko koliko nam to nalažu propisi, primjerice za račune i računovodstvene isprave. Dokumente dostavljene na prijevod ne čuvamo dulje nego što je potrebno."]),
   ("Vaša prava", ["Imate pravo zatražiti pristup svojim podacima, njihov ispravak ili brisanje, ograničenje obrade i prijenos podataka te uložiti prigovor na obradu. Zahtjev nam možete poslati na info@orbitaprijevodi.com. Ako smatrate da su Vaša prava povrijeđena, možete podnijeti pritužbu Agenciji za zaštitu osobnih podataka (azop.hr)."]),
-  ("Kolačići", ["Kako bismo znali kako posjetitelji pronalaze stranicu i koriste je te koliko su uspješni naši oglasi, koristimo Google Analytics i Google Ads tvrtke Google Ireland Limited. Oni postavljaju kolačiće i bilježe, primjerice, koje ste stranice posjetili, s kojeg ste oglasa došli te jeste li nam poslali upit ili nas nazvali.", "Te kolačiće koristimo samo ako ih prihvatite u obavijesti o kolačićima pri prvom posjetu. Ako odaberete samo nužne, analitika i oglasni kolačići ostaju isključeni, a stranica radi jednako. Svoj izbor u svakom trenutku možete promijeniti putem poveznice Postavke kolačića na dnu svake stranice."]),
+  ("Kolačići", ["Kako bismo znali kako posjetitelji pronalaze stranicu i koriste je te koliko su uspješni naši oglasi, koristimo Google Analytics i Google Ads tvrtke Google Ireland Limited. Oni postavljaju kolačiće i bilježe, primjerice, koje ste stranice posjetili, s kojeg ste oglasa došli te jeste li nam poslali upit ili nas nazvali.", "Te kolačiće koristimo samo ako ih prihvatite u obavijesti o kolačićima pri prvom posjetu. Ako odaberete samo nužne, analitika i oglasni kolačići ostaju isključeni, a stranica radi jednako. Svoj izbor u svakom trenutku možete promijeniti putem poveznice Postavke kolačića na dnu svake stranice.", "Google podatke može obrađivati i na poslužiteljima izvan Europske unije, uključujući one u Sjedinjenim Američkim Državama. Takav prijenos dopušten je jer je Google uključen u Okvir za privatnost podataka između EU-a i SAD-a (EU-U.S. Data Privacy Framework), za koji je Europska komisija utvrdila da osigurava odgovarajuću razinu zaštite."]),
 ]
 secs = ''.join(f'<h2>{e(h)}</h2>' + ''.join(f'<p>{e(p)}</p>' for p in ps) for h, ps in PRIVACY)
 path = "zastita-privatnosti/"
 ld = {"@context": "https://schema.org", "@graph": [crumbs_ld([("Početna", ""), ("Zaštita privatnosti", path)])]}
 html_out = head("Zaštita privatnosti | Orbita prijevodi", "Kako Orbita prijevodi (OMNIA d.o.o.) obrađuje i štiti Vaše osobne podatke i dokumente.", path, ld) + NAV + '<main>\n  ' + page_hero([("Početna", "../"), ("Zaštita privatnosti", None)], ("Zaštita ", "privatnosti"), "Vaši podaci i dokumenti u sigurnim su rukama. Otkrijte kako brinemo o njihovoj povjerljivosti i zaštiti.") + f'''  <section class="section">
-    <div class="prose legal-prose">{secs}<p class="legal-date">Zadnja izmjena: listopad 2026.</p></div>
+    <div class="prose legal-prose">{secs}<p class="legal-date">Zadnja izmjena: studeni 2026.</p></div>
   </section>
 ''' + '</main>\n' + footer()
 write("zastita-privatnosti", html_out); pages.append(path)

@@ -33,7 +33,7 @@
     if (document.getElementById("cookieBar")) return;
     var d = document.createElement("div");
     d.className = "cookie-bar"; d.id = "cookieBar"; d.setAttribute("role", "dialog"); d.setAttribute("aria-label", "Kolačići");
-    d.innerHTML = '<p><strong>Kolačići</strong> Koristimo ih kako bismo vidjeli kako posjetitelji pronalaze stranicu i koliko su uspješni naši oglasi. Analitičke i oglasne kolačiće uključujemo samo uz Vašu privolu. <a href="' + root + 'zastita-privatnosti/">Više o tome</a></p>' +
+    d.innerHTML = '<p><strong>Kolačići</strong> Pomažu nam vidjeti kako posjetitelji pronalaze stranicu i koliko su uspješni naši oglasi. Analitičke i oglasne kolačiće uključujemo samo uz Vašu privolu. <a href="' + root + 'zastita-privatnosti/">Više o tome</a></p>' +
       '<div><button type="button" class="pill pill-line" data-c="necessary">Samo nužni</button><button type="button" class="pill pill-ink" data-c="all">Prihvaćam sve</button></div>';
     d.addEventListener("click", function (e) {
       var b = e.target.closest("button[data-c]");
