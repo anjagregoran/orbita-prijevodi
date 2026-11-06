@@ -8,7 +8,7 @@ import json, os, html, re
 from urllib.parse import quote
 
 SITE = "https://www.orbitaprijevodi.com"
-V = "65"  # bump together with ?v= in index.html
+V = "66"  # bump together with ?v= in index.html
 
 BLOG_NAV = '\n    <a href="../blog/">Blog</a>'
 BLOG_LI = '<li><a href="../blog/">Blog</a></li>'
@@ -56,12 +56,11 @@ SERVICES = [
     title="Usmeno prevođenje: simultano, konsekutivno, šaptano | Orbita",
     desc="Simultano, konsekutivno i šaptano prevođenje na sastancima, konferencijama i sajmovima, te sudski tumač kod javnog bilježnika ili na sudu. Rijeka i Zagreb.",
     h1=("Usmeno ", "prevođenje"),
-    lead="Od poslovnih sastanaka do međunarodnih konferencija – simultanim, konsekutivnim i šaptanim prevođenjem osiguravamo jasno i učinkovito sporazumijevanje.",
+    lead=["Simultano, konsekutivno i šaptano prevođenje – kada je važno da Vas svi u prostoriji razumiju.", "Od poslovnih sastanaka do međunarodnih konferencija – usmenim prevođenjem osiguravamo jasno i učinkovito sporazumijevanje.", "Treba Vam i oprema i stručni tim koji će je postaviti u Vašem prostoru? Nema problema!"],
     body=[
       "Tražite li prevoditelje za simultano ili konsekutivno prevođenje, možda i za više jezika u istom danu? Trebate li sudskog tumača za tumačenje kod javnog bilježnika ili na sudu, ili nešto posebno, poput prevođenja uz pratnju?",
       "Usmeno prevođenje iznimno je zahtjevno i mogu ga obavljati samo specijalizirane osobe s velikim iskustvom i iznimnim poznavanjem jezika.",
       "Prijevod izgovorene riječi na Vašim poslovnim sastancima, seminarima, simpozijima, međunarodnim i tiskovnim konferencijama, prezentacijama, sajmovima, sjednicama nadzornih odbora, pregovorima, državnim protokolima ili godišnjim skupštinama prepustite našim usmenim prevoditeljima.",
-      "Treba Vam i oprema i stručni tim koji će je postaviti u Vašem prostoru? Nema problema!",
     ],
     price="Cijena se obračunava po svakom započetom satu prevođenja, a konačnu ponudu, kojoj možemo dodati i osiguravanje cjelokupne potrebne tehničke opreme, pripremamo nakon što se upoznamo s Vašim potrebama i zahtjevima.", photo=False,
     items=["Konferencije i seminari", "Poslovni sastanci i pregovori", "Sajmovi i prezentacije", "Sjednice i godišnje skupštine", "Javni bilježnik i sud", "Prevođenje uz pratnju"],
@@ -244,14 +243,23 @@ NAV = f'''<header class="nav" id="nav">
 </header>
 '''
 
+def offices_strip():
+    # Diana: both offices, both mobiles and both e-mails visible at the top of every page
+    cells = ""
+    for key, (city, mob, no) in zip(("rijeka", "zagreb"), PHONES):
+        o = OFFICES[key]
+        cells += f'''<div><strong>{city}</strong><span>{o["street"]}, {o["city"]}</span><a href="tel:+{no}">{mob}</a><a href="mailto:{o["email"]}">{o["email"]}</a></div>'''
+    return f'<div class="lp-offices" aria-label="Naši uredi">{cells}</div>'
+
 def page_hero(crumbs, h1, lead, extra=""):
     trail = ' <span>/</span> '.join(f'<a href="{href}">{e(t)}</a>' if href else f'<span aria-current="page">{e(t)}</span>' for t, href in crumbs)
     return f'''<section class="hero page-hero">
     <div class="hero-bg" aria-hidden="true"></div>
     <div class="hero-text">
+      {offices_strip()}
       <nav class="crumbs" aria-label="Putanja">{trail}</nav>
       <h1>{e(h1[0])}<em>{e(h1[1])}</em></h1>
-      <p class="lead">{e(lead)}</p>
+      {"".join(f'<p class="lead">{e(t)}</p>' for t in (lead if isinstance(lead, list) else [lead]))}
       <div class="hero-cta">
         <a class="pill pill-ink" href="../#ponuda">Zatražite ponudu</a>
         <a class="pill pill-line" href="https://wa.me/{PHONES[0][2]}?text={WA_TEXT}" target="_blank" rel="noopener">Pošaljite dokument na WhatsApp</a>
@@ -482,7 +490,7 @@ write("cesta-pitanja", html_out); pages.append(path)
 
 # Services overview
 path = "usluge/"
-cards = ''.join(f'''<a class="svc-card" href="../{s["slug"]}/"><h3>{e(s["name"])}</h3><p>{e(s["lead"])}</p><span>Saznajte više</span></a>''' for s in SERVICES)
+cards = ''.join(f'''<a class="svc-card" href="../{s["slug"]}/"><h3>{e(s["name"])}</h3><p>{e(s["lead"][0] if isinstance(s["lead"], list) else s["lead"])}</p><span>Saznajte više</span></a>''' for s in SERVICES)
 ld = {"@context": "https://schema.org", "@graph": [crumbs_ld([("Početna", ""), ("Usluge", path)])]}
 html_out = head("Usluge: ovjereni, pisani i usmeni prijevodi, lektura | Orbita prijevodi", "Ovjereni prijevodi sudskih tumača, pisani i usmeni prijevodi, lektura, životopisi, dokumentacija za studij u inozemstvu, stručni i marketinški tekstovi. Rijeka, Kastav i Zagreb.", path, ld) + NAV + '<main>\n  ' + page_hero([("Početna", "../"), ("Usluge", None)], ("Naše ", "usluge"), "Sve što Vašem tekstu treba, od prijevoda do objave.") + f'''  <section class="section">
     <div class="svc-cards">{cards}</div>
@@ -547,6 +555,11 @@ html_out = head("Zaštita privatnosti | Orbita prijevodi", "Kako Orbita prijevod
 write("zastita-privatnosti", html_out); pages.append(path)
 
 exec(open("blog_pages.py").read())
+
+# Home page is hand-written: put the offices strip at the top of its first screen
+home = open("index.html").read()
+home = re.sub(r"<!--OFFICES-->.*?<!--/OFFICES-->", lambda m: "<!--OFFICES-->" + offices_strip() + "<!--/OFFICES-->", home, flags=re.S)
+open("index.html", "w").write(home)
 
 # Old addresses that now live elsewhere: send people (and Google) to the right place
 REDIRECTS = {"o-nama": "../#o-nama", "novosti": "../", "individualne-poduke-stranih-jezika-hrvatskog-jezika-za-strance": "../usluge/"}

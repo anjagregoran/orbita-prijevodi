@@ -33,7 +33,7 @@ def faq_tr(lang_same_day):
     return [
       ("Mogu li prijevod dobiti isti dan?", f"Izuzetno smo fleksibilni i trudimo se svakoj stranci osigurati prijevod u najkraćem mogućem roku. Prijevod dokumenta od jedne stranice, do jedne kartice teksta, za najtraženije jezike (engleski, njemački, talijanski, slovenski i srpski) moguć je i unutar 2 sata od Vašeg upita. {lang_same_day}"),
       ("Koliko košta prijevod?", "Cijena ovisi o broju znakova, ovjeri i zahtjevnosti teksta. Obračunava se po kartici teksta od 1800 znakova s razmacima, a ponudu s točnom cijenom šaljemo Vam unutar sat vremena od upita."),
-      ("Kako Vam mogu poslati dokument?", "Skenirajte ga ili poslikajte mobitelom i pošaljite nam ga Viberom, WhatsAppom ili Messengerom, na info@orbitaprijevodi.com ili zagreb@orbitaprijevodi.com, ili ga donesite osobno u ured. Šaljemo ga i običnom poštom. Pazite da je fotografija oštra i da se vidi sav tekst."),
+      ("Kako Vam mogu poslati dokument?", "Skenirajte ga ili fotografirajte mobitelom i pošaljite nam ga Viberom, WhatsAppom ili Messengerom, na info@orbitaprijevodi.com ili zagreb@orbitaprijevodi.com, ili ga donesite osobno u ured. Šaljemo ga i običnom poštom. Pazite da je fotografija oštra i da se vidi sav tekst."),
       ("Kako ću dobiti gotov prijevod?", "Onako kako Vam najviše odgovara: šaljemo ga e-poštom ili poštom na Vašu kućnu adresu, a možete ga preuzeti i u jednom od naših ureda."),
       ("Kada ste dostupni?", HOURS),
       ("Gdje se nalazite?", "Zagrebački ured nalazi se u Martićevoj 67 na Kvaternikovu trgu, na sjecištu tramvajskih i autobusnih linija, a ako dolazite automobilom, parkirati možete u dvorištu ili u garaži u sklopu zgrade. Riječki ured nalazi se u Kastvu, na adresi Ćikovići 109."),
@@ -148,14 +148,6 @@ def lp_nav(wa=None):
 
 LP_IMAGES = {'sudski-tumac-za-engleski-jezik': ('1520986606214-8b456906c813', 'center 40%'), 'sudski-tumac-za-slovenski-jezik': ('1773658088032-87e28148ea1b', 'center'), 'sudski-tumac-za-srpski-jezik': ('1608816747977-4d303f476571', 'center'), 'sudski-tumaci-za-sve-jezike': ('1521295121783-8a321d551ad2', '70% center'), 'profesionalno-sastavljanje-zivotopisa-cv-curriculum-vitae': ('1499750310107-5fef28a66643', 'center'), 'lektura': ('1455390582262-044cdead277a', 'center 55%'), 'medicinski-prijevodi': ('1758691462848-ba1e929da259', 'center')}
 
-def lp_offices():
-    # Diana: both offices, both mobiles and both e-mails visible the moment someone lands from an ad
-    cells = ""
-    for key, (city, mob, no) in zip(("rijeka", "zagreb"), PHONES):
-        o = OFFICES[key]
-        cells += f'''<div><strong>{city}</strong><span>{o["street"]}, {o["city"]}</span><a href="tel:+{no}">{mob}</a><a href="mailto:{o["email"]}">{o["email"]}</a></div>'''
-    return f'<div class="lp-offices" aria-label="Naši uredi">{cells}</div>'
-
 def lp_intro(d):
     if "intro" not in d:
         return f'<p class="lead">{rich(d["lead"])}</p>'
@@ -182,7 +174,7 @@ def lp_hero(d):
     return f'''<section class="hero page-hero lp-hero">
     <div class="hero-bg lp-photo" aria-hidden="true" style="background-image:url(https://images.unsplash.com/photo-{LP_IMAGES[d["slug"]][0]}?auto=format&fit=crop&w=2000&q=70);background-position:{LP_IMAGES[d["slug"]][1]}"></div>
     <div class="hero-text">
-      {lp_offices()}
+      {offices_strip()}
       <p class="label lp-kicker">{e(d["kicker"])}</p>
       <h1>{e(d["h1"][0])}<em>{e(d["h1"][1])}</em></h1>
       {lp_intro(d)}
@@ -192,7 +184,7 @@ def lp_hero(d):
         <a class="pill pill-line" href="tel:+{n}">Nazovite {LP_PHONE[1]}</a>
         <a class="pill pill-accent lp-formbtn" href="#upit">Pošaljite dokument putem kontakt obrasca i zatražite ponudu!</a>
       </div>
-      <p class="lp-micro">{e(d.get("micro", "Poslikajte dokument mobitelom i pošaljite ga, bez obveze."))}</p>
+      <p class="lp-micro">{e(d.get("micro", "Fotografirajte dokument mobitelom i pošaljite ga, bez obveze."))}</p>
     </div>
   </section>
 '''
