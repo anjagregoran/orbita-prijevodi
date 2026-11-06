@@ -56,7 +56,7 @@ SERVICES = [
     title="Usmeno prevođenje: simultano, konsekutivno, šaptano | Orbita",
     desc="Simultano, konsekutivno i šaptano prevođenje na sastancima, konferencijama i sajmovima, te sudski tumač kod javnog bilježnika ili na sudu. Rijeka i Zagreb.",
     h1=("Usmeno ", "prevođenje"),
-    lead=["Simultano, konsekutivno i šaptano prevođenje – kada je važno da Vas svi u prostoriji razumiju.", "Od poslovnih sastanaka do međunarodnih konferencija – usmenim prevođenjem osiguravamo jasno i učinkovito sporazumijevanje.", "Treba Vam i oprema i stručni tim koji će je postaviti u Vašem prostoru? Nema problema!"],
+    lead=["Simultano, konsekutivno i šaptano prevođenje, kada je važno da Vas svi u prostoriji razumiju.", "Od poslovnih sastanaka do međunarodnih konferencija, usmenim prevođenjem osiguravamo jasno i učinkovito sporazumijevanje.", "Treba Vam i oprema i stručni tim koji će je postaviti u Vašem prostoru? Nema problema!"],
     body=[
       "Tražite li prevoditelje za simultano ili konsekutivno prevođenje, možda i za više jezika u istom danu? Trebate li sudskog tumača za tumačenje kod javnog bilježnika ili na sudu, ili nešto posebno, poput prevođenja uz pratnju?",
       "Usmeno prevođenje iznimno je zahtjevno i mogu ga obavljati samo specijalizirane osobe s velikim iskustvom i iznimnim poznavanjem jezika.",
