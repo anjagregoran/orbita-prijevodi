@@ -34,6 +34,10 @@ if (empty($_POST) && !empty($_SERVER['CONTENT_LENGTH'])) reply(false, 'Datoteke 
 // Bots fill the hidden field; pretend all went well
 if (field('website') !== '') reply(true);
 
+// Robots fill the form in a second or two (people need far longer), or do not run the page's script at all
+$spent = (int)field('t', 20);
+if ($spent < 3000) reply(true);
+
 // At most 5 enquiries per 10 minutes from one address
 $ip = isset($_SERVER['REMOTE_ADDR']) ? $_SERVER['REMOTE_ADDR'] : 'x';
 $stamp = sys_get_temp_dir() . '/orbita_form_' . md5($ip);
@@ -46,6 +50,10 @@ $name = one_line(field('name', 120));
 $email = one_line(field('email', 200));
 $phone = one_line(field('phone', 60));
 if ($name === '') reply(false, 'Upišite ime i prezime.', 422);
+// Spam is full of web links; a real enquiry has at most one
+$link = '~(https?://|www\.|\[url|<a\s)~i';
+if (preg_match($link, $name) || preg_match($link, $phone)) reply(true);
+if (preg_match_all($link, field('msg', 5000)) > 1) reply(false, 'Poruka smije sadržavati najviše jednu poveznicu. Dokumente priložite kao datoteke.', 422);
 if ($email === '' && $phone === '') reply(false, 'Upišite e-poštu ili broj telefona.', 422);
 if ($email !== '' && !filter_var($email, FILTER_VALIDATE_EMAIL)) reply(false, 'Provjerite adresu e-pošte.', 422);
 

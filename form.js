@@ -4,6 +4,11 @@ document.querySelectorAll(".send-form").forEach((form) => {
   const button = form.querySelector('button[type="submit"]');
   const MAX_FILES = 10, MAX_BYTES = 20 * 1024 * 1024;
   const say = (text, ok) => { note.textContent = text; note.classList.toggle("ok", !!ok); };
+  // How long the visitor spent on the form: robots send it within a second or two, people never do
+  let openedAt = Date.now();
+  const spent = document.createElement("input");
+  spent.type = "hidden"; spent.name = "t";
+  form.appendChild(spent);
 
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
@@ -17,6 +22,7 @@ document.querySelectorAll(".send-form").forEach((form) => {
     if (files.length > MAX_FILES) { say(`Možete priložiti najviše ${MAX_FILES} datoteka.`); return; }
     if (files.reduce((n, f) => n + f.size, 0) > MAX_BYTES) { say("Datoteke su zajedno veće od 20 MB. Pošaljite ih u dva upita ili e-poštom."); return; }
 
+    spent.value = String(Date.now() - openedAt);
     button.disabled = true;
     say("Šaljemo upit…");
     try {
@@ -24,6 +30,7 @@ document.querySelectorAll(".send-form").forEach((form) => {
       const data = await res.json();
       if (!res.ok || !data.ok) throw new Error(data.error || "send");
       form.reset();
+      openedAt = Date.now();
       say("Hvala! Upit je poslan, a ponudu ćemo Vam poslati najkasnije unutar sat vremena.", true);
       if (window.orbitaTrack) window.orbitaTrack("generate_lead", { form: form.id || "landing" });
     } catch (err) {
