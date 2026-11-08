@@ -8,7 +8,7 @@ import json, os, html, re
 from urllib.parse import quote
 
 SITE = "https://www.orbitaprijevodi.com"
-V = "68"  # bump together with ?v= in index.html
+V = "69"  # bump together with ?v= in index.html
 
 BLOG_NAV = '\n    <a href="../blog/">Blog</a>'
 BLOG_LI = '<li><a href="../blog/">Blog</a></li>'
@@ -133,6 +133,17 @@ SERVICES = [
     faq=[("Prevodite li i marketinške tekstove?", "Da. Marketinške tekstove prevodimo i prilagođavamo tako da na stranom jeziku zvuče prirodno i zadrže ton Vaše tvrtke."), Q_SEND, Q_WHEN]),
 ]
 
+SERVICE_PHOTOS = {
+  "ovjereni-prijevodi": ("1619418602850-35ad20aa1700", "center 45%"),
+  "pisani-prijevodi": ("1780246033125-6dc1386f6a1d", "center"),
+  "usmeni-prijevodi": ("1775492783108-5714035b298b", "center"),
+  "lektoriranje": ("1637689113621-73951984fcc1", "center"),
+  "asistiranje-u-pisanju-teksta": ("1650735310411-19b29700012d", "center"),
+  "pisanje-dokumentacije-za-studij-i-zaposlenje-u-inozemstvu": ("1581553673739-c4906b5d0de8", "center"),
+  "pisanje-u-raznim-profesionalnim-podrucjima": ("1735795798441-89cb505e1970", "center"),
+  "marketinski-tekstovi": ("1572017208060-abf082c31f55", "center"),
+}
+
 OFFICES = {
   "rijeka": dict(label="Ured u Rijeci", street="Ćikovići 109", city="51215 Kastav", note="",
     phones=[("+385 98 163 19 30", "+385981631930"), ("+385 51 223 932", "+38551223932")], email="info@orbitaprijevodi.com",
@@ -249,10 +260,12 @@ def offices_strip():
         cells += f'''<div><strong>{city}</strong><span>{o["street"]}, {o["city"]}</span><a href="tel:+{no}">{mob}</a><a href="mailto:{o["email"]}">{o["email"]}</a></div>'''
     return f'<div class="lp-offices" aria-label="Naši uredi">{cells}</div>'
 
-def page_hero(crumbs, h1, lead, extra=""):
+def page_hero(crumbs, h1, lead, extra="", photo=None):
     trail = ' <span>/</span> '.join(f'<a href="{href}">{e(t)}</a>' if href else f'<span aria-current="page">{e(t)}</span>' for t, href in crumbs)
+    bg = (f' class="hero-bg lp-photo" style="background-image:url(https://images.unsplash.com/photo-{photo[0]}?auto=format&fit=crop&w=2000&q=70);background-position:{photo[1]}"'
+          if photo else ' class="hero-bg"')
     return f'''<section class="hero page-hero">
-    <div class="hero-bg" aria-hidden="true"></div>
+    <div{bg} aria-hidden="true"></div>
     <div class="hero-text">
       {offices_strip()}
       <nav class="crumbs" aria-label="Putanja">{trail}</nav>
@@ -446,7 +459,7 @@ for s in SERVICES:
     </div>
   </section>
 '''
-    html_out = head(s["title"], s["desc"], path, ld) + NAV + '<main>\n  ' + page_hero([("Početna", "../"), ("Usluge", "../usluge/"), (s["name"], None)], s["h1"], s["lead"]) + '  ' + body + '  ' + faq_block(s["faq"]) + '  ' + cta_band(price, s.get("photo", True)) + '  ' + related(s["slug"]) + '</main>\n' + footer()
+    html_out = head(s["title"], s["desc"], path, ld) + NAV + '<main>\n  ' + page_hero([("Početna", "../"), ("Usluge", "../usluge/"), (s["name"], None)], s["h1"], s["lead"], photo=SERVICE_PHOTOS.get(s["slug"])) + '  ' + body + '  ' + faq_block(s["faq"]) + '  ' + cta_band(price, s.get("photo", True)) + '  ' + related(s["slug"]) + '</main>\n' + footer()
     write(s["slug"], html_out); pages.append(path)
 
 for c in CITIES:

@@ -543,3 +543,12 @@ mark.todo { background: #ffe58a; color: #5a4300; padding: 1px 6px; border-radius
 .form select:focus { border-color: var(--accent); }
 .hero .hero-cta + .lp-offices { margin: 26px 0 0; }
 .page-hero .lead + .lead { margin-top: -6px; }
+
+/* Offer and form sections: light blue instead of near-black (Diana, 7 Nov) */
+.dark { background: #e4eef6; color: var(--ink); }
+.dark .label, .dark .sub { color: var(--ink-soft); }
+.dark .quick-lead { color: var(--ink); }
+.dark .contact-row p span { color: var(--ink-soft); }
+.dark .pill-cream { border-color: var(--ink); color: var(--ink); }
+.dark .pill-msg { background: #fff; }
+.dark .form { box-shadow: 0 10px 30px rgba(28, 31, 36, 0.06); }
