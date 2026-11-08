@@ -28,6 +28,15 @@
     else if (h.indexOf("mailto:") === 0) orbitaTrack("click_email");
   });
 
+  // On a computer an e-mail address opens Gmail with the address already in "To"; phones keep their own mail app
+  document.addEventListener("click", function (e) {
+    var a = e.target.closest && e.target.closest('a[href^="mailto:"]');
+    if (!a || !window.matchMedia("(hover: hover) and (pointer: fine)").matches) return;
+    e.preventDefault();
+    var to = a.getAttribute("href").slice(7).split("?")[0];
+    window.open("https://mail.google.com/mail/?view=cm&fs=1&to=" + encodeURIComponent(to), "_blank", "noopener");
+  });
+
   var root = document.querySelector('link[href*="styles.css"]').getAttribute("href").replace(/styles\.css.*$/, "");
   function banner() {
     if (document.getElementById("cookieBar")) return;

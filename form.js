@@ -31,7 +31,7 @@ document.querySelectorAll(".send-form").forEach((form) => {
       if (!res.ok || !data.ok) throw new Error(data.error || "send");
       form.reset();
       openedAt = Date.now();
-      say("Hvala! Upit je poslan, a ponudu ćemo Vam poslati najkasnije unutar sat vremena.", true);
+      say("Hvala! Upit je poslan, a ponudu ćemo Vam poslati najkasnije unutar " + (form.dataset.quote || "pola sata") + ".", true);
       if (window.orbitaTrack) window.orbitaTrack("generate_lead", { form: form.id || "landing" });
     } catch (err) {
       say(err.message && err.message !== "send" && !/JSON/.test(err.message) ? err.message

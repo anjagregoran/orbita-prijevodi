@@ -20,9 +20,11 @@ CLIENTS = ["Petrol", "Bureau Veritas", "Trea Trade", "Euroton", "AKTA", "Inspiri
 TRUST_TR = [("1 sat", "do ponude"), ("2 sata", "za prijevod jedne stranice"), ("Dostupni", "na mobitel u bilo koje doba dana"), ("2 ureda", "u Zagrebu i Kastvu")]
 STEPS_TR = [
   ("Pošaljite dokument", "Fotografirajte ili skenirajte dokument i pošaljite nam ga putem WhatsAppa, Vibera ili e-maila. Ako Vam više odgovara, posjetite nas osobno."),
-  ("Primite ponudu unutar pola sata", "Brzo i jednostavno! Najkasnije u roku od sat vremena šaljemo Vam ponudu s cijenom i rokom izrade prijevoda."),
+  ("Primite ponudu unutar pola sata", "Brzo i jednostavno! Najkasnije u roku od pola sata šaljemo Vam ponudu s cijenom i rokom izrade prijevoda."),
   ("Vaš prijevod je spreman :-)", "Kraći prijevodi mogu biti gotovi već za 1 do 2 sata, a opsežniji istoga ili sljedećeg dana odmah ujutro. Gotov prijevod šaljemo Vam e-mailom, putem Vibera ili WhatsAppa (ako je potreban samo u elektroničkom obliku) ili ga preuzimate u našem uredu u fizičkom obliku. Naravno, možemo ga poslati i običnom poštom na Vašu adresu. U slučaju hitnoće i isti dan bike expressom (vrijedi za grad Zagreb)."),
 ]
+# Pages for the other languages (all languages, German, Italian) keep the one-hour quote (Diana, 8 Nov)
+STEPS_TR_SLOW = [STEPS_TR[0], (STEPS_TR[1][0], STEPS_TR[1][1].replace("u roku od pola sata", "u roku od sat vremena"))] + STEPS_TR[2:]
 # Diana's hero text for the four court interpreter pages (31 Oct 2026)
 TR_INTRO = ("Trebate prijevod? Riješite to već danas!", [
   "Bez čekanja, nepotrebnih odlazaka i kompliciranja! Jednostavno fotografirajte ili skenirajte dokument i pošaljite nam ga putem Vibera, WhatsAppa ili e-maila.",
@@ -32,11 +34,11 @@ TR_STEPS_HEAD = ("Jednostavno do prijevoda", "U tri koraka. Bez nepotrebnih dola
 # English, Slovenian and Serbian pages: quote within half an hour, one page in 1 hour (Diana, 7 Nov)
 TR_INTRO_FAST = (TR_INTRO[0], [p.replace("Ponudu dobivate unutar sat vremena", "Ponudu dobivate unutar pola sata") for p in TR_INTRO[1]])
 TRUST_TR_FAST = [("Pola sata", "do ponude"), ("1 sat", "za prijevod jedne stranice")] + TRUST_TR[2:]
-def faq_tr(lang_same_day, page_hours="2 sata"):
+def faq_tr(lang_same_day, page_hours="2 sata", quote="pola sata"):
     return [
       ("Mogu li prijevod dobiti isti dan?", f"Izuzetno smo fleksibilni i trudimo se svakoj stranci osigurati prijevod u najkraćem mogućem roku. Prijevod dokumenta od jedne stranice, do jedne kartice teksta, za najtraženije jezike (engleski, njemački, talijanski, slovenski i srpski) moguć je i unutar {page_hours} od Vašeg upita. {lang_same_day}"),
-      ("Koliko košta prijevod?", "Cijena ovisi o broju znakova, ovjeri i zahtjevnosti teksta. Obračunava se po kartici teksta od 1800 znakova s razmacima, a ponudu s točnom cijenom šaljemo Vam unutar sat vremena od upita."),
-      ("Kako Vam mogu poslati dokument?", "Skenirajte ga ili fotografirajte mobitelom i pošaljite nam ga Viberom, WhatsAppom ili Messengerom, na info@orbitaprijevodi.com ili zagreb@orbitaprijevodi.com, ili ga donesite osobno u ured. Šaljemo ga i običnom poštom. Pazite da je fotografija oštra i da se vidi sav tekst."),
+      ("Koliko košta prijevod?", f"Cijena ovisi o broju znakova, ovjeri i zahtjevnosti teksta. Obračunava se po kartici teksta od 1800 znakova s razmacima, a ponudu s točnom cijenom šaljemo Vam unutar {quote} od upita."),
+      ("Kako Vam mogu poslati dokument(e)?", "Skenirajte ga ili fotografirajte mobitelom i pošaljite nam ga Viberom, WhatsAppom ili Messengerom, na info@orbitaprijevodi.com ili zagreb@orbitaprijevodi.com, ili ga donesite osobno u ured. Šaljemo ga i običnom poštom. Pazite da je fotografija oštra i da se vidi sav tekst."),
       ("Kako ću dobiti gotov prijevod?", "Onako kako Vam najviše odgovara: šaljemo ga e-poštom ili poštom na Vašu kućnu adresu, a možete ga preuzeti i u jednom od naših ureda."),
       ("Kada ste dostupni?", HOURS),
       ("Gdje se nalazite?", "Zagrebački ured nalazi se u Martićevoj 67 na Kvaternikovu trgu, na sjecištu tramvajskih i autobusnih linija, a ako dolazite automobilom, parkirati možete u dvorištu ili u garaži u sklopu zgrade. Riječki ured nalazi se u Kastvu, na adresi Ćikovići 109."),
@@ -53,9 +55,9 @@ DOCS = ["Svjedodžbe i diplome", "Rodni i vjenčani listovi", "Radne dozvole", "
 LANDINGS = [
   dict(slug="sudski-tumac-za-engleski-jezik",
     title="Sudski tumač za engleski jezik | Ovjereni prijevod već za 2 sata",
-    desc="Ovjereni prijevodi sudskog tumača za engleski jezik u Zagrebu i Kastvu. Pošaljite fotografiju dokumenta Viberom ili WhatsAppom, a ponudu dobivate unutar sat vremena.",
+    desc="Ovjereni prijevodi sudskog tumača za engleski jezik u Zagrebu i Kastvu. Pošaljite fotografiju dokumenta Viberom ili WhatsAppom, a ponudu dobivate unutar pola sata.",
     kicker="Ovjereni prijevodi s pečatom", h1=("Sudski tumač za ", "engleski jezik"),
-    lead="Pošaljite nam fotografiju dokumenta i ponudu dobivate unutar sat vremena. Prijevod jedne stranice na engleski moguć je već za 2 sata, a opsežniji tekst isti dan.",
+    lead="Pošaljite nam fotografiju dokumenta i ponudu dobivate unutar pola sata. Prijevod jedne stranice na engleski moguć je već za 2 sata, a opsežniji tekst isti dan.",
     trust=TRUST_TR_FAST, steps=STEPS_TR, intro=TR_INTRO_FAST, steps_head=TR_STEPS_HEAD, chips=("Što najčešće prevodimo", DOCS),
     sections=[certified_section("engleski", "engleskom"),
       ("Iskustvo i kod najzahtjevnijih dokumenata", ["Naši sudski tumači za engleski jezik i tim iskusnih prevoditelja različitih stručnih profila jamče visoku razinu kvalitete, preciznosti i pouzdanosti. Zahvaljujući dugogodišnjem iskustvu u izradi ovjerenih i neovjerenih prijevoda, s punim nam povjerenjem možete prepustiti i najzahtjevnije dokumente."], []),
@@ -63,51 +65,51 @@ LANDINGS = [
     faq=faq_tr("Opsežniji prijevod na engleski, slovenski ili srpski jezik kod nas možete dobiti isti dan.", "1 sata")),
   dict(slug="sudski-tumac-za-slovenski-jezik",
     title="Sudski tumač za slovenski jezik | Ovjereni prijevod već za 2 sata",
-    desc="Ovjereni prijevodi sudskog tumača za slovenski jezik u Zagrebu i Kastvu. Pošaljite fotografiju dokumenta Viberom ili WhatsAppom, a ponudu dobivate unutar sat vremena.",
+    desc="Ovjereni prijevodi sudskog tumača za slovenski jezik u Zagrebu i Kastvu. Pošaljite fotografiju dokumenta Viberom ili WhatsAppom, a ponudu dobivate unutar pola sata.",
     kicker="Ovjereni prijevodi s pečatom", h1=("Sudski tumač za ", "slovenski jezik"),
-    lead="Pošaljite nam fotografiju dokumenta i ponudu dobivate unutar sat vremena. Prijevod jedne stranice na slovenski moguć je već za 2 sata, a opsežniji tekst isti dan.",
+    lead="Pošaljite nam fotografiju dokumenta i ponudu dobivate unutar pola sata. Prijevod jedne stranice na slovenski moguć je već za 2 sata, a opsežniji tekst isti dan.",
     trust=TRUST_TR_FAST, steps=STEPS_TR, intro=TR_INTRO_FAST, steps_head=TR_STEPS_HEAD, chips=("Što najčešće prevodimo", DOCS),
     sections=[certified_section("slovenski", "slovenskom"),
       ("Slovenski, jezik naših susjeda", ["Hrvatsku i Sloveniju povezuje mnogo više od zajedničke granice: snažne gospodarske veze, uspješna poslovna suradnja te svakodnevna razmjena znanja i iskustava. Zato su kvalitetni prijevodi na slovenski i sa slovenskog jezika važni poduzetnicima, zaposlenicima i studentima s obje strane granice.", "*Naše dugogodišnje iskustvo i povjerenje slovenskih klijenata* potvrđuju našu predanost stručnosti, preciznosti i pouzdanosti u svakom prijevodu."], [])],
     faq=faq_tr("Opsežniji prijevod na slovenski ili srpski jezik kod nas možete dobiti isti dan.", "1 sata")),
   dict(slug="sudski-tumac-za-srpski-jezik",
     title="Sudski tumač za srpski jezik | Ovjereni prijevod već za 2 sata",
-    desc="Ovjereni prijevodi sudskog tumača za srpski jezik u Zagrebu i Kastvu. Pošaljite fotografiju dokumenta Viberom ili WhatsAppom, a ponudu dobivate unutar sat vremena.",
+    desc="Ovjereni prijevodi sudskog tumača za srpski jezik u Zagrebu i Kastvu. Pošaljite fotografiju dokumenta Viberom ili WhatsAppom, a ponudu dobivate unutar pola sata.",
     kicker="Ovjereni prijevodi s pečatom", h1=("Sudski tumač za ", "srpski jezik"),
-    lead="Pošaljite nam fotografiju dokumenta i ponudu dobivate unutar sat vremena. Prijevod jedne stranice na srpski moguć je već za 2 sata, a opsežniji tekst isti dan.",
+    lead="Pošaljite nam fotografiju dokumenta i ponudu dobivate unutar pola sata. Prijevod jedne stranice na srpski moguć je već za 2 sata, a opsežniji tekst isti dan.",
     trust=TRUST_TR_FAST, steps=STEPS_TR, intro=TR_INTRO_FAST, steps_head=TR_STEPS_HEAD, chips=("Što najčešće prevodimo", DOCS),
     sections=[certified_section("srpski", "srpskom"),
       ("Vaši dokumenti, spremni za obje strane granice", ["Bliske gospodarske, obrazovne i osobne veze Hrvatske i Srbije donose svakodnevnu potrebu za pouzdanim prijevodima službenih i osobnih dokumenata. Bilo da dokumente izdane u Srbiji predajete hrvatskim institucijama ili hrvatsku dokumentaciju trebate koristiti u Srbiji, osiguravamo *stručne i precizne ovjerene prijevode na srpski i sa srpskog jezika*.", "Od rodnih listova, svjedodžbi i diploma do radnih dozvola i poslovne dokumentacije, *Vaši su dokumenti u sigurnim rukama.*"], [])],
     faq=faq_tr("Opsežniji prijevod na slovenski ili srpski jezik kod nas možete dobiti isti dan.", "1 sata")),
-  dict(slug="sudski-tumac-za-njemacki-jezik",
+  dict(slug="sudski-tumac-za-njemacki-jezik", slow=True,
     title="Sudski tumač za njemački jezik | Ovjereni prijevod već za 2 sata",
     desc="Ovjereni prijevodi sudskog tumača za njemački jezik u Zagrebu i Kastvu. Pošaljite fotografiju dokumenta Viberom ili WhatsAppom, a ponudu dobivate unutar sat vremena.",
     kicker="Ovjereni prijevodi s pečatom", h1=("Sudski tumač za ", "njemački jezik"),
     lead="Pošaljite nam fotografiju dokumenta i ponudu dobivate unutar sat vremena. Prijevod jedne stranice na njemački moguć je već za 2 sata, a opsežniji tekst isti dan.",
-    trust=TRUST_TR, steps=STEPS_TR, intro=TR_INTRO, steps_head=TR_STEPS_HEAD, chips=("Što najčešće prevodimo", DOCS),
+    trust=TRUST_TR, steps=STEPS_TR_SLOW, intro=TR_INTRO, steps_head=TR_STEPS_HEAD, chips=("Što najčešće prevodimo", DOCS),
     sections=[certified_section("njemački", "njemačkom"),
       ("Iskustvo i kod najzahtjevnijih dokumenata", ["Naši sudski tumači za njemački jezik i tim iskusnih prevoditelja različitih stručnih profila jamče visoku razinu kvalitete, preciznosti i pouzdanosti. Zahvaljujući dugogodišnjem iskustvu u izradi ovjerenih i neovjerenih prijevoda, s punim nam povjerenjem možete prepustiti i najzahtjevnije dokumente."], []),
       ("Njemački, jezik posla i studija u srcu Europe", ["Njemački je službeni jezik u Njemačkoj, Austriji i Švicarskoj, ali i u Lihtenštajnu, Luksemburgu i dijelu Belgije, a materinski je jezik većem broju ljudi nego ijedan drugi jezik Europske unije. Mnogi iz Hrvatske upravo ondje odlaze raditi, studirati ili živjeti, a tamošnje institucije, poslodavci i sveučilišta za diplome, svjedodžbe, rodne listove i potvrde o radnom iskustvu najčešće traže *ovjereni prijevod na njemački jezik*.", "Prevodimo i u suprotnom smjeru, kada dokumente izdane u Njemačkoj, Austriji ili Švicarskoj trebate predati hrvatskim institucijama."], [])],
-    faq=faq_tr("")),
-  dict(slug="sudski-tumac-za-talijanski-jezik",
+    faq=faq_tr("", quote="sat vremena")),
+  dict(slug="sudski-tumac-za-talijanski-jezik", slow=True,
     title="Sudski tumač za talijanski jezik | Ovjereni prijevod već za 2 sata",
     desc="Ovjereni prijevodi sudskog tumača za talijanski jezik u Zagrebu i Kastvu. Pošaljite fotografiju dokumenta Viberom ili WhatsAppom, a ponudu dobivate unutar sat vremena.",
     kicker="Ovjereni prijevodi s pečatom", h1=("Sudski tumač za ", "talijanski jezik"),
     lead="Pošaljite nam fotografiju dokumenta i ponudu dobivate unutar sat vremena. Prijevod jedne stranice na talijanski moguć je već za 2 sata, a opsežniji tekst isti dan.",
-    trust=TRUST_TR, steps=STEPS_TR, intro=TR_INTRO, steps_head=TR_STEPS_HEAD, chips=("Što najčešće prevodimo", DOCS),
+    trust=TRUST_TR, steps=STEPS_TR_SLOW, intro=TR_INTRO, steps_head=TR_STEPS_HEAD, chips=("Što najčešće prevodimo", DOCS),
     sections=[certified_section("talijanski", "talijanskom"),
       ("Iskustvo i kod najzahtjevnijih dokumenata", ["Naši sudski tumači za talijanski jezik i tim iskusnih prevoditelja različitih stručnih profila jamče visoku razinu kvalitete, preciznosti i pouzdanosti. Zahvaljujući dugogodišnjem iskustvu u izradi ovjerenih i neovjerenih prijevoda, s punim nam povjerenjem možete prepustiti i najzahtjevnije dokumente."], []),
       ("Talijanski, jezik naših susjeda preko Jadrana", ["Italija je jedan od najvažnijih gospodarskih partnera Hrvatske, a u dijelu istarskih gradova i općina talijanski je službeni jezik uz hrvatski. Zato ovjerene prijevode na talijanski i s talijanskog jezika svakodnevno trebaju poduzetnici, zaposlenici, studenti i obitelji s obje strane Jadrana.", "Od rodnih i vjenčanih listova, svjedodžbi i diploma do ugovora, punomoći i poslovne dokumentacije, prevodimo za talijanske institucije, ali i za hrvatske, kada dokumente izdane u Italiji trebate predati ovdje. *Vaši su dokumenti u sigurnim rukama.*"], [])],
-    faq=faq_tr("")),
-  dict(slug="sudski-tumaci-za-sve-jezike",
+    faq=faq_tr("", quote="sat vremena")),
+  dict(slug="sudski-tumaci-za-sve-jezike", slow=True,
     title="Sudski tumači za sve jezike | Ovjereni prijevodi | Orbita prijevodi",
     desc="Ovjereni prijevodi sudskih tumača za engleski, njemački, talijanski, slovenski, srpski i sve ostale jezike. Ponuda unutar sat vremena, uredi u Zagrebu i Kastvu.",
     kicker="Ovjereni prijevodi s pečatom", h1=("Sudski tumači ", "za sve jezike"),
     lead="Od engleskog, njemačkog i talijanskog do japanskog i arapskog: ovjereni prijevod na jezik koji Vam treba, uz ponudu unutar sat vremena od upita.",
-    trust=TRUST_TR, steps=STEPS_TR, intro=TR_INTRO, steps_head=TR_STEPS_HEAD, chips=("Jezici koje najčešće prevodimo", ["Engleski", "Njemački", "Talijanski", "Slovenski", "Srpski", "Francuski", "Španjolski", "Ruski", "Ukrajinski", "Mađarski", "Arapski", "Kineski", "Japanski"]),
+    trust=TRUST_TR, steps=STEPS_TR_SLOW, intro=TR_INTRO, steps_head=TR_STEPS_HEAD, chips=("Jezici koje najčešće prevodimo", ["Engleski", "Njemački", "Talijanski", "Slovenski", "Srpski", "Francuski", "Španjolski", "Ruski", "Ukrajinski", "Mađarski", "Arapski", "Kineski", "Japanski"]),
     sections=[certified_section("traženi", "traženom"),
       ("Široka mreža sudskih tumača", ["Zahvaljujući širokoj mreži iskusnih prevoditelja i ovlaštenih sudskih tumača, pružamo stručne i pouzdane prijevode s/sa i na *više od 30 svjetskih jezika*. Bilo da trebate prijevod na engleski, njemački, talijanski, francuski, španjolski, ruski, ukrajinski, slovenski, srpski ili neki drugi jezik, možete računati na našu stručnost, preciznost i profesionalnost.", "*U slučaju da u Republici Hrvatskoj nema tumača za jezik koji trebate*, osigurat ćemo tumača u inozemstvu i pobrinuti se za kvalitetan prijevod na željeni jezik."], [])],
-    faq=faq_tr("Opsežniji prijevod na slovenski ili srpski jezik kod nas možete dobiti isti dan.")),
+    faq=faq_tr("Opsežniji prijevod na slovenski ili srpski jezik kod nas možete dobiti isti dan.", quote="sat vremena")),
   dict(slug="profesionalno-sastavljanje-zivotopisa-cv-curriculum-vitae",
     title="Profesionalno sastavljanje životopisa (CV) i motivacijskog pisma | Orbita",
     desc="Profesionalno sastavljanje životopisa i motivacijskih pisama za posao i stipendije, u kronološkom, funkcionalnom ili kombiniranom obliku, uz prijevod na strani jezik.",
@@ -185,9 +187,9 @@ def lp_form(d):
         <p class="label">Upit za ponudu</p>
         <h2>Pošaljite dokument i zatražite ponudu.</h2>
         <p class="sub">{rich(SEND_PHOTO)}</p>
-        <p class="sub">Ponudu dobivate unutar sat vremena.</p>
+        <p class="sub">Ponudu dobivate unutar {"sat vremena" if d.get("slow") else "pola sata"}.</p>
       </div>
-      {form_html(svc, "../send.php")}
+      {form_html(svc, "../send.php").replace('<form class=', '<form data-quote="sat vremena" class=', 1) if d.get("slow") else form_html(svc, "../send.php")}
     </div>
   </section>
 '''

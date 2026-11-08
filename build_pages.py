@@ -8,7 +8,7 @@ import json, os, html, re
 from urllib.parse import quote
 
 SITE = "https://www.orbitaprijevodi.com"
-V = "70"  # bump together with ?v= in index.html
+V = "71"  # bump together with ?v= in index.html
 
 BLOG_NAV = '\n    <a href="../blog/">Blog</a>'
 BLOG_LI = '<li><a href="../blog/">Blog</a></li>'
@@ -20,7 +20,7 @@ PRICE = "Cijena se obračunava po kartici teksta, a točan iznos dobit ćete u n
 SEND_PHOTO = "Dokument možete skenirati ili fotografirati mobitelom. Ako ga fotografirate, položite ga na ravnu površinu i fotografirajte odozgo, pazeći da fotografija bude oštra i da sav tekst bude jasno vidljiv (čitljiv)."
 
 # Questions that fit on almost every page
-Q_SEND = ("Kako Vam mogu poslati dokument?", f"E-poštom na info@orbitaprijevodi.com ili na zagreb@orbitaprijevodi.com, putem obrasca na stranici, Viberom ili WhatsAppom na 098 163 19 30 ili 091 612 6784, ili ga možete donijeti osobno u jedan od naših ureda. {SEND_PHOTO}")
+Q_SEND = ("Kako Vam mogu poslati dokument(e)?", f"E-poštom na info@orbitaprijevodi.com ili na zagreb@orbitaprijevodi.com, putem obrasca na stranici, Viberom ili WhatsAppom na 098 163 19 30 ili 091 612 6784, ili ga možete donijeti osobno u jedan od naših ureda. {SEND_PHOTO}")
 Q_PRICE = ("Kako se obračunava cijena?", "Cijena (ovjerenog) pisanog prijevoda obračunava se po kartici teksta, a točan iznos dobit ćete u neobvezujućoj ponudi čim izvršimo uvid u dokument. Cijena usmenog prevođenja obračunava se za svaki započeti sat, a tome se pridodaje i cijena tehničke opreme, ako je klijent zatraži. Ostale usluge obračunavaju se personalizirano, ovisno o potrebama svakog klijenta.")
 Q_LANG = ("Na koje jezike prevodite?", "Prevodimo s/na više od 30 jezika, od engleskog, njemačkog, talijanskog i slovenskog do japanskog, kineskog i arapskog. Ako sudskog tumača, odnosno prevoditelja nema u Republici Hrvatskoj, osigurat ćemo ga u inozemstvu.")
 Q_WHEN = ("Kada ste dostupni?", "Slobodno nas u bilo koje doba kontaktirajte u vezi s prijevodom ili nam pošaljite poruku (SMS, Viber, WhatsApp) ili e-poštu: na info@orbitaprijevodi.com ili zagreb@orbitaprijevodi.com, putem obrasca na stranici, ili Viberom i WhatsAppom na 098 163 19 30 ili 091 612 6784.")
