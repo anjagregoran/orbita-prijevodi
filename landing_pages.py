@@ -3,7 +3,7 @@
 # one page in 2 hours for the main languages, office hours 9 to 17, phones 24 hours.
 
 LP_PHONE = PHONES[0]  # Rijeka mobile is the main WhatsApp/Viber number on landing pages
-HOURS = "U uredu smo svakim radnim danom od 8 do 16 sati, a na mobitel smo Vam dostupni u bilo koje doba dana."
+HOURS = "U uredu smo svakim radnim danom od 8-9 do 16-17 sati (ili prema dogovoru), a na mobitel smo Vam dostupni u bilo koje doba dana. Ako dolazite u ured, molimo da se svakako prethodno najavite."
 
 QUOTES_LP = [
   ("Imali smo dosta obiman tekst za prijevod, korisničke upute i jamstvene listove. Odabrali smo ih po preporuci i jako smo zadovoljni obavljenim poslom.", "Primož Prosen", "Product Manager, Euroton d.o.o."),
@@ -20,7 +20,7 @@ CLIENTS = ["Petrol", "Bureau Veritas", "Trea Trade", "Euroton", "AKTA", "Inspiri
 TRUST_TR = [("1 sat", "do ponude"), ("2 sata", "za prijevod jedne stranice"), ("Dostupni", "na mobitel u bilo koje doba dana"), ("2 ureda", "u Zagrebu i Kastvu")]
 STEPS_TR = [
   ("Pošaljite dokument", "Fotografirajte ili skenirajte dokument i pošaljite nam ga putem WhatsAppa, Vibera ili e-maila. Ako Vam više odgovara, posjetite nas osobno."),
-  ("Primite ponudu unutar sat vremena", "Brzo i jednostavno! Najkasnije u roku od sat vremena šaljemo Vam ponudu s cijenom i rokom izrade prijevoda."),
+  ("Primite ponudu unutar pola sata", "Brzo i jednostavno! Najkasnije u roku od sat vremena šaljemo Vam ponudu s cijenom i rokom izrade prijevoda."),
   ("Vaš prijevod je spreman :-)", "Kraći prijevodi mogu biti gotovi već za 1 do 2 sata, a opsežniji istoga ili sljedećeg dana odmah ujutro. Gotov prijevod šaljemo Vam e-mailom, putem Vibera ili WhatsAppa (ako je potreban samo u elektroničkom obliku) ili ga preuzimate u našem uredu u fizičkom obliku. Naravno, možemo ga poslati i običnom poštom na Vašu adresu. U slučaju hitnoće i isti dan bike expressom (vrijedi za grad Zagreb)."),
 ]
 # Diana's hero text for the four court interpreter pages (31 Oct 2026)
@@ -29,9 +29,12 @@ TR_INTRO = ("Trebate prijevod? Riješite to već danas!", [
   "Ponudu dobivate unutar sat vremena, a kraći prijevodi mogu biti gotovi već za 1 do 2 sata! U slučaju hitnoće, opsežnije dokumente također smo u mogućnosti isporučiti istoga dana ili najkasnije sljedećeg jutra.",
   "Vi šaljete dokument, mi se brinemo za sve ostalo!"])
 TR_STEPS_HEAD = ("Jednostavno do prijevoda", "U tri koraka. Bez nepotrebnih dolazaka.")
-def faq_tr(lang_same_day):
+# English, Slovenian and Serbian pages: quote within half an hour, one page in 1 hour (Diana, 7 Nov)
+TR_INTRO_FAST = (TR_INTRO[0], [p.replace("Ponudu dobivate unutar sat vremena", "Ponudu dobivate unutar pola sata") for p in TR_INTRO[1]])
+TRUST_TR_FAST = [("Pola sata", "do ponude"), ("1 sat", "za prijevod jedne stranice")] + TRUST_TR[2:]
+def faq_tr(lang_same_day, page_hours="2 sata"):
     return [
-      ("Mogu li prijevod dobiti isti dan?", f"Izuzetno smo fleksibilni i trudimo se svakoj stranci osigurati prijevod u najkraćem mogućem roku. Prijevod dokumenta od jedne stranice, do jedne kartice teksta, za najtraženije jezike (engleski, njemački, talijanski, slovenski i srpski) moguć je i unutar 2 sata od Vašeg upita. {lang_same_day}"),
+      ("Mogu li prijevod dobiti isti dan?", f"Izuzetno smo fleksibilni i trudimo se svakoj stranci osigurati prijevod u najkraćem mogućem roku. Prijevod dokumenta od jedne stranice, do jedne kartice teksta, za najtraženije jezike (engleski, njemački, talijanski, slovenski i srpski) moguć je i unutar {page_hours} od Vašeg upita. {lang_same_day}"),
       ("Koliko košta prijevod?", "Cijena ovisi o broju znakova, ovjeri i zahtjevnosti teksta. Obračunava se po kartici teksta od 1800 znakova s razmacima, a ponudu s točnom cijenom šaljemo Vam unutar sat vremena od upita."),
       ("Kako Vam mogu poslati dokument?", "Skenirajte ga ili fotografirajte mobitelom i pošaljite nam ga Viberom, WhatsAppom ili Messengerom, na info@orbitaprijevodi.com ili zagreb@orbitaprijevodi.com, ili ga donesite osobno u ured. Šaljemo ga i običnom poštom. Pazite da je fotografija oštra i da se vidi sav tekst."),
       ("Kako ću dobiti gotov prijevod?", "Onako kako Vam najviše odgovara: šaljemo ga e-poštom ili poštom na Vašu kućnu adresu, a možete ga preuzeti i u jednom od naših ureda."),
@@ -53,29 +56,29 @@ LANDINGS = [
     desc="Ovjereni prijevodi sudskog tumača za engleski jezik u Zagrebu i Kastvu. Pošaljite fotografiju dokumenta Viberom ili WhatsAppom, a ponudu dobivate unutar sat vremena.",
     kicker="Ovjereni prijevodi s pečatom", h1=("Sudski tumač za ", "engleski jezik"),
     lead="Pošaljite nam fotografiju dokumenta i ponudu dobivate unutar sat vremena. Prijevod jedne stranice na engleski moguć je već za 2 sata, a opsežniji tekst isti dan.",
-    trust=TRUST_TR, steps=STEPS_TR, intro=TR_INTRO, steps_head=TR_STEPS_HEAD, chips=("Što najčešće prevodimo", DOCS),
+    trust=TRUST_TR_FAST, steps=STEPS_TR, intro=TR_INTRO_FAST, steps_head=TR_STEPS_HEAD, chips=("Što najčešće prevodimo", DOCS),
     sections=[certified_section("engleski", "engleskom"),
       ("Iskustvo i kod najzahtjevnijih dokumenata", ["Naši sudski tumači za engleski jezik i tim iskusnih prevoditelja različitih stručnih profila jamče visoku razinu kvalitete, preciznosti i pouzdanosti. Zahvaljujući dugogodišnjem iskustvu u izradi ovjerenih i neovjerenih prijevoda, s punim nam povjerenjem možete prepustiti i najzahtjevnije dokumente."], []),
       ("Engleski, jezik cijelog svijeta", ["Od Europe i Sjeverne Amerike do Australije i drugih krajeva svijeta, engleski jezik otvara vrata međunarodnoj komunikaciji, obrazovanju i poslovnim prilikama. Kao službeni jezik u šezdesetak država i nezaobilazan jezik globalne suradnje, ima ključnu ulogu u povezivanju ljudi i institucija. Upravo zato veleposlanstva, sveučilišta i poslodavci diljem svijeta često zahtijevaju *ovjerene prijevode na engleski jezik*. To je pouzdan korak prema ostvarivanju Vaših međunarodnih planova."], [])],
-    faq=faq_tr("Opsežniji prijevod na engleski, slovenski ili srpski jezik kod nas možete dobiti isti dan.")),
+    faq=faq_tr("Opsežniji prijevod na engleski, slovenski ili srpski jezik kod nas možete dobiti isti dan.", "1 sata")),
   dict(slug="sudski-tumac-za-slovenski-jezik",
     title="Sudski tumač za slovenski jezik | Ovjereni prijevod već za 2 sata",
     desc="Ovjereni prijevodi sudskog tumača za slovenski jezik u Zagrebu i Kastvu. Pošaljite fotografiju dokumenta Viberom ili WhatsAppom, a ponudu dobivate unutar sat vremena.",
     kicker="Ovjereni prijevodi s pečatom", h1=("Sudski tumač za ", "slovenski jezik"),
     lead="Pošaljite nam fotografiju dokumenta i ponudu dobivate unutar sat vremena. Prijevod jedne stranice na slovenski moguć je već za 2 sata, a opsežniji tekst isti dan.",
-    trust=TRUST_TR, steps=STEPS_TR, intro=TR_INTRO, steps_head=TR_STEPS_HEAD, chips=("Što najčešće prevodimo", DOCS),
+    trust=TRUST_TR_FAST, steps=STEPS_TR, intro=TR_INTRO_FAST, steps_head=TR_STEPS_HEAD, chips=("Što najčešće prevodimo", DOCS),
     sections=[certified_section("slovenski", "slovenskom"),
       ("Slovenski, jezik naših susjeda", ["Hrvatsku i Sloveniju povezuje mnogo više od zajedničke granice: snažne gospodarske veze, uspješna poslovna suradnja te svakodnevna razmjena znanja i iskustava. Zato su kvalitetni prijevodi na slovenski i sa slovenskog jezika važni poduzetnicima, zaposlenicima i studentima s obje strane granice.", "*Naše dugogodišnje iskustvo i povjerenje slovenskih klijenata* potvrđuju našu predanost stručnosti, preciznosti i pouzdanosti u svakom prijevodu."], [])],
-    faq=faq_tr("Opsežniji prijevod na slovenski ili srpski jezik kod nas možete dobiti isti dan.")),
+    faq=faq_tr("Opsežniji prijevod na slovenski ili srpski jezik kod nas možete dobiti isti dan.", "1 sata")),
   dict(slug="sudski-tumac-za-srpski-jezik",
     title="Sudski tumač za srpski jezik | Ovjereni prijevod već za 2 sata",
     desc="Ovjereni prijevodi sudskog tumača za srpski jezik u Zagrebu i Kastvu. Pošaljite fotografiju dokumenta Viberom ili WhatsAppom, a ponudu dobivate unutar sat vremena.",
     kicker="Ovjereni prijevodi s pečatom", h1=("Sudski tumač za ", "srpski jezik"),
     lead="Pošaljite nam fotografiju dokumenta i ponudu dobivate unutar sat vremena. Prijevod jedne stranice na srpski moguć je već za 2 sata, a opsežniji tekst isti dan.",
-    trust=TRUST_TR, steps=STEPS_TR, intro=TR_INTRO, steps_head=TR_STEPS_HEAD, chips=("Što najčešće prevodimo", DOCS),
+    trust=TRUST_TR_FAST, steps=STEPS_TR, intro=TR_INTRO_FAST, steps_head=TR_STEPS_HEAD, chips=("Što najčešće prevodimo", DOCS),
     sections=[certified_section("srpski", "srpskom"),
       ("Vaši dokumenti, spremni za obje strane granice", ["Bliske gospodarske, obrazovne i osobne veze Hrvatske i Srbije donose svakodnevnu potrebu za pouzdanim prijevodima službenih i osobnih dokumenata. Bilo da dokumente izdane u Srbiji predajete hrvatskim institucijama ili hrvatsku dokumentaciju trebate koristiti u Srbiji, osiguravamo *stručne i precizne ovjerene prijevode na srpski i sa srpskog jezika*.", "Od rodnih listova, svjedodžbi i diploma do radnih dozvola i poslovne dokumentacije, *Vaši su dokumenti u sigurnim rukama.*"], [])],
-    faq=faq_tr("Opsežniji prijevod na slovenski ili srpski jezik kod nas možete dobiti isti dan.")),
+    faq=faq_tr("Opsežniji prijevod na slovenski ili srpski jezik kod nas možete dobiti isti dan.", "1 sata")),
   dict(slug="sudski-tumaci-za-sve-jezike",
     title="Sudski tumači za sve jezike | Ovjereni prijevodi | Orbita prijevodi",
     desc="Ovjereni prijevodi sudskih tumača za engleski, njemački, talijanski, slovenski, srpski i sve ostale jezike. Ponuda unutar sat vremena, uredi u Zagrebu i Kastvu.",
@@ -98,7 +101,7 @@ LANDINGS = [
       ("Prvi dojam koji odlučuje", ["Umijeće sastavljanja dobrog životopisa jedna je od važnih stepenica na putu do željenog posla, studija ili stipendije za studij.", "Profesionalno oblikovan životopis i uvjerljivo motivacijsko pismo, koje se danas gotovo uvijek šalje uz životopis, često su prvi susret poslodavca ili obrazovne institucije s Vama.", "Dobar životopis mora zadovoljiti formalne zahtjeve, ali mora imati osobnu notu i istaknuti ono što Vas čini jedinstvenim kandidatom."], []),
       ("Životopis prilagođen Vašim ciljevima", ["Svaka karijera ima svoju priču. Uz našu pomoć ispričajte je u životopisu koji ostavlja dojam i otvara put novim prilikama.", "Ovisno o Vašem iskustvu, profesionalnom profilu i ciljevima, izrađujemo životopise u slobodnoj formi ili prema standardiziranim predlošcima, poput Europassa.", "Bilo da želite istaknuti svoj karijerni put ili predstaviti obrazovanje, znanstvene radove, istraživanja i stručna postignuća, profesionalni ili akademski životopis oblikujemo prema Vašim potrebama, ambicijama i ciljevima."], []),
     ],
-    faq=[("Možete li životopis i prevesti?", "Da. Uz sastavljanje životopisa i motivacijskog pisma osiguravamo i prijevod na željeni strani jezik."), ("Što Vam trebam poslati?", "Postojeći životopis, ako ga imate, ili osnovne podatke o obrazovanju i radnom iskustvu, te natječaj ili oglas na koji se prijavljujete."), ("Kada ste dostupni?", HOURS)]),
+    faq=[("Možete li životopis i prevesti?", "Da. Uz sastavljanje životopisa i motivacijskog pisma osiguravamo i prijevod na željeni strani jezik."), ("Što Vam trebam poslati?", "Postojeći životopis, ako ga imate, te osnovne podatke o obrazovanju, radnom iskustvu, hobijima, vještinama..."), ("Kada ste dostupni?", HOURS)]),
   dict(slug="lektura",
     title="Lektura i korektura: akademski radovi, knjige, web | Orbita prijevodi",
     desc="Stručna lektura seminarskih, završnih i diplomskih radova, disertacija, knjiga, internetskih stranica i marketinških tekstova. Lektura jedne stranice već za 2 sata.",
@@ -112,17 +115,17 @@ LANDINGS = [
       ("Samo kod nas: stilsko-lingvistička lektura akademskih tekstova", ["U agenciji *Orbita* Vaše tekstove povjeravamo iskusnim lektorima, profesorima hrvatskog i stranih jezika, koji posebnu pozornost posvećuju svakom jezičnom i stilskom detalju. Osim ispravljanja gramatičkih, pravopisnih, interpunkcijskih i tipografskih pogrešaka, tekstove pažljivo jezično i stilski dotjeruju, pritom u potpunosti poštujući njihov izvorni sadržaj i autorovu misao. Ondje gdje je potrebno dodatno pojašnjenje, prilažu komentare i prijedloge, bez samostalnog zadiranja u sadržaj.", "Bilo da pišete *seminarski, maturalni, završni ili diplomski rad, odnosno doktorsku disertaciju*, jezična i stilska kvaliteta važan je dio njegova konačnog dojma. Pobrinut ćemo se da Vaš trud, znanje i istraživački rad budu predstavljeni jasno, stručno i besprijekornim jezikom."], []),
       ("Knjige, znanstveni radovi i internetske stranice", ["Od udžbenika, priručnika i edukativnih materijala do filozofskih djela, beletristike i znanstvenih radova, svakom tekstu pristupamo s jednakom pažnjom. Poštujemo stručnu terminologiju, autorski stil i posebnosti pojedinog područja, a prema potrebi surađujemo s autorima kako bismo postigli najbolje jezično i stilsko rješenje.", "*Prvi dojam često počinje upravo riječima.* Ako putem internetske stranice predstavljate svoje proizvode ili usluge, jasnoća, jezična ispravnost i uvjerljivost teksta mogu imati presudnu ulogu u tome kako Vas doživljavaju potencijalni klijenti. Profesionalno lektoriran tekst ulijeva povjerenje, odražava Vašu predanost kvaliteti i predstavlja Vašu ponudu u najboljem svjetlu."], []),
     ],
-    faq=[("Koliko brzo možete lektorirati tekst?", "Lektura dokumenta od jedne stranice, do jedne kartice teksta od 1500 znakova bez razmaka, za najtraženije jezike (hrvatski, engleski, njemački, talijanski, slovenski i srpski) moguća je i unutar 2 sata od Vašeg upita. Opsežniji tekst, ovisno o broju kartica, vrsti teksta i jeziku, lektorirat ćemo unutar 8 dana."),
-      ("Koliko košta lektura?", "Cijena ovisi o vrsti teksta, jeziku, broju kartica i roku isporuke. Jednostavniji tekstovi, poput letaka i brošura, jeftiniji su od zahtjevnih, poput diplomskih radova, a tekstovi na hrvatskom jeftiniji su od onih na stranim jezicima. Okvirno, lektura teksta na hrvatskom jeziku stoji od 3 do 6 eura po kartici od 1500 znakova bez razmaka, a hitna lektura može biti nešto skuplja."),
-      ("Kako Vam mogu poslati tekst?", "E-poštom na info@orbitaprijevodi.com ili zagreb@orbitaprijevodi.com, Viberom ili WhatsAppom, ili ga donesite osobno u jedan od naših ureda."),
+    faq=[("Koliko brzo možete lektorirati tekst?", "Lektura dokumenta od jedne stranice, do jedne kartice teksta od 1500 znakova bez razmaka, za najtraženije jezike (hrvatski, engleski, njemački, talijanski, slovenski i srpski) moguća je i unutar 2 sata od Vašeg upita. Opsežnije tekstove, ovisno o broju kartica, vrsti teksta i jeziku te Vašim potrebama također smo u mogućnosti lektorirati u vrlo kratkom roku."),
+      ("Koliko košta lektura?", "Cijena ovisi o vrsti teksta, jeziku, broju kartica i roku isporuke. Molimo da nam za preciznu cjenovnu ponudu pošaljete tekst na uvid (ili navedete broj znakova)."),
+      ("Kako Vam mogu poslati tekst?", "Molimo da nam tekst za lekturu pošaljete u editabilnom elektroničkom obliku putem e-pošte na info@orbitaprijevodi.com ili zagreb@orbitaprijevodi.com, Vibera ili WhatsAppa."),
       ("Kada ste dostupni?", HOURS)]),
   dict(slug="medicinski-prijevodi",
     title="Medicinski prijevodi: nalazi, otpusna pisma, ovjereno | Orbita prijevodi",
     desc="Stručni i ovjereni prijevodi medicinske dokumentacije: nalazi, otpusna pisma, laboratorijska izvješća i istraživački tekstovi. Prevoditelji educirani u medicini, uz zaštitu podataka.",
     kicker="Prijevodi medicinske dokumentacije", h1=("Medicinski prijevodi: ", "stručnost i preciznost u svakoj riječi"),
     lead="Kad je zdravlje u pitanju, svaka je riječ važna. Naši prevoditelji sa stručnim znanjem iz područja medicine brinu se o preciznom prijevodu Vaših nalaza, otpusnih pisama i druge medicinske dokumentacije kako jezik ne bi bio prepreka liječenju ili traženju drugog stručnog mišljenja u inozemstvu.",
-    trust=[("Medicinski", "educirani prevoditelji"), ("Ovjereno", "za nalaze i izvješća"), ("Povjerljivo", "uz zaštitu podataka"), ("1 sat", "do ponude")],
-    steps=STEPS_TR, steps_head=("Vaša dokumentacija u pouzdanim rukama", "Tri koraka do prijevoda."),
+    trust=[("Medicinski", "educirani prevoditelji"), ("Stručno i precizno", "odrađeni prijevodi"), ("Povjerljivo", "uz zaštitu podataka"), ("Pola sata", "do ponude")],
+    steps=STEPS_TR[:2] + [(STEPS_TR[2][0], STEPS_TR[2][1].replace("istoga ili sljedećeg dana odmah ujutro. ", "istoga ili sljedećeg dana odmah ujutro. Medicinski prijevod možemo pripremiti kao običan ili ovjereni prijevod. "))], steps_head=("Vaša dokumentacija u pouzdanim rukama", "Tri koraka do prijevoda."),
     chips=("Prevodimo za Vas", ["Medicinski nalazi", "Otpusna pisma", "Medicinski dosjei", "Laboratorijska izvješća", "Medicinska osiguranja", "Istraživačka dokumentacija", "Priručnici i edukativni materijali", "Upute za medicinske proizvode"]),
     sections=[
       ("Bez jezičnih prepreka do liječenja", ["Kada je riječ o zdravlju, jasnoća i preciznost komunikacije od iznimne su važnosti. Stručnim prijevodima medicinske dokumentacije olakšavamo Vam pristup liječenju i medicinskim mišljenjima u inozemstvu. Prevodimo liječničke nalaze, medicinska izvješća, povijesti bolesti i otpusna pisma, a prema potrebi osiguravamo i *ovjeru stalnog sudskog tumača*."], []),

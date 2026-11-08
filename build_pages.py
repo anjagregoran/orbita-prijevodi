@@ -8,7 +8,7 @@ import json, os, html, re
 from urllib.parse import quote
 
 SITE = "https://www.orbitaprijevodi.com"
-V = "67"  # bump together with ?v= in index.html
+V = "68"  # bump together with ?v= in index.html
 
 BLOG_NAV = '\n    <a href="../blog/">Blog</a>'
 BLOG_LI = '<li><a href="../blog/">Blog</a></li>'
@@ -25,14 +25,14 @@ Q_PRICE = ("Kako se obračunava cijena?", "Cijena (ovjerenog) pisanog prijevoda 
 Q_LANG = ("Na koje jezike prevodite?", "Prevodimo s/na više od 30 jezika, od engleskog, njemačkog, talijanskog i slovenskog do japanskog, kineskog i arapskog. Ako sudskog tumača, odnosno prevoditelja nema u Republici Hrvatskoj, osigurat ćemo ga u inozemstvu.")
 Q_WHEN = ("Kada ste dostupni?", "Slobodno nas u bilo koje doba kontaktirajte u vezi s prijevodom ili nam pošaljite poruku (SMS, Viber, WhatsApp) ili e-poštu: na info@orbitaprijevodi.com ili zagreb@orbitaprijevodi.com, putem obrasca na stranici, ili Viberom i WhatsAppom na 098 163 19 30 ili 091 612 6784.")
 Q_CERT = ("Što je ovjereni prijevod?", "Ovjereni prijevod izrađuje sudski tumač, osoba s diplomom, izvrsnim poznavanjem stranog jezika i položenim ispitom za sudskog tumača, koju imenuje ministar nadležan za poslove pravosuđa u Republici Hrvatskoj. Prijevod se uvezuje s izvornim dokumentom ili njegovom (ovjerenom) preslikom, a tumač pečatom i potpisom jamči da je istovjetan izvorniku.")
-Q_ORIGINAL = ("Trebam li donijeti original dokumenta?", "Za ponudu je dovoljna jasna fotografija ili sken dokumenta. Prijevod se zatim uvezuje s originalom, ovjerenom ili običnom preslikom, ovisno o tome što traži institucija kojoj ga predajete.")
+Q_ORIGINAL = ("Trebam li donijeti original dokumenta?", "Za ponudu je dovoljna jasna fotografija ili sken dokumenta. Prijevod se zatim uvezuje s originalom ili ovjerenom kopijom (koje donosite na uvez prilikom preuzimanja prijevoda), odnosno običnom preslikom (elektroničkom verzijom dokumenta), ovisno o tome što traži institucija kojoj ga predajete.")
 
 SERVICES = [
   dict(slug="ovjereni-prijevodi", name="Ovjereni prijevodi",
     title="Ovjereni prijevodi sudskih tumača | Rijeka, Kastav i Zagreb",
     desc="Ovjereni prijevodi svjedodžbi, diploma, rodnih i vjenčanih listova, izvadaka iz sudskog registra i medicinskih nalaza. Sudski tumači za više od 30 jezika, uredi u Rijeci i Zagrebu.",
     h1=("Ovjereni prijevodi ", "sudskih tumača"),
-    lead="Službene dokumente za Vas brzo i uredno pripremaju naši provjereni sudski tumači, uz pečat i potpis koje priznaju sudovi, javni bilježnici i institucije.",
+    lead="Službene dokumente za Vas brzo i uredno pripremaju naši provjereni sudski tumači, uz službeno priznat pečat i potpis.",
     body=[
       "Ovjereni prijevodi posebna su vrsta prijevoda koje izrađuju sudski tumači. To su osobe s diplomom i iznimnim poznavanjem stranog jezika, s položenim ispitom za sudskog tumača, koje rješenjem imenuje ministar nadležan za poslove pravosuđa u Republici Hrvatskoj.",
       "Ovjereni prijevod uvezuje se s originalom, ovjerenom ili običnom preslikom izvornog dokumenta, a sudski tumač pečatom i potpisom jamči da je prevedeni tekst istovjetan izvorniku.",
@@ -44,11 +44,11 @@ SERVICES = [
     title="Pisani prijevodi općih i stručnih tekstova | Orbita prijevodi",
     desc="Prijevodi općih i stručnih tekstova, korisničkih uputa, internetskih stranica, programske opreme, titlova i rukopisa na više od 30 jezika. Rijeka, Kastav i Zagreb.",
     h1=("Pisani ", "prijevodi"),
-    lead="Opći i stručni tekstovi iz svih područja, prevedeni tako da se čitaju kao da su izvorno napisani na tom jeziku.",
+    lead="Opći i stručni tekstovi iz svih područja, prevedeni uz zadržavanje izvornog smisla, ali u duhu ciljnog jezika.",
     body=[
       "Unaprijedite svoje poslovanje vrhunskim prijevodom! Povjerite nam opće i stručne tekstove, rukopise, titlove i digitalne sadržaje, uključujući internetske stranice i programsku opremu.",
       "Stručni prijevodi sadrže nazivlje koje zahtijeva poznavanje predmetnog područja i namijenjeni su čitateljima iz te struke. Surađujemo sa stručnjacima iz širokog polja tehničkih i društvenih znanosti, a pri narudžbi vrlo stručnih prijevoda poželjno je da naručitelj osigura pomoćnu literaturu ili odredi svog stručnjaka za savjete u vezi s nazivljem.",
-      "Za engleski i talijanski jezik nudimo i prevođenje u CAT alatima, koji osiguravaju dosljedno nazivlje u većim i ponavljajućim projektima.",
+      "Za engleski, njemački, talijanski, slovenski i srpski jezik nudimo i prevođenje u CAT alatima, koji osiguravaju dosljedno nazivlje u većim i ponavljajućim projektima.",
     ],
     items=["Stručni i tehnički tekstovi", "Korisničke upute i jamstveni listovi", "Medicinska dokumentacija", "Internetske stranice", "Programska oprema", "Titlovi", "Rukopisi"],
     faq=[Q_PRICE, Q_SEND, Q_LANG, Q_WHEN]),
@@ -56,7 +56,7 @@ SERVICES = [
     title="Usmeno prevođenje: simultano, konsekutivno, šaptano | Orbita",
     desc="Simultano, konsekutivno i šaptano prevođenje na sastancima, konferencijama i sajmovima, te sudski tumač kod javnog bilježnika ili na sudu. Rijeka i Zagreb.",
     h1=("Usmeno ", "prevođenje"),
-    lead=["Simultano, konsekutivno i šaptano prevođenje, kada je važno da Vas svi u prostoriji razumiju.", "Od poslovnih sastanaka do međunarodnih konferencija, usmenim prevođenjem osiguravamo jasno i učinkovito sporazumijevanje.", "Treba Vam i oprema i stručni tim koji će je postaviti u Vašem prostoru? Nema problema!"],
+    lead=["Simultano, konsekutivno i šaptano: najzahtjevnije oblike prevođenja prepustite našim iskusnim stručnjacima.", "Od poslovnih sastanaka do međunarodnih konferencija, usmenim prevođenjem osiguravamo jasno i učinkovito sporazumijevanje.", "Treba Vam i oprema i stručni tim koji će je postaviti u Vašem prostoru? Nema problema!"],
     body=[
       "Tražite li prevoditelje za simultano ili konsekutivno prevođenje, možda i za više jezika u istom danu? Trebate li sudskog tumača za tumačenje kod javnog bilježnika ili na sudu, ili nešto posebno, poput prevođenja uz pratnju?",
       "Usmeno prevođenje iznimno je zahtjevno i mogu ga obavljati samo specijalizirane osobe s velikim iskustvom i iznimnim poznavanjem jezika.",
@@ -112,7 +112,7 @@ SERVICES = [
     lead="Pisanje prilagođeno struci strukturom, nazivljem i stilom.",
     body=[
       "Okupljamo stručnjake za pisanje svih vrsta tekstova u raznim područjima i strukama, s raznim profesionalnim svrhama, od molbi i prijava do stručnih radova.",
-      "Pisanje u različitim područjima poseban je izazov za strukturu teksta, argumentaciju, nazivlje i lekturu. Visoka pismenost traži se i u tehničkim i prirodoslovnim disciplinama, od opisa metodologije istraživanja do predstavljanja rezultata.",
+      "Svako područje zahtijeva poseban pristup pisanju. Zato posebnu pozornost posvećujemo strukturi, jasnoći argumentacije, preciznosti nazivlja i jezičnoj izvrsnosti. Visoka pismenost traži se i u tehničkim i prirodoslovnim disciplinama, od opisa metodologije istraživanja do predstavljanja rezultata.",
       "Naši stručnjaci bit će Vaši osobni mentori i u području profesionalnog pisanja.",
     ],
     price="Cjenovna ponuda priprema se nakon izvršenog detaljnog uvida u Vaše specifične potrebe.", photo=False,
@@ -154,8 +154,7 @@ CITIES = [
       "Najčešće prevodimo službene dokumente, poput svjedodžbi, diploma, rodnih i vjenčanih listova, radnih dozvola, izvadaka iz sudskog registra i medicinskih nalaza, ali i ugovore, upute i stručne tekstove za poslovne subjekte.",
       "Cijena se obračunava po kartici teksta, a točan iznos dobit ćete u neobvezujućoj ponudi čim izvršimo uvid u dokument(e). U vezi s prijevodom možete u bilo koje doba stupiti s nama u kontakt telefonski ili nam poslati poruku (SMS, Viber, WhatsApp) ili e-poštu.",
       SEND_PHOTO,
-      "Ako se ne nalazite u Rijeci ili bližoj okolici, odnosno ne planirate dolazak u Rijeku, sve možemo obaviti putem pošte.",
-      "Ako je potreban uvez prijevoda s originalom, možete nam ga poslati običnom poštom na našu adresu, u protivnom možemo prijevod uvezati i s elektroničkom verzijom dokumenta, odnosno s kopijom te uvezani ovjereni prijevod poslati na Vašu adresu.",
+      "Ako se ne nalazite u Rijeci ili bližoj okolici, odnosno ne planirate dolazak u Rijeku, sve možemo obaviti putem pošte. Ako je potreban uvez prijevoda s originalom, možete nam ga poslati običnom poštom na našu adresu, u protivnom možemo prijevod uvezati i s elektroničkom verzijom dokumenta, odnosno s kopijom te uvezani ovjereni prijevod poslati na Vašu adresu.",
     ]),
   dict(slug="prijevodi-zagreb", office="zagreb", name="Zagreb", za="za Zagreb", u="u Zagrebu", biz="Orbita prijevodi, ured u Zagrebu",
     title="Prijevodi i sudski tumači u Zagrebu | Orbita prijevodi",
@@ -167,15 +166,14 @@ CITIES = [
       "Najčešće prevodimo službene dokumente, poput svjedodžbi, diploma, rodnih i vjenčanih listova, radnih dozvola, izvadaka iz sudskog registra i medicinskih nalaza, ali i ugovore, upute i stručne tekstove za poslovne subjekte.",
       "Cijena se obračunava po kartici teksta, a točan iznos dobit ćete u neobvezujućoj ponudi čim izvršimo uvid u dokument(e). U vezi s prijevodom možete u bilo koje doba stupiti s nama u kontakt telefonski ili nam poslati poruku (SMS, Viber, WhatsApp) ili e-poštu.",
       SEND_PHOTO,
-      "Ako se ne nalazite u Zagrebu ili bližoj okolici, odnosno ne planirate dolazak u Zagreb, sve možemo obaviti putem pošte.",
-      "Ako je potreban uvez prijevoda s originalom, možete nam ga poslati običnom poštom na našu adresu, u protivnom možemo prijevod uvezati i s elektroničkom verzijom dokumenta, odnosno s kopijom te uvezani ovjereni prijevod poslati na Vašu adresu.",
+      "Ako se ne nalazite u Zagrebu ili bližoj okolici, odnosno ne planirate dolazak u Zagreb, sve možemo obaviti putem pošte. Ako je potreban uvez prijevoda s originalom, možete nam ga poslati običnom poštom na našu adresu, u protivnom možemo prijevod uvezati i s elektroničkom verzijom dokumenta, odnosno s kopijom te uvezani ovjereni prijevod poslati na Vašu adresu.",
     ]),
 ]
 
 ALL_FAQ = [Q_CERT, Q_SEND, Q_PRICE, Q_LANG, Q_WHEN,
   Q_ORIGINAL,
   ("Koliko traje prijevod?", "U mogućnosti smo dostaviti veće količine prijevoda u vrlo kratkom roku."),
-  ("Mogu li dokument predati osobno?", "Možete, u našem uredu u Kastvu (Ćikovići 109) ili u Zagrebu (Martićeva ulica 67, na Kvatrić tržnici). Za ponudu nije potrebno dolaziti, dovoljno je poslati fotografiju ili sken dokumenta."),
+  ("Mogu li dokument predati osobno?", "Naravno, u našem uredu u Kastvu (Ćikovići 109) ili u Zagrebu (Martićeva ulica 67, na Kvatrić tržnici). Za ponudu i pripremu (ovjerenog) prijevoda nije potrebno dolaziti osobno, dovoljno je poslati fotografiju ili sken dokumen(a)ta."),
   SERVICES[2]["faq"][0], SERVICES[3]["faq"][0]]
 
 e = html.escape
@@ -287,7 +285,7 @@ def cta_band(price=PRICE, photo=True):
     <div class="offer">
       <div class="offer-intro">
         <p class="label">Ponuda</p>
-        <h2>Pošaljite dokument, a mi šaljemo ponudu.</h2>
+        <h2>Pošaljite dokument(e), a mi šaljemo ponudu.</h2>
         {first_p}
         <p class="sub">{rich(AVAILABLE)}</p>
       </div>

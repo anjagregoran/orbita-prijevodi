@@ -187,7 +187,8 @@ function placeLamp() {
   probe.textContent = HERO_I18N.hr.typed;
   probe.style.cssText = "position:absolute;visibility:hidden;white-space:nowrap";
   typed.parentElement.appendChild(probe);
-  const end = probe.getBoundingClientRect().right;
+  // Measure the full phrase from the start of the line, wherever the typing animation is
+  const end = typed.parentElement.getBoundingClientRect().left + probe.getBoundingClientRect().width;
   probe.remove();
   bulb.style.left = `${end + 60 - nav.getBoundingClientRect().left - bulb.offsetWidth / 2}px`;
 }
