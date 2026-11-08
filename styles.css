@@ -552,3 +552,16 @@ mark.todo { background: #ffe58a; color: #5a4300; padding: 1px 6px; border-radius
 .dark .pill-cream { border-color: var(--ink); color: var(--ink); }
 .dark .pill-msg { background: #fff; }
 .dark .form { box-shadow: 0 10px 30px rgba(28, 31, 36, 0.06); }
+
+/* Court interpreter languages at the bottom of every page */
+.footer-langs { padding: 30px 0 24px; border-bottom: 1px solid var(--line); }
+.footer-langs .label { margin-bottom: 16px; }
+.footer-langs ul { columns: 5; column-gap: 24px; list-style: none; margin: 0; padding: 0; }
+.footer-langs li { margin: 0 0 8px; font-size: 14px; break-inside: avoid; }
+.footer-langs a span { color: var(--ink-soft); }
+.footer-langs a:hover, .footer-langs a:hover span { color: var(--accent); }
+@media (max-width: 1100px) { .footer-langs ul { columns: 3; } }
+@media (max-width: 640px) {
+  .footer-langs ul { columns: 3; column-gap: 12px; }
+  .footer-langs a span { display: none; }
+}

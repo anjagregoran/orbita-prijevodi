@@ -8,7 +8,7 @@ import json, os, html, re
 from urllib.parse import quote
 
 SITE = "https://www.orbitaprijevodi.com"
-V = "69"  # bump together with ?v= in index.html
+V = "70"  # bump together with ?v= in index.html
 
 BLOG_NAV = '\n    <a href="../blog/">Blog</a>'
 BLOG_LI = '<li><a href="../blog/">Blog</a></li>'
@@ -391,6 +391,16 @@ def related(exclude=None, title="Ostale usluge"):
   </section>
 '''
 
+# Diana's list of languages (7 Nov 2026), shown at the bottom of every page; languages with their own page link there
+LANG_LIST = ["njemački", "engleski", "slovenski", "talijanski", "francuski", "nizozemski", "češki", "poljski", "rumunjski", "slovački", "ruski",
+  "ukrajinski", "turski", "portugalski", "arapski", "makedonski", "španjolski", "srpski", "švedski", "bugarski", "mađarski", "albanski",
+  "kineski", "japanski", "bosanski", "grčki", "hebrejski", "danski", "finski", "norveški", "litavski"]
+LANG_PAGES = {"njemački": "sudski-tumac-za-njemacki-jezik", "engleski": "sudski-tumac-za-engleski-jezik", "slovenski": "sudski-tumac-za-slovenski-jezik",
+  "talijanski": "sudski-tumac-za-talijanski-jezik", "srpski": "sudski-tumac-za-srpski-jezik"}
+def footer_langs(base="../"):
+    items = "".join(f'<li><a href="{base}{LANG_PAGES.get(l, "sudski-tumaci-za-sve-jezike")}/"><span>Sudski tumač za </span>{l}</a></li>' for l in LANG_LIST)
+    return f'<div class="footer-langs"><p class="label">Sudski tumači i prevoditelji za više od 30 jezika</p><ul>{items}</ul></div>'
+
 def footer():
     svc = ''.join(f'<li><a href="../{s["slug"]}/">{e(s["name"])}</a></li>' for s in SERVICES)
     return f'''<footer class="footer">
@@ -403,6 +413,7 @@ def footer():
     <div><p class="label">Gradovi</p><ul><li><a href="../prijevodi-rijeka/">Prijevodi Rijeka i Kastav</a></li><li><a href="../prijevodi-zagreb/">Prijevodi Zagreb</a></li></ul></div>
     <div><p class="label">Orbita</p><ul><li><a href="../cesta-pitanja/">Česta pitanja</a></li>{BLOG_LI}<li><a href="../kontakt/">Kontakt</a></li><li><a href="../#o-nama">O nama</a></li><li><a href="../#ponuda">Zatražite ponudu</a></li></ul></div>
   </div>
+  {footer_langs()}
   <div class="footer-bottom">
     <span>© <span id="year"></span> Orbita prijevodi · OMNIA d.o.o., OIB 42140363484</span>
     <nav><a href="../kontakt/">Kontakt</a><a href="../pravne-informacije/">Pravne informacije</a><a href="../zastita-privatnosti/">Zaštita privatnosti</a><a href="#" data-cookie-settings>Postavke kolačića</a></nav>
@@ -570,6 +581,7 @@ exec(open("blog_pages.py").read())
 # Home page is hand-written: put the offices strip at the top of its first screen
 home = open("index.html").read()
 home = re.sub(r"<!--OFFICES-->.*?<!--/OFFICES-->", lambda m: "<!--OFFICES-->" + offices_strip() + "<!--/OFFICES-->", home, flags=re.S)
+home = re.sub(r"<!--LANGS-->.*?<!--/LANGS-->", lambda m: "<!--LANGS-->" + footer_langs("") + "<!--/LANGS-->", home, flags=re.S)
 open("index.html", "w").write(home)
 
 # Old addresses that now live elsewhere: send people (and Google) to the right place

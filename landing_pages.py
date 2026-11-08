@@ -79,6 +79,26 @@ LANDINGS = [
     sections=[certified_section("srpski", "srpskom"),
       ("Vaši dokumenti, spremni za obje strane granice", ["Bliske gospodarske, obrazovne i osobne veze Hrvatske i Srbije donose svakodnevnu potrebu za pouzdanim prijevodima službenih i osobnih dokumenata. Bilo da dokumente izdane u Srbiji predajete hrvatskim institucijama ili hrvatsku dokumentaciju trebate koristiti u Srbiji, osiguravamo *stručne i precizne ovjerene prijevode na srpski i sa srpskog jezika*.", "Od rodnih listova, svjedodžbi i diploma do radnih dozvola i poslovne dokumentacije, *Vaši su dokumenti u sigurnim rukama.*"], [])],
     faq=faq_tr("Opsežniji prijevod na slovenski ili srpski jezik kod nas možete dobiti isti dan.", "1 sata")),
+  dict(slug="sudski-tumac-za-njemacki-jezik",
+    title="Sudski tumač za njemački jezik | Ovjereni prijevod već za 2 sata",
+    desc="Ovjereni prijevodi sudskog tumača za njemački jezik u Zagrebu i Kastvu. Pošaljite fotografiju dokumenta Viberom ili WhatsAppom, a ponudu dobivate unutar sat vremena.",
+    kicker="Ovjereni prijevodi s pečatom", h1=("Sudski tumač za ", "njemački jezik"),
+    lead="Pošaljite nam fotografiju dokumenta i ponudu dobivate unutar sat vremena. Prijevod jedne stranice na njemački moguć je već za 2 sata, a opsežniji tekst isti dan.",
+    trust=TRUST_TR, steps=STEPS_TR, intro=TR_INTRO, steps_head=TR_STEPS_HEAD, chips=("Što najčešće prevodimo", DOCS),
+    sections=[certified_section("njemački", "njemačkom"),
+      ("Iskustvo i kod najzahtjevnijih dokumenata", ["Naši sudski tumači za njemački jezik i tim iskusnih prevoditelja različitih stručnih profila jamče visoku razinu kvalitete, preciznosti i pouzdanosti. Zahvaljujući dugogodišnjem iskustvu u izradi ovjerenih i neovjerenih prijevoda, s punim nam povjerenjem možete prepustiti i najzahtjevnije dokumente."], []),
+      ("Njemački, jezik posla i studija u srcu Europe", ["Njemački je službeni jezik u Njemačkoj, Austriji i Švicarskoj, ali i u Lihtenštajnu, Luksemburgu i dijelu Belgije, a materinski je jezik većem broju ljudi nego ijedan drugi jezik Europske unije. Mnogi iz Hrvatske upravo ondje odlaze raditi, studirati ili živjeti, a tamošnje institucije, poslodavci i sveučilišta za diplome, svjedodžbe, rodne listove i potvrde o radnom iskustvu najčešće traže *ovjereni prijevod na njemački jezik*.", "Prevodimo i u suprotnom smjeru, kada dokumente izdane u Njemačkoj, Austriji ili Švicarskoj trebate predati hrvatskim institucijama."], [])],
+    faq=faq_tr("")),
+  dict(slug="sudski-tumac-za-talijanski-jezik",
+    title="Sudski tumač za talijanski jezik | Ovjereni prijevod već za 2 sata",
+    desc="Ovjereni prijevodi sudskog tumača za talijanski jezik u Zagrebu i Kastvu. Pošaljite fotografiju dokumenta Viberom ili WhatsAppom, a ponudu dobivate unutar sat vremena.",
+    kicker="Ovjereni prijevodi s pečatom", h1=("Sudski tumač za ", "talijanski jezik"),
+    lead="Pošaljite nam fotografiju dokumenta i ponudu dobivate unutar sat vremena. Prijevod jedne stranice na talijanski moguć je već za 2 sata, a opsežniji tekst isti dan.",
+    trust=TRUST_TR, steps=STEPS_TR, intro=TR_INTRO, steps_head=TR_STEPS_HEAD, chips=("Što najčešće prevodimo", DOCS),
+    sections=[certified_section("talijanski", "talijanskom"),
+      ("Iskustvo i kod najzahtjevnijih dokumenata", ["Naši sudski tumači za talijanski jezik i tim iskusnih prevoditelja različitih stručnih profila jamče visoku razinu kvalitete, preciznosti i pouzdanosti. Zahvaljujući dugogodišnjem iskustvu u izradi ovjerenih i neovjerenih prijevoda, s punim nam povjerenjem možete prepustiti i najzahtjevnije dokumente."], []),
+      ("Talijanski, jezik naših susjeda preko Jadrana", ["Italija je jedan od najvažnijih gospodarskih partnera Hrvatske, a u dijelu istarskih gradova i općina talijanski je službeni jezik uz hrvatski. Zato ovjerene prijevode na talijanski i s talijanskog jezika svakodnevno trebaju poduzetnici, zaposlenici, studenti i obitelji s obje strane Jadrana.", "Od rodnih i vjenčanih listova, svjedodžbi i diploma do ugovora, punomoći i poslovne dokumentacije, prevodimo za talijanske institucije, ali i za hrvatske, kada dokumente izdane u Italiji trebate predati ovdje. *Vaši su dokumenti u sigurnim rukama.*"], [])],
+    faq=faq_tr("")),
   dict(slug="sudski-tumaci-za-sve-jezike",
     title="Sudski tumači za sve jezike | Ovjereni prijevodi | Orbita prijevodi",
     desc="Ovjereni prijevodi sudskih tumača za engleski, njemački, talijanski, slovenski, srpski i sve ostale jezike. Ponuda unutar sat vremena, uredi u Zagrebu i Kastvu.",
@@ -149,7 +169,7 @@ def lp_nav(wa=None):
 </header>
 '''
 
-LP_IMAGES = {'sudski-tumac-za-engleski-jezik': ('1520986606214-8b456906c813', 'center 40%'), 'sudski-tumac-za-slovenski-jezik': ('1773658088032-87e28148ea1b', 'center'), 'sudski-tumac-za-srpski-jezik': ('1608816747977-4d303f476571', 'center'), 'sudski-tumaci-za-sve-jezike': ('1521295121783-8a321d551ad2', '70% center'), 'profesionalno-sastavljanje-zivotopisa-cv-curriculum-vitae': ('1499750310107-5fef28a66643', 'center'), 'lektura': ('1455390582262-044cdead277a', 'center 55%'), 'medicinski-prijevodi': ('1758691462848-ba1e929da259', 'center')}
+LP_IMAGES = {'sudski-tumac-za-engleski-jezik': ('1520986606214-8b456906c813', 'center 40%'), 'sudski-tumac-za-slovenski-jezik': ('1773658088032-87e28148ea1b', 'center'), 'sudski-tumac-za-srpski-jezik': ('1608816747977-4d303f476571', 'center'), 'sudski-tumaci-za-sve-jezike': ('1521295121783-8a321d551ad2', '70% center'), 'profesionalno-sastavljanje-zivotopisa-cv-curriculum-vitae': ('1499750310107-5fef28a66643', 'center'), 'lektura': ('1455390582262-044cdead277a', 'center 55%'), 'medicinski-prijevodi': ('1758691462848-ba1e929da259', 'center'), 'sudski-tumac-za-njemacki-jezik': ('1649609765902-254a227dc960', 'center'), 'sudski-tumac-za-talijanski-jezik': ('1515859005217-8a1f08870f59', 'center 60%')}
 
 def lp_intro(d):
     if "intro" not in d:
