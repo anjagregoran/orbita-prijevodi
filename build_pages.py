@@ -133,16 +133,25 @@ SERVICES = [
     faq=[("Prevodite li i marketinške tekstove?", "Da. Marketinške tekstove prevodimo i prilagođavamo tako da na stranom jeziku zvuče prirodno i zadrže ton Vaše tvrtke."), Q_SEND, Q_WHEN]),
 ]
 
+# First picks from the 10 options sent to Diana (photo-choices.txt), 9 Nov 2026. "p:" = Pexels, "local:" = file in assets/, else Unsplash.
 SERVICE_PHOTOS = {
-  "ovjereni-prijevodi": ("1619418602850-35ad20aa1700", "center 45%"),
-  "pisani-prijevodi": ("1780246033125-6dc1386f6a1d", "center"),
-  "usmeni-prijevodi": ("1775492783108-5714035b298b", "center"),
-  "lektoriranje": ("1637689113621-73951984fcc1", "center"),
-  "asistiranje-u-pisanju-teksta": ("1650735310411-19b29700012d", "center"),
-  "pisanje-dokumentacije-za-studij-i-zaposlenje-u-inozemstvu": ("1581553673739-c4906b5d0de8", "center"),
-  "pisanje-u-raznim-profesionalnim-podrucjima": ("1735795798441-89cb505e1970", "center"),
-  "marketinski-tekstovi": ("1572017208060-abf082c31f55", "center"),
+  "ovjereni-prijevodi": ("p:6358834", "center 70%"),
+  "pisani-prijevodi": ("p:3768161", "center 35%"),
+  "usmeni-prijevodi": ("p:8192062", "center 30%"),
+  "lektoriranje": ("p:7968067", "center"),
+  "asistiranje-u-pisanju-teksta": ("local:cv-zivotopis.jpg", "center"),
+  "pisanje-dokumentacije-za-studij-i-zaposlenje-u-inozemstvu": ("p:1008155", "center 60%"),
+  "pisanje-u-raznim-profesionalnim-podrucjima": ("1589829545856-d10d557cf95f", "center 40%"),
+  "marketinski-tekstovi": ("p:7970815", "center"),
 }
+
+def photo_url(pid):
+    if pid.startswith("p:"):
+        n = pid[2:]
+        return f"https://images.pexels.com/photos/{n}/pexels-photo-{n}.jpeg?auto=compress&cs=tinysrgb&w=2000"
+    if pid.startswith("local:"):
+        return f"../assets/{pid[6:]}?v={V}"
+    return f"https://images.unsplash.com/photo-{pid}?auto=format&fit=crop&w=2000&q=70"
 
 OFFICES = {
   "rijeka": dict(label="Ured u Rijeci", street="Ćikovići 109", city="51215 Kastav", note="",
@@ -262,7 +271,7 @@ def offices_strip():
 
 def page_hero(crumbs, h1, lead, extra="", photo=None):
     trail = ' <span>/</span> '.join(f'<a href="{href}">{e(t)}</a>' if href else f'<span aria-current="page">{e(t)}</span>' for t, href in crumbs)
-    bg = (f' class="hero-bg lp-photo" style="background-image:url(https://images.unsplash.com/photo-{photo[0]}?auto=format&fit=crop&w=2000&q=70);background-position:{photo[1]}"'
+    bg = (f' class="hero-bg lp-photo" style="background-image:url({photo_url(photo[0])});background-position:{photo[1]}"'
           if photo else ' class="hero-bg"')
     return f'''<section class="hero page-hero">
     <div{bg} aria-hidden="true"></div>
