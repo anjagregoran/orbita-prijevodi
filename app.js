@@ -180,17 +180,30 @@ if (!matchMedia("(prefers-reduced-motion: reduce)").matches) {
   drift();
 }
 
-// Hang the bulb just past the end of the typed line "Vaša poruka, razumljiva svugdje."
+// Hang the bulb to the right of the slogan and of the headline, in every language, so it never covers text
 function placeLamp() {
   if (innerWidth <= 900) { bulb.style.left = ""; return; }
-  const probe = document.createElement("span");
-  probe.textContent = HERO_I18N.hr.typed;
-  probe.style.cssText = "position:absolute;visibility:hidden;white-space:nowrap";
-  typed.parentElement.appendChild(probe);
-  // Measure the full phrase from the start of the line, wherever the typing animation is
-  const end = typed.parentElement.getBoundingClientRect().left + probe.getBoundingClientRect().width;
-  probe.remove();
-  bulb.style.left = `${end + 60 - nav.getBoundingClientRect().left - bulb.offsetWidth / 2}px`;
+  const head = $("#hHead"), box = document.createElement("div");
+  box.style.cssText = "position:absolute;visibility:hidden;left:0;top:0;width:" + head.offsetWidth + "px";
+  head.parentElement.appendChild(box);
+  let end = 0;
+  const range = document.createRange();
+  for (const t of Object.values(HERO_I18N)) {
+    const line = document.createElement("p");
+    line.className = "typed";
+    line.innerHTML = `<span style="white-space:nowrap">${t.typed}</span>`;
+    const h = document.createElement("h1");
+    h.innerHTML = `${t.head[0]}<wbr><em>${t.head[1]}</em>${t.head[2]}`;
+    box.replaceChildren(line, h);
+    end = Math.max(end, line.firstChild.getBoundingClientRect().right);
+    // Only the first line of the headline sits at the height of the bulb
+    range.selectNodeContents(h);
+    const top = h.getBoundingClientRect().top;
+    for (const r of range.getClientRects()) if (r.top < top + 12) end = Math.max(end, r.right);
+  }
+  box.remove();
+  const left = end + 50 - nav.getBoundingClientRect().left - bulb.offsetWidth / 2;
+  bulb.style.left = `${left}px`;
 }
 document.fonts.ready.then(placeLamp);
 addEventListener("resize", placeLamp);
