@@ -38,12 +38,13 @@ bulb.addEventListener("click", () => {
   setTimeout(() => {
     $("#hLabel").textContent = t.label;
     $("#hHead").innerHTML = `${t.head[0]}<wbr><em>${t.head[1]}</em>${t.head[2]}`;
-    $("#hHead").lang = $("#hLead").lang = code;
-    $("#hLead").textContent = t.lead;
+    $("#hHead").lang = code;
     $("#hCta1").textContent = t.cta1;
     $("#hCta2").textContent = t.cta2;
     $("#hF1").textContent = t.f1;
     $("#hF2").textContent = t.f2;
+    $("#hF3").textContent = t.f3;
+    $("#hF4").textContent = t.f4;
     hero.classList.remove("swap");
   }, 260);
 });
