@@ -568,3 +568,8 @@ mark.todo { background: #ffe58a; color: #5a4300; padding: 1px 6px; border-radius
 .hero h1 + .hero-cta { margin-top: clamp(26px, 4vh, 40px); }
 /* Computers: the desk photo sits a little further left, so the coffee cup is right next to the headline */
 @media (min-width: 901px) { .hero-bg { transform: scale(1.1); transform-origin: 100% 50%; } }
+/* Service pages on computers: the photo fills the right side and fades softly into the dark area behind the text */
+@media (min-width: 901px) {
+  .page-hero .hero-bg.lp-photo { left: 34%; background-size: cover; -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 38%); mask-image: linear-gradient(90deg, transparent 0, #000 38%); }
+  .page-hero:has(.lp-photo)::before { background: linear-gradient(90deg, rgba(20, 14, 10, 0.9) 0%, rgba(20, 14, 10, 0.55) 40%, rgba(20, 14, 10, 0.12) 75%, rgba(20, 14, 10, 0.05) 100%); }
+}

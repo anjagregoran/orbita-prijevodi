@@ -8,7 +8,7 @@ import json, os, html, re
 from urllib.parse import quote
 
 SITE = "https://www.orbitaprijevodi.com"
-V = "82"  # bump together with ?v= in index.html
+V = "84"  # bump together with ?v= in index.html
 
 BLOG_NAV = '\n    <a href="../blog/">Blog</a>'
 BLOG_LI = '<li><a href="../blog/">Blog</a></li>'
@@ -133,16 +133,16 @@ SERVICES = [
     faq=[("Prevodite li i marketinške tekstove?", "Da. Marketinške tekstove prevodimo i prilagođavamo tako da na stranom jeziku zvuče prirodno i zadrže ton Vaše tvrtke."), Q_SEND, Q_WHEN]),
 ]
 
-# First picks from the 10 options sent to Diana (photo-choices.txt), 9 Nov 2026. "p:" = Pexels, "local:" = file in assets/, else Unsplash.
+# Anja's own generated photos (13 Nov 2026), one per service; on computers they sit on the right and fade into the dark side behind the text
 SERVICE_PHOTOS = {
-  "ovjereni-prijevodi": ("p:6358834", "center 70%"),
-  "pisani-prijevodi": ("p:3768161", "center 35%"),
-  "usmeni-prijevodi": ("p:8192062", "center 30%"),
-  "lektoriranje": ("p:7968067", "center"),
-  "asistiranje-u-pisanju-teksta": ("local:cv-zivotopis.jpg", "center"),
-  "pisanje-dokumentacije-za-studij-i-zaposlenje-u-inozemstvu": ("p:1008155", "center 60%"),
-  "pisanje-u-raznim-profesionalnim-podrucjima": ("1589829545856-d10d557cf95f", "center 40%"),
-  "marketinski-tekstovi": ("p:7970815", "center"),
+  "ovjereni-prijevodi": ("local:usluge/ovjereni-prijevodi.webp", "45% 60%"),
+  "pisani-prijevodi": ("local:usluge/pisani-prijevodi.webp", "70% 40%"),
+  "usmeni-prijevodi": ("local:usluge/usmeni-prijevodi.webp", "55% 70%"),
+  "lektoriranje": ("local:usluge/lektoriranje.webp", "45% 55%"),
+  "asistiranje-u-pisanju-teksta": ("local:usluge/asistiranje-u-pisanju-teksta.webp", "50% 50%"),
+  "pisanje-dokumentacije-za-studij-i-zaposlenje-u-inozemstvu": ("local:usluge/pisanje-dokumentacije-za-studij-i-zaposlenje-u-inozemstvu.webp", "50% 45%"),
+  "pisanje-u-raznim-profesionalnim-podrucjima": ("local:usluge/pisanje-u-raznim-profesionalnim-podrucjima.webp", "60% 50%"),
+  "marketinski-tekstovi": ("local:usluge/marketinski-tekstovi.webp", "50% 55%"),
 }
 
 def photo_url(pid):
