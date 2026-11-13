@@ -183,17 +183,23 @@ if (!matchMedia("(prefers-reduced-motion: reduce)").matches) {
   drift();
 }
 
-// Hang the bulb right after "povezujemo" (the end of the first headline line), before the coffee cup in the photo
+// Hang the bulb on a longer cord, right above the last "o" of "povezujemo" (the highlighted word)
 function placeLamp() {
+  const cord = bulb.querySelector(".cord");
+  cord.style.height = "";
   if (innerWidth <= 900) { bulb.style.left = ""; return; }
-  const head = $("#hHead"), range = document.createRange();
-  range.selectNodeContents(head);
-  const top = head.getBoundingClientRect().top;
-  let end = 0;
-  for (const r of range.getClientRects()) if (r.top < top + 12) end = Math.max(end, r.right);
+  const word = $("#hHead em")?.firstChild;
+  if (!word || !word.length) return;
+  const range = document.createRange();
+  range.setStart(word, word.length - 1);
+  range.setEnd(word, word.length);
+  const o = range.getBoundingClientRect();
   const glass = bulb.querySelector("svg").getBoundingClientRect(), box = bulb.getBoundingClientRect();
-  // Put the left edge of the glass 22px after the word
-  bulb.style.left = `${end + 22 - (glass.left - box.left) - nav.getBoundingClientRect().left}px`;
+  // Centre the glass over the letter
+  bulb.style.left = `${o.left + o.width / 2 - glass.width / 2 - (glass.left - box.left) - nav.getBoundingClientRect().left}px`;
+  // Lengthen the cord so the glass ends just above the top of the lowercase letters
+  const letterTop = o.top + o.height * 0.42;
+  cord.style.height = `${Math.max(40, cord.offsetHeight + (letterTop - 6) - glass.bottom)}px`;
 }
 document.fonts.ready.then(placeLamp);
 addEventListener("resize", placeLamp);
