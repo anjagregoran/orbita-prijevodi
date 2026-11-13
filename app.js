@@ -195,8 +195,16 @@ function placeLamp() {
   range.setEnd(word, word.length);
   const o = range.getBoundingClientRect();
   const glass = bulb.querySelector("svg").getBoundingClientRect(), box = bulb.getBoundingClientRect();
-  // Centre the glass over the letter
-  bulb.style.left = `${o.left + o.width / 2 - glass.width / 2 - (glass.left - box.left) - nav.getBoundingClientRect().left}px`;
+  // A little left of the letter, but never over the slogan line above the headline in any language
+  const line = typed.parentElement, probe = document.createElement("span");
+  probe.style.cssText = "position:absolute;visibility:hidden;white-space:nowrap";
+  line.appendChild(probe);
+  let slogan = 0;
+  for (const t of Object.values(HERO_I18N)) { probe.textContent = t.typed; slogan = Math.max(slogan, probe.getBoundingClientRect().width); }
+  probe.remove();
+  const want = o.left + o.width / 2 - 26 - glass.width / 2;
+  const glassLeft = Math.max(want, line.getBoundingClientRect().left + slogan + 14);
+  bulb.style.left = `${glassLeft - (glass.left - box.left) - nav.getBoundingClientRect().left}px`;
   // Lengthen the cord so the glass ends just above the headline line, clear of tall letters in every language
   cord.style.height = `${Math.max(40, cord.offsetHeight + o.top - glass.bottom)}px`;
 }
