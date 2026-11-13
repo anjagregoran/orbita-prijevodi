@@ -197,9 +197,8 @@ function placeLamp() {
   const glass = bulb.querySelector("svg").getBoundingClientRect(), box = bulb.getBoundingClientRect();
   // Centre the glass over the letter
   bulb.style.left = `${o.left + o.width / 2 - glass.width / 2 - (glass.left - box.left) - nav.getBoundingClientRect().left}px`;
-  // Lengthen the cord so the glass ends just above the top of the lowercase letters
-  const letterTop = o.top + o.height * 0.42;
-  cord.style.height = `${Math.max(40, cord.offsetHeight + (letterTop - 6) - glass.bottom)}px`;
+  // Lengthen the cord so the glass ends just above the headline line, clear of tall letters in every language
+  cord.style.height = `${Math.max(40, cord.offsetHeight + o.top - glass.bottom)}px`;
 }
 document.fonts.ready.then(placeLamp);
 addEventListener("resize", placeLamp);
