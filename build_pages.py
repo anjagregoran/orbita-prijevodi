@@ -8,7 +8,7 @@ import json, os, html, re
 from urllib.parse import quote
 
 SITE = "https://www.orbitaprijevodi.com"
-V = "85"  # bump together with ?v= in index.html
+V = "89"  # bump together with ?v= in index.html
 
 BLOG_NAV = '\n    <a href="../blog/">Blog</a>'
 BLOG_LI = '<li><a href="../blog/">Blog</a></li>'
@@ -56,8 +56,9 @@ SERVICES = [
     title="Usmeno prevođenje: simultano, konsekutivno, šaptano | Orbita",
     desc="Simultano, konsekutivno i šaptano prevođenje na sastancima, konferencijama i sajmovima, te sudski tumač kod javnog bilježnika ili na sudu. Rijeka i Zagreb.",
     h1=("Usmeno ", "prevođenje"),
-    lead=["Simultano, konsekutivno i šaptano: najzahtjevnije oblike prevođenja prepustite našim iskusnim stručnjacima.", "Od poslovnih sastanaka do međunarodnih konferencija, usmenim prevođenjem osiguravamo jasno i učinkovito sporazumijevanje.", "Treba Vam i oprema i stručni tim koji će je postaviti u Vašem prostoru? Nema problema!"],
+    lead="Simultano, konsekutivno i šaptano: najzahtjevnije oblike prevođenja prepustite našim iskusnim stručnjacima.",
     body=[
+      "Od poslovnih sastanaka do međunarodnih konferencija, usmenim prevođenjem osiguravamo jasno i učinkovito sporazumijevanje. Treba Vam i oprema i stručni tim koji će je postaviti u Vašem prostoru? Nema problema!",
       "Tražite li prevoditelje za simultano ili konsekutivno prevođenje, možda i za više jezika u istom danu? Trebate li sudskog tumača za tumačenje kod javnog bilježnika ili na sudu, ili nešto posebno, poput prevođenja uz pratnju?",
       "Usmeno prevođenje iznimno je zahtjevno i mogu ga obavljati samo specijalizirane osobe s velikim iskustvom i iznimnim poznavanjem jezika.",
       "Prijevod izgovorene riječi na Vašim poslovnim sastancima, seminarima, simpozijima, međunarodnim i tiskovnim konferencijama, prezentacijama, sajmovima, sjednicama nadzornih odbora, pregovorima, državnim protokolima ili godišnjim skupštinama prepustite našim usmenim prevoditeljima.",
@@ -141,7 +142,7 @@ SERVICE_PHOTOS = {
   "lektoriranje": ("local:usluge/lektoriranje.webp", "45% 55%"),
   "asistiranje-u-pisanju-teksta": ("local:usluge/asistiranje-u-pisanju-teksta.webp", "50% 45%"),
   "pisanje-dokumentacije-za-studij-i-zaposlenje-u-inozemstvu": ("local:usluge/pisanje-dokumentacije-za-studij-i-zaposlenje-u-inozemstvu.webp", "50% 0%"),
-  "pisanje-u-raznim-profesionalnim-podrucjima": ("local:usluge/pisanje-u-raznim-profesionalnim-podrucjima.webp", "60% 50%"),
+  "pisanje-u-raznim-profesionalnim-podrucjima": ("local:usluge/pisanje-u-raznim-profesionalnim-podrucjima.webp", "40% 50%"),
   "marketinski-tekstovi": ("local:usluge/marketinski-tekstovi.webp", "5% 55%"),
 }
 
@@ -516,7 +517,7 @@ for c in CITIES:
 # FAQ page
 path = "cesta-pitanja/"
 ld = {"@context": "https://schema.org", "@graph": [crumbs_ld([("Početna", ""), ("Česta pitanja", path)]), faq_ld(ALL_FAQ)]}
-html_out = head("Česta pitanja o prijevodima i ovjerenim prijevodima | Orbita prijevodi", "Odgovori na najčešća pitanja: što je ovjereni prijevod, kako poslati dokument, kako se obračunava cijena, koliko traje prijevod i na koje jezike prevodimo.", path, ld) + NAV + '<main>\n  ' + page_hero([("Početna", "../"), ("Česta pitanja", None)], ("Česta ", "pitanja"), "Sve što Vas najčešće zanima o prijevodima, ovjerenim prijevodima, cijeni i slanju dokumenata.") + '  ' + faq_block(ALL_FAQ, "Odgovori na Vaša pitanja") + '  ' + cta_band() + '  ' + related(None, "Naše usluge") + '</main>\n' + footer()
+html_out = head("Česta pitanja o prijevodima i ovjerenim prijevodima | Orbita prijevodi", "Odgovori na najčešća pitanja: što je ovjereni prijevod, kako poslati dokument, kako se obračunava cijena, koliko traje prijevod i na koje jezike prevodimo.", path, ld) + NAV + '<main>\n  ' + page_hero([("Početna", "../"), ("Česta pitanja", None)], ("Česta ", "pitanja"), "Sve što Vas najčešće zanima o prijevodima, ovjerenim prijevodima, cijeni i slanju dokumenata.", photo=("local:usluge/cesta-pitanja.webp", "60% 55%")) + '  ' + faq_block(ALL_FAQ, "Odgovori na Vaša pitanja") + '  ' + cta_band() + '  ' + related(None, "Naše usluge") + '</main>\n' + footer()
 write("cesta-pitanja", html_out); pages.append(path)
 
 # Services overview
@@ -532,7 +533,7 @@ write("usluge", html_out); pages.append(path)
 # Contact
 path = "kontakt/"
 ld = {"@context": "https://schema.org", "@graph": [crumbs_ld([("Početna", ""), ("Kontakt", path)])]}
-html_out = head("Kontakt | Orbita prijevodi, Kastav i Zagreb", "Uredi Orbita prijevoda u Kastvu (Ćikovići 109) i Zagrebu (Martićeva ulica 67). Telefon, e-pošta, Viber i WhatsApp. Dostupni smo stalno.", path, ld) + NAV + '<main>\n  ' + page_hero([("Početna", "../"), ("Kontakt", None)], ("Dva ureda, ", "jedan tim"), AVAILABLE) + f'''  <section class="section">
+html_out = head("Kontakt | Orbita prijevodi, Kastav i Zagreb", "Uredi Orbita prijevoda u Kastvu (Ćikovići 109) i Zagrebu (Martićeva ulica 67). Telefon, e-pošta, Viber i WhatsApp. Dostupni smo stalno.", path, ld) + NAV + '<main>\n  ' + page_hero([("Početna", "../"), ("Kontakt", None)], ("Dva ureda, ", "jedan tim"), AVAILABLE, photo=("local:usluge/kontakt.webp", "55% 50%")) + f'''  <section class="section">
     <div class="offices">
       {office_card("rijeka")}
       {office_card("zagreb")}
@@ -561,7 +562,7 @@ COMPANY_ROWS = [
 rows = ''.join(f'<div><dt>{k}</dt><dd>{v}</dd></div>' for k, v in COMPANY_ROWS)
 path = "pravne-informacije/"
 ld = {"@context": "https://schema.org", "@graph": [crumbs_ld([("Početna", ""), ("Pravne informacije", path)])]}
-html_out = head("Pravne informacije | Orbita prijevodi, OMNIA d.o.o.", "Podaci o tvrtki OMNIA d.o.o., koja pruža usluge pod nazivom Orbita prijevodi: sjedište, sudski registar, OIB i kontakt.", path, ld) + NAV + '<main>\n  ' + page_hero([("Početna", "../"), ("Pravne informacije", None)], ("Pravne ", "informacije"), "Orbita prijevodi usluga je tvrtke OMNIA d.o.o. iz Kastva.") + f'''  <section class="section">
+html_out = head("Pravne informacije | Orbita prijevodi, OMNIA d.o.o.", "Podaci o tvrtki OMNIA d.o.o., koja pruža usluge pod nazivom Orbita prijevodi: sjedište, sudski registar, OIB i kontakt.", path, ld) + NAV + '<main>\n  ' + page_hero([("Početna", "../"), ("Pravne informacije", None)], ("Pravne ", "informacije"), "Orbita prijevodi usluga je tvrtke OMNIA d.o.o. iz Kastva.", photo=("local:usluge/pravne-informacije.webp", "60% 50%")) + f'''  <section class="section">
     <dl class="legal-list">{rows}</dl>
   </section>
 ''' + '</main>\n' + footer()
