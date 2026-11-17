@@ -591,3 +591,9 @@ mark.todo { background: #ffe58a; color: #5a4300; padding: 1px 6px; border-radius
   .hero-foot .place svg { width: 15px; height: 15px; flex: none; margin-top: 2px; }
   .hero-foot .place::after { display: none; }
 }
+
+/* Pravne informacije (Korzo photo): wider photo with a long, soft fade into the dark side */
+@media (min-width: 901px) {
+  .page-hero:not(.lp-hero) .hero-bg.lp-photo[style*="rijeka-korzo"] { left: 20%; -webkit-mask-image: linear-gradient(90deg, transparent 0, rgba(0, 0, 0, 0.35) 25%, rgba(0, 0, 0, 0.8) 45%, #000 62%); mask-image: linear-gradient(90deg, transparent 0, rgba(0, 0, 0, 0.35) 25%, rgba(0, 0, 0, 0.8) 45%, #000 62%); }
+  .page-hero:not(.lp-hero):has(.lp-photo[style*="rijeka-korzo"])::before { background: linear-gradient(90deg, rgba(20, 14, 10, 0.88) 0%, rgba(20, 14, 10, 0.7) 32%, rgba(20, 14, 10, 0.3) 55%, rgba(20, 14, 10, 0.08) 80%, rgba(20, 14, 10, 0) 100%); }
+}
