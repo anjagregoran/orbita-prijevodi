@@ -652,3 +652,8 @@ mark.todo { background: #ffe58a; color: #5a4300; padding: 1px 6px; border-radius
 
 /* Ad pages: closing line of the intro as a quiet quote */
 .lp-hero .lp-quote { margin: 14px 0 22px; padding-left: 16px; border-left: 2px solid var(--accent); font-family: var(--serif); font-style: italic; font-weight: 300; font-size: clamp(18px, 1.5vw, 22px); line-height: 1.35; color: #fbf5ec; }
+
+/* Ad pages: one font for all supporting text under the headline, so it reads calm and tidy */
+.lp-hero .lp-hook { font-family: var(--sans); font-size: clamp(18px, 1.45vw, 21px); font-weight: 500; line-height: 1.35; letter-spacing: 0; margin-bottom: 8px; color: #fbf5ec; }
+.lp-hero .lp-lead { color: rgba(251, 245, 236, 0.82); }
+.lp-hero .lp-quote { font-family: var(--sans); font-style: normal; font-weight: 500; font-size: clamp(15.5px, 1.15vw, 17.5px); line-height: 1.5; margin: 12px 0 24px; padding-left: 12px; border-left: 2px solid var(--accent); color: #fbf5ec; }
