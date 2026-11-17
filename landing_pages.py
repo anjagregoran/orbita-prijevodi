@@ -171,7 +171,7 @@ def lp_nav(wa=None):
 </header>
 '''
 
-LP_IMAGES = {'sudski-tumac-za-engleski-jezik': ('1520986606214-8b456906c813', 'center 40%'), 'sudski-tumac-za-slovenski-jezik': ('1773658088032-87e28148ea1b', 'center'), 'sudski-tumac-za-srpski-jezik': ('1608816747977-4d303f476571', 'center'), 'sudski-tumaci-za-sve-jezike': ('1521295121783-8a321d551ad2', '70% center'), 'profesionalno-sastavljanje-zivotopisa-cv-curriculum-vitae': ('local:usluge/cv-biljeznica.webp', 'center 55%'), 'lektura': ('local:usluge/lektoriranje.webp', '45% 55%'), 'medicinski-prijevodi': ('1758691462848-ba1e929da259', '70% 100%'), 'sudski-tumac-za-njemacki-jezik': ('1649609765902-254a227dc960', 'center'), 'sudski-tumac-za-talijanski-jezik': ('1515859005217-8a1f08870f59', 'center 60%')}
+LP_IMAGES = {'sudski-tumac-za-engleski-jezik': ('1520986606214-8b456906c813', 'center 40%'), 'sudski-tumac-za-slovenski-jezik': ('1773658088032-87e28148ea1b', 'center'), 'sudski-tumac-za-srpski-jezik': ('1608816747977-4d303f476571', 'center'), 'sudski-tumaci-za-sve-jezike': ('1521295121783-8a321d551ad2', '70% center'), 'profesionalno-sastavljanje-zivotopisa-cv-curriculum-vitae': ('local:usluge/cv-biljeznica.webp', 'center 55%'), 'lektura': ('local:usluge/lektoriranje.webp', '45% 55%'), 'medicinski-prijevodi': ('local:usluge/medicinski.webp', 'right center'), 'sudski-tumac-za-njemacki-jezik': ('1649609765902-254a227dc960', 'center'), 'sudski-tumac-za-talijanski-jezik': ('1515859005217-8a1f08870f59', 'center 60%')}
 
 def lp_intro(d):
     if "intro" not in d:
