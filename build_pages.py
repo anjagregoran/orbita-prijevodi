@@ -8,7 +8,7 @@ import json, os, html, re
 from urllib.parse import quote
 
 SITE = "https://www.orbitaprijevodi.com"
-V = "102"  # bump together with ?v= in index.html
+V = "104"  # bump together with ?v= in index.html
 
 BLOG_NAV = '\n    <a href="../blog/">Blog</a>'
 BLOG_LI = '<li><a href="../blog/">Blog</a></li>'
@@ -562,7 +562,7 @@ COMPANY_ROWS = [
 rows = ''.join(f'<div><dt>{k}</dt><dd>{v}</dd></div>' for k, v in COMPANY_ROWS)
 path = "pravne-informacije/"
 ld = {"@context": "https://schema.org", "@graph": [crumbs_ld([("Početna", ""), ("Pravne informacije", path)])]}
-html_out = head("Pravne informacije | Orbita prijevodi, OMNIA d.o.o.", "Podaci o tvrtki OMNIA d.o.o., koja pruža usluge pod nazivom Orbita prijevodi: sjedište, sudski registar, OIB i kontakt.", path, ld) + NAV + '<main>\n  ' + page_hero([("Početna", "../"), ("Pravne informacije", None)], ("Pravne ", "informacije"), "Orbita prijevodi usluga je tvrtke OMNIA d.o.o. iz Kastva.", photo=("local:usluge/rijeka-korzo.webp", "center 58%")) + f'''  <section class="section">
+html_out = head("Pravne informacije | Orbita prijevodi, OMNIA d.o.o.", "Podaci o tvrtki OMNIA d.o.o., koja pruža usluge pod nazivom Orbita prijevodi: sjedište, sudski registar, OIB i kontakt.", path, ld) + NAV + '<main>\n  ' + page_hero([("Početna", "../"), ("Pravne informacije", None)], ("Pravne ", "informacije"), "Orbita prijevodi usluga je tvrtke OMNIA d.o.o. iz Kastva.", photo=("local:usluge/rijeka-korzo.webp", "center 52%")) + f'''  <section class="section">
     <dl class="legal-list">{rows}</dl>
   </section>
 ''' + '</main>\n' + footer()
