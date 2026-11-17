@@ -620,3 +620,9 @@ mark.todo { background: #ffe58a; color: #5a4300; padding: 1px 6px; border-radius
     mask-image: linear-gradient(90deg, transparent 0, rgba(0, 0, 0, 0.35) 25%, rgba(0, 0, 0, 0.8) 45%, #000 62%), linear-gradient(#000 0, #000 72%, transparent 100%);
   }
 }
+
+/* Zaštita privatnosti: the padlock sits closer to the text, with less black in between */
+@media (min-width: 901px) {
+  .page-hero:not(.lp-hero) .hero-bg.lp-photo[style*="zastita-privatnosti"] { left: 26%; }
+  .page-hero:not(.lp-hero):has(.lp-photo[style*="zastita-privatnosti"])::before { background: linear-gradient(90deg, rgba(20, 14, 10, 0.88) 0%, rgba(20, 14, 10, 0.6) 30%, rgba(20, 14, 10, 0.1) 60%, rgba(20, 14, 10, 0) 100%); }
+}

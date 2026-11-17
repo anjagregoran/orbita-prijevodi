@@ -8,7 +8,7 @@ import json, os, html, re
 from urllib.parse import quote
 
 SITE = "https://www.orbitaprijevodi.com"
-V = "109"  # bump together with ?v= in index.html
+V = "110"  # bump together with ?v= in index.html
 
 BLOG_NAV = '\n    <a href="../blog/">Blog</a>'
 BLOG_LI = '<li><a href="../blog/">Blog</a></li>'
@@ -580,7 +580,7 @@ PRIVACY = [
 secs = ''.join(f'<h2>{e(h)}</h2>' + ''.join(f'<p>{e(p)}</p>' for p in ps) for h, ps in PRIVACY)
 path = "zastita-privatnosti/"
 ld = {"@context": "https://schema.org", "@graph": [crumbs_ld([("Početna", ""), ("Zaštita privatnosti", path)])]}
-html_out = head("Zaštita privatnosti | Orbita prijevodi", "Kako Orbita prijevodi (OMNIA d.o.o.) obrađuje i štiti Vaše osobne podatke i dokumente.", path, ld) + NAV + '<main>\n  ' + page_hero([("Početna", "../"), ("Zaštita privatnosti", None)], ("Zaštita ", "privatnosti"), "Vaši podaci i dokumenti u sigurnim su rukama. Otkrijte kako brinemo o njihovoj povjerljivosti i zaštiti.", photo=("local:usluge/zastita-privatnosti.webp", "70% 50%")) + f'''  <section class="section">
+html_out = head("Zaštita privatnosti | Orbita prijevodi", "Kako Orbita prijevodi (OMNIA d.o.o.) obrađuje i štiti Vaše osobne podatke i dokumente.", path, ld) + NAV + '<main>\n  ' + page_hero([("Početna", "../"), ("Zaštita privatnosti", None)], ("Zaštita ", "privatnosti"), "Vaši podaci i dokumenti u sigurnim su rukama. Otkrijte kako brinemo o njihovoj povjerljivosti i zaštiti.", photo=("local:usluge/zastita-privatnosti.webp", "60% 50%")) + f'''  <section class="section">
     <div class="prose legal-prose">{secs}<p class="legal-date">Zadnja izmjena: studeni 2026.</p></div>
   </section>
 ''' + '</main>\n' + footer()
