@@ -8,7 +8,7 @@ import json, os, html, re
 from urllib.parse import quote
 
 SITE = "https://www.orbitaprijevodi.com"
-V = "114"  # bump together with ?v= in index.html
+V = "115"  # bump together with ?v= in index.html
 
 BLOG_NAV = '\n    <a href="../blog/">Blog</a>'
 BLOG_LI = '<li><a href="../blog/">Blog</a></li>'
@@ -140,7 +140,7 @@ SERVICE_PHOTOS = {
   "pisani-prijevodi": ("local:usluge/pisani-prijevodi.webp", "70% 40%"),
   "usmeni-prijevodi": ("local:usluge/usmeni-prijevodi.webp", "55% 70%"),
   "lektoriranje": ("local:usluge/lektoriranje.webp", "45% 55%"),
-  "asistiranje-u-pisanju-teksta": ("local:usluge/asistiranje-u-pisanju-teksta.webp", "50% 45%"),
+  "asistiranje-u-pisanju-teksta": ("local:usluge/asistiranje-u-pisanju-teksta.webp", "50% 18%"),
   "pisanje-dokumentacije-za-studij-i-zaposlenje-u-inozemstvu": ("local:usluge/pisanje-dokumentacije-za-studij-i-zaposlenje-u-inozemstvu.webp", "50% 0%"),
   "pisanje-u-raznim-profesionalnim-podrucjima": ("local:usluge/pisanje-u-raznim-profesionalnim-podrucjima.webp", "40% 50%"),
   "marketinski-tekstovi": ("local:usluge/marketinski-tekstovi.webp", "5% 55%"),
