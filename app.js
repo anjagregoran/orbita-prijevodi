@@ -200,13 +200,41 @@ function placeLamp() {
   let slogan = 0;
   for (const t of Object.values(HERO_I18N)) { probe.textContent = t.typed; slogan = Math.max(slogan, probe.getBoundingClientRect().width); }
   probe.remove();
-  const want = o.left + o.width / 2 - 26 - glass.width / 2;
-  const glassLeft = Math.max(want, line.getBoundingClientRect().left + slogan + 14);
+  const lineBox = line.getBoundingClientRect(), clear = lineBox.left + slogan + 14;
+  let glassLeft = o.left + o.width / 2 - 66 - glass.width / 2, bottom = o.top;
+  // Left of the slogan's end, the glass hangs above the slogan line instead, so it never covers text in any language
+  if (glassLeft < clear) {
+    if (cord.offsetHeight + lineBox.top - 10 - glass.bottom >= 40) bottom = lineBox.top - 10;
+    else glassLeft = clear;
+  }
   bulb.style.left = `${glassLeft - (glass.left - box.left) - nav.getBoundingClientRect().left}px`;
-  // Lengthen the cord so the glass ends just above the headline line, clear of tall letters in every language
-  cord.style.height = `${Math.max(40, cord.offsetHeight + o.top - glass.bottom)}px`;
+  // Lengthen the cord so the glass ends just above that line, clear of tall letters in every language
+  cord.style.height = `${Math.max(40, cord.offsetHeight + bottom - glass.bottom)}px`;
 }
-document.fonts.ready.then(placeLamp);
-addEventListener("resize", placeLamp);
+
+// Keep the coffee cup just right of the headline on every desktop screen shape (MacBooks crop the photo more)
+const CUP_LEFT = 0.452, heroBg = $("#heroBg"), heroImg = new Image();
+heroImg.src = "assets/hero-desk.webp?v=81";
+function placeHeroBg() {
+  if (!heroBg) return;
+  heroBg.style.backgroundPosition = heroBg.style.maskImage = heroBg.style.webkitMaskImage = "";
+  const em = $("#hHead em");
+  if (innerWidth <= 900 || !em || !heroImg.naturalWidth) return;
+  const W = heroBg.offsetWidth, H = heroBg.offsetHeight, k = 1.1;
+  const dispW = heroImg.naturalWidth * Math.max(W / heroImg.naturalWidth, H / heroImg.naturalHeight);
+  const textRight = e => { const r = document.createRange(); r.selectNodeContents(e); return r.getBoundingClientRect().right; };
+  const target = Math.max(...[...document.querySelectorAll("#hHead, .hero-cta")].map(textRight)) + 24;
+  // Screen x of a point = W - (W - x) * k, because the layer is scaled 1.1 from its right edge
+  const need = W - (W - target) / k - CUP_LEFT * dispW;
+  // Up to 130px of the photo's left edge may come into view; it fades into the dark wood colour there
+  const left = Math.min(130, Math.max(W - dispW, need));
+  heroBg.style.backgroundPosition = `${left}px 50%`;
+  const fade = left > 0 ? `linear-gradient(90deg, transparent ${left}px, #000 ${left + 140}px)` : "";
+  heroBg.style.maskImage = heroBg.style.webkitMaskImage = fade;
+}
+function placeHero() { placeHeroBg(); placeLamp(); }
+heroImg.addEventListener("load", placeHeroBg);
+document.fonts.ready.then(placeHero);
+addEventListener("resize", placeHero);
 
 $("#year").textContent = new Date().getFullYear();
