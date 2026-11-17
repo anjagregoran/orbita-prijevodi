@@ -594,8 +594,8 @@ mark.todo { background: #ffe58a; color: #5a4300; padding: 1px 6px; border-radius
 
 /* Pravne informacije (Korzo photo): wider photo with a long, soft fade into the dark side */
 @media (min-width: 901px) {
-  .page-hero:not(.lp-hero) .hero-bg.lp-photo[style*="rijeka-korzo"] { left: 20%; -webkit-mask-image: linear-gradient(90deg, transparent 0, rgba(0, 0, 0, 0.35) 25%, rgba(0, 0, 0, 0.8) 45%, #000 62%); mask-image: linear-gradient(90deg, transparent 0, rgba(0, 0, 0, 0.35) 25%, rgba(0, 0, 0, 0.8) 45%, #000 62%); }
-  .page-hero:not(.lp-hero):has(.lp-photo[style*="rijeka-korzo"])::before { background: linear-gradient(90deg, rgba(20, 14, 10, 0.88) 0%, rgba(20, 14, 10, 0.7) 32%, rgba(20, 14, 10, 0.3) 55%, rgba(20, 14, 10, 0.08) 80%, rgba(20, 14, 10, 0) 100%); }
+  .page-hero:not(.lp-hero) .hero-bg.lp-photo[style*="rijeka-korzo"] { left: 0; transform: none; background-size: auto 135%; background-repeat: no-repeat; background-color: #1f140c; }
+  .page-hero:not(.lp-hero):has(.lp-photo[style*="rijeka-korzo"])::before { background: linear-gradient(90deg, rgba(20, 14, 10, 0.6) 0%, rgba(20, 14, 10, 0.35) 40%, rgba(20, 14, 10, 0) 70%); }
 }
 
 /* CV, lektura and medical ad pages: the whole photo, zoomed out, sitting on the right and melting into the dark on every side */
@@ -616,8 +616,7 @@ mark.todo { background: #ffe58a; color: #5a4300; padding: 1px 6px; border-radius
     mask-image: linear-gradient(90deg, transparent 0, #000 38%), linear-gradient(#000 0, #000 72%, transparent 100%); mask-composite: intersect;
   }
   .page-hero:not(.lp-hero) .hero-bg.lp-photo[style*="rijeka-korzo"] {
-    -webkit-mask-image: linear-gradient(90deg, transparent 0, rgba(0, 0, 0, 0.35) 25%, rgba(0, 0, 0, 0.8) 45%, #000 62%), linear-gradient(#000 0, #000 72%, transparent 100%);
-    mask-image: linear-gradient(90deg, transparent 0, rgba(0, 0, 0, 0.35) 25%, rgba(0, 0, 0, 0.8) 45%, #000 62%), linear-gradient(#000 0, #000 72%, transparent 100%);
+    -webkit-mask-image: linear-gradient(#000 0, #000 72%, transparent 100%); mask-image: linear-gradient(#000 0, #000 72%, transparent 100%);
   }
 }
 
