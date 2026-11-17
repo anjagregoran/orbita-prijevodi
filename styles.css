@@ -649,3 +649,6 @@ mark.todo { background: #ffe58a; color: #5a4300; padding: 1px 6px; border-radius
     mask-image: linear-gradient(90deg, transparent 0, #000 30%, #000 80%, transparent 92%), linear-gradient(#000 0, #000 80%, transparent 100%);
   }
 }
+
+/* Ad pages: closing line of the intro as a quiet quote */
+.lp-hero .lp-quote { margin: 14px 0 22px; padding-left: 16px; border-left: 2px solid var(--accent); font-family: var(--serif); font-style: italic; font-weight: 300; font-size: clamp(18px, 1.5vw, 22px); line-height: 1.35; color: #fbf5ec; }

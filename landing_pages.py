@@ -25,11 +25,10 @@ STEPS_TR = [
 ]
 # Pages for the other languages (all languages, German, Italian) keep the one-hour quote (Diana, 8 Nov)
 STEPS_TR_SLOW = [STEPS_TR[0], (STEPS_TR[1][0], STEPS_TR[1][1].replace("u roku od pola sata", "u roku od sat vremena"))] + STEPS_TR[2:]
-# Diana's hero text for the four court interpreter pages (31 Oct 2026)
+# Hero text for the court interpreter pages: Diana's text (31 Oct 2026), shortened by Anja 17 Nov; "> " marks the closing line shown as a quote
 TR_INTRO = ("Trebate prijevod? Riješite to već danas!", [
-  "Bez čekanja, nepotrebnih odlazaka i kompliciranja! Jednostavno fotografirajte ili skenirajte dokument i pošaljite nam ga putem Vibera, WhatsAppa ili e-maila.",
-  "Ponudu dobivate unutar sat vremena, a kraći prijevodi mogu biti gotovi već za 1 do 2 sata! U slučaju hitnoće, opsežnije dokumente također smo u mogućnosti isporučiti istoga dana ili najkasnije sljedećeg jutra.",
-  "Vi šaljete dokument, mi se brinemo za sve ostalo!"])
+  "Fotografirajte dokument i pošaljite ga Viberom, WhatsAppom ili e-mailom. Ponudu dobivate unutar sat vremena, kraći prijevodi gotovi su za 1 do 2 sata, a hitne i opsežnije dokumente isporučujemo isti dan ili sljedeće jutro.",
+  "> Vi šaljete dokument, mi se brinemo za sve ostalo!"])
 TR_STEPS_HEAD = ("Jednostavno do prijevoda", "U tri koraka. Bez nepotrebnih dolazaka.")
 # English, Slovenian and Serbian pages: quote within half an hour, one page in 1 hour (Diana, 7 Nov)
 TR_INTRO_FAST = (TR_INTRO[0], [p.replace("Ponudu dobivate unutar sat vremena", "Ponudu dobivate unutar pola sata") for p in TR_INTRO[1]])
@@ -177,7 +176,8 @@ def lp_intro(d):
     if "intro" not in d:
         return f'<p class="lead">{rich(d["lead"])}</p>'
     head_line, ps = d["intro"]
-    return f'<p class="lead lp-hook">{e(head_line)}</p>' + "".join(f'<p class="lead lp-lead">{rich(p)}</p>' for p in ps)
+    return f'<p class="lead lp-hook">{e(head_line)}</p>' + "".join(
+        f'<p class="lp-quote">{rich(p[2:])}</p>' if p.startswith("> ") else f'<p class="lead lp-lead">{rich(p)}</p>' for p in ps)
 
 def lp_form(d):
     svc = d["kicker"]
